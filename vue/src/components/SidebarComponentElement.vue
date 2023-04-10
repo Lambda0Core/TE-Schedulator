@@ -9,6 +9,14 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+a {
+  display: inline-block;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #053484;
+  font-size: 2rem;
+  text-decoration: none;
+  margin: 1.5rem;
+  font-weight: 400;
+}
 </style>

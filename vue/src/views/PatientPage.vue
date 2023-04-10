@@ -1,31 +1,49 @@
 <template>
-<div >
-
+  <div class="layout">
+    <sidebar :sidebarOptions="options" />
   </div>
 </template>
 
 <script>
+import sidebar from "../components/SidebarComponent.vue";
 
-export default ({
-    name:"PatientPage",
+export default {
+  name: "PatientPage",
 
-  components:{
-  
+  data() {
+    return {
+      options: [
+        {
+          title: "Upcoming Appointments",
+          link: ""
+        },
+        {
+          title: "Find a Provider",
+          link: ""
+        },
+        {
+          title: "My Doctors",
+          link: ""
+        }
+      ]
+    }
   },
-  
-  setup() {
-    
+  components: {
+    sidebar,
   },
-})
 
+  setup() {},
+};
 </script>
 
 
 
 
 <style>
-template{
-    display: grid;
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 3.5fr;
+  height: 100%;
+  width: 100%;
 }
-
 </style>
