@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import PatientPage from '../views/PatientPage.vue'
 
 Vue.use(Router)
 
@@ -52,8 +53,16 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+    {
+      path: "/patient",
+      name: "patientpage",
+      component: PatientPage,
+      meta: {
+        requiresAuth: true
+      }
     }
-  ]
+  ]  
 })
 
 router.beforeEach((to, from, next) => {
