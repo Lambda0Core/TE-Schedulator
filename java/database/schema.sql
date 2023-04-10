@@ -1,7 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS office;
+DROP TABLE IF EXISTS users, title, office, patient, provider, review, appointment;
 
 
 CREATE TABLE users (
@@ -12,7 +11,7 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-CREATE TABLE title (
+CREATE TABLE IF NOT EXISTS title (
 	 title_id SERIAL,
 	 title_name varchar(50) NOT NULL,  
 	
@@ -20,7 +19,7 @@ CREATE TABLE title (
 );
 
 
-CREATE TABLE office (
+CREATE TABLE IF NOT EXISTS office (
 	office_id SERIAL,
     office_address varchar(100) NOT NULL,
     office_city_name varchar(50) NOT NULL,
@@ -32,58 +31,53 @@ CREATE TABLE office (
 );
 
 
-CREATE TABLE patient (
+CREATE TABLE IF NOT EXISTS patient (
 	 patient_id SERIAL,
 	 first_name varchar(100) NOT NULL,
 	 last_name varchar(100) NOT NULL,
 	 title_id SERIAL, 
-	 user_id SERIAL
+	 user_id SERIAL,
 	
-	CONSTRAINT PK_patient PRIMARY KEY (patient_id),
-	CONSTRAINT fk_title_id FOREIGN KEY (title_id) REFERENCES title(title_id),
-	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
+	CONSTRAINT fk_title FOREIGN KEY (title_id) REFERENCES title(title_id),
+	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT PK_patient PRIMARY KEY (patient_id)
 );
 
-INSERT INTO patient (patient_id, first_name, last_name, title_id, user_id)
-VALUES (2000, 'Greg', 'Westendorf', 0, 0)
-
 CREATE TABLE provider (
-      title_id int not null,
+	  provider_id SERIAL,
       office_id int not null,
 	  first_name varchar(100) NOT NULL,
 	  last_name varchar(100) NOT NULL,
-	  title_name varchar(50) NOT NULL, 
+	  title_id SERIAL, 
 	  date_availibility date NOT NULL,
-	  provider_id SERIAL
 
-      
-      CONSTRAINT fk_title_id FOREIGN KEY (title_id) REFERENCES title(title_id),
+	  CONSTRAINT PK_provider PRIMARY KEY (provider_id),      
       CONSTRAINT fk_office_id FOREIGN KEY (office_id) REFERENCES office(office_id),
-	  CONSTRAINT fk_title_id FOREIGN KEY (title_id) REFERENCES title(title_id),
-	  CONSTRAINT fk_provider_id FOREIGN KEY (provider_id) REFERENCES provider(office_id)        
+	  CONSTRAINT fk_title_id FOREIGN KEY (title_id) REFERENCES title(title_id)   
 );
 
-CREATE TABLE review (
+
+CREATE TABLE IF NOT EXISTS review (
 	 review_id SERIAL,
 	 review_title varchar(50) NOT NULL, 
 	 review_desc varchar(200) NOT NULL, 
      user_id SERIAL,
-	 provider_id SERIAL
+	 provider_id SERIAL,
 
-	CONSTRAINT PK_patient PRIMARY KEY (review_id),
+	CONSTRAINT PK_review PRIMARY KEY (review_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
     CONSTRAINT fk_provider_id FOREIGN KEY (provider_id) REFERENCES provider(provider_id)    
 );
 
 
-CREATE TABLE appointment (
+CREATE TABLE IF NOT EXISTS appointment (
 	 apt_id SERIAL,
 	 apt_name varchar(50) NOT NULL, 
 	 apt_status varchar(50) NOT NULL, 
 	 apt_agenda varchar(200) NOT NULL, 
 	 apt_date date NOT NULL,
      user_id SERIAL,
-	 provider_id SERIAL
+	 provider_id SERIAL,
 
 	CONSTRAINT PK_appointment PRIMARY KEY (apt_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
