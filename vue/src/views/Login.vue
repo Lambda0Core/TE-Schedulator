@@ -68,6 +68,7 @@ export default {
 </script>
 
 <style scoped>
+
 .form-input-group {
   justify-content: center;
   margin-bottom: 1rem;
@@ -84,6 +85,7 @@ label {
   text-align: center;
   color: #053484;
   font: bold;
+ 
 }
 h1{
   color: #053484;
@@ -93,9 +95,11 @@ h1{
   display: flex;
   justify-content: center;  
   height: 100vh;
+  
 }
 form{
   height: fit-content;
+   
 }
 button{
   justify-content: center;
@@ -104,7 +108,7 @@ button{
   border-radius: 6px;
   font-size: 16px;
   background-color:  #47d7ac;
-  color: white;
+  color: #053484;;
   border: 3px solid #053484;
   transition-duration: 0.4s;
 }

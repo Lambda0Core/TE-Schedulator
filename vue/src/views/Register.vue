@@ -17,7 +17,9 @@
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
+      <div id="registerButton">
       <button type="submit">Create Account</button>
+      </div>
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
@@ -74,10 +76,56 @@ export default {
 </script>
 
 <style scoped>
+h1{
+  color: #053484;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
 .form-input-group {
   margin-bottom: 1rem;
 }
+input{
+ justify-content: center; 
+   width: 200px;
+  height: 20px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
 label {
   margin-right: 0.5rem;
+  display: block;
+  text-align: center;
+  color: #053484;
+  font: bold;  
+}
+form{
+  height: fit-content;
+ }
+
+button{
+  justify-content: center;
+  width: 150px;
+  height: 30px;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color:  #47d7ac;
+  color: #053484;
+  border: 3px solid #053484;
+  transition-duration: 0.4s;
+}
+button:hover {
+  background-color: #053484;
+  border: 3px solid #47d7ac;
+  color: white;
+}
+#register{
+  display: flex;
+  justify-content: center;  
+  height: 100vh;
+}
+#registerButton{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  
 }
 </style>
