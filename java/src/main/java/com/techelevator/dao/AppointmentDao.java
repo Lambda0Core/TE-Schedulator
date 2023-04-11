@@ -10,7 +10,7 @@ public interface AppointmentDao {
 
     Appointment getAppointmentByAptId(int aptId);
 
-    Appointment getAppointmentsByUserId(int userId);
+    List<Appointment> getAppointmentsByUserId(int userId);
 
     List<Appointment> findAllAppointmentsByProviderId(int providerId);
 

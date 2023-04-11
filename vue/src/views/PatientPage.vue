@@ -15,15 +15,18 @@ export default {
       options: [
         {
           title: "Upcoming Appointments",
-          link: ""
+          icon: "calendar-regular.svg",
+          link: "/"
         },
         {
           title: "Find a Provider",
-          link: ""
+          icon: "briefcase-medical-solid.svg",
+          link: "/search"
         },
         {
           title: "My Doctors",
-          link: ""
+          icon: "user-doctor-solid.svg",
+          link: "/mydoctors"
         }
       ]
     }
@@ -42,7 +45,7 @@ export default {
 <style>
 .layout {
   display: grid;
-  grid-template-columns: 1fr 3.5fr;
+  grid-template-columns: minmax(20vw, 300px) 1fr;
   height: 100%;
   width: 100%;
 }
