@@ -18,22 +18,22 @@ public class PatientController {
         this.patientDao = patientDao;
     }
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
+    @RequestMapping(path = "/patient/", method = RequestMethod.GET)
     public List<Patient> findAllPatient() {
         return patientDao.findAllPatients();
     }
 
-    @RequestMapping(path = "/patient/{id}", method = RequestMethod.GET)
-    public List<Patient> findAllByUserId(@RequestParam int id) {
-        List<Patient> providers = patientDao.findAllByUserId(id);
-
-        if (providers == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
-        } else {
-
-            return patientDao.findAllByUserId(id);
-        }
-    }
+//    @RequestMapping(path = "/patient/{id}", method = RequestMethod.GET)
+//    public List<Patient> findAllByUserId(@RequestParam int id) {
+//        List<Patient> providers = patientDao.findAllByUserId(id);
+//
+//        if (providers == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
+//        } else {
+//
+//            return patientDao.findAllByUserId(id);
+//        }
+//    }
 
 
     @RequestMapping(path = "/patient/{id}", method = RequestMethod.GET)
