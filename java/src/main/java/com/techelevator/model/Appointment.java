@@ -12,11 +12,16 @@ public class Appointment {
     private LocalDate date;
     private int userId;
     private int providerId;
+    private String patientFirstName;
+    private String patientLastName;
+    private String providerFirstName;
+    private String providerLastName;
 
-    public Appointment() {}
+    public Appointment() {
+    }
 
-    public Appointment(int id, String name, String status, String agenda,
-                       LocalDate date, int userId, int providerId) {
+    public Appointment(int id, String name, String status, String agenda, LocalDate date, int userId, int providerId,
+                       String patientFirstName, String patientLastName, String providerFirstName, String providerLastName) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -24,6 +29,10 @@ public class Appointment {
         this.date = date;
         this.userId = userId;
         this.providerId = providerId;
+        this.patientFirstName = patientFirstName;
+        this.patientLastName = patientLastName;
+        this.providerFirstName = providerFirstName;
+        this.providerLastName = providerLastName;
     }
 
     public int getId() {
@@ -80,5 +89,37 @@ public class Appointment {
 
     public void setProviderId(int providerId) {
         this.providerId = providerId;
+    }
+
+    public String getPatientFirstName() {
+        return patientFirstName;
+    }
+
+    public void setPatientFirstName(String patientFirstName) {
+        this.patientFirstName = patientFirstName;
+    }
+
+    public String getPatientLastName() {
+        return patientLastName;
+    }
+
+    public void setPatientLastName(String patientLastName) {
+        this.patientLastName = patientLastName;
+    }
+
+    public String getProviderFirstName() {
+        return providerFirstName;
+    }
+
+    public void setProviderFirstName(String providerFirstName) {
+        this.providerFirstName = providerFirstName;
+    }
+
+    public String getProviderLastName() {
+        return providerLastName;
+    }
+
+    public void setProviderLastName(String providerLastName) {
+        this.providerLastName = providerLastName;
     }
 }

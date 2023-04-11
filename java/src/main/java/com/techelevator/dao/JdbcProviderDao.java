@@ -4,10 +4,12 @@ import com.techelevator.model.Provider;
 import com.techelevator.model.Review;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcProviderDao implements ProviderDao {
 
     private final JdbcTemplate jdbcTemplate;
@@ -38,6 +40,19 @@ public class JdbcProviderDao implements ProviderDao {
             return null;
         }
     }
+
+
+    @Override
+    public Provider getProviderIdByLastName(String lastName) {
+        String sql = "SELECT provider_id FROM provider WHERE last_name = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lastName);
+        if (results.next()) {
+            return mapRowToProvider(results);
+        } else {
+            return null;
+        }
+    }
+
 
     @Override
     public Provider getProviderByUserId(int userId) {
@@ -75,6 +90,14 @@ public class JdbcProviderDao implements ProviderDao {
 
         return providers;
     }
+
+//    @Override
+//    public String getProviderFirstNameById(int providerId) {
+//        String sql = "select first_name from provider where provider_id = ?;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, providerId);
+//        String firstName;
+//        return firstName = results.toString();
+//    }
 
     private Provider mapRowToProvider(SqlRowSet rs) {
         Provider provider = new Provider();

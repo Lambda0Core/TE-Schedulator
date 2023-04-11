@@ -64,7 +64,6 @@ public class JdbcUserDao implements UserDao {
     @Override
     public User findByUsername(String username) {
         if (username == null) throw new IllegalArgumentException("Username cannot be null");
-
         for (User user : this.findAll()) {
             if (user.getUsername().equalsIgnoreCase(username)) {
                 return user;

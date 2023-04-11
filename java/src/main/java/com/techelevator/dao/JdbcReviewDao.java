@@ -15,7 +15,10 @@ import org.springframework.stereotype.Component;
 
 import com.techelevator.model.User;
 
+
+@Component
 public class JdbcReviewDao implements ReviewDao {
+
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -113,7 +116,26 @@ public class JdbcReviewDao implements ReviewDao {
         return reviewId;
     }
 
-        private Review mapRowToReview(SqlRowSet rs) {
+    @Override
+    public boolean create(String reviewTitle, String reviewContents, int providerId) {
+        /* How to create a review!
+        You might notice it'll prompt you for four different properties in your create, what do I need you might ask!
+        (1). You'll need to parse the subject and contents of the review into SEPARATE strings
+        (2). Then you need to get a list of providers using 'findAllProviders'
+        (3). use Principal to get user ID (Not implemented yet)
+        (4). You need to select a provider, store the last name and use getProviderIdByLastName
+        (5). Now that you've got your properties, input them into your create and BAM!!! You've got a brand-new review!!!!!
+        v--------------------------------------------v
+        Remove once principal is setup and working*/
+     int temporary = 9001;
+     String sql = "insert into review (review_title, review_desc, user_id, provider_id) values (?, ?, ?, ?)";
+     return jdbcTemplate.update(sql, reviewTitle, reviewContents, temporary, providerId) == 1;
+    }
+
+
+
+
+    private Review mapRowToReview(SqlRowSet rs) {
         Review review = new Review();
         review.setReviewId(rs.getInt("review_id"));
         review.setReviewTitle(rs.getString("review_title"));

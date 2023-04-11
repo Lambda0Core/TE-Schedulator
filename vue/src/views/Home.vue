@@ -1,15 +1,17 @@
 <template>
   <div class="layout">
     <sidebar :sidebarOptions="options" />
+    <div class="apt-list">
+      <aptlist/>
+    </div>
   </div>
+  
 </template>
 
 <script>
 
-
 import sidebar from "../components/SidebarComponent.vue";
-
-// import AptService from "../services/AptService";
+import aptlist from "../components/AptList.vue";
 
 export default {
   name: "PatientPage",
@@ -37,6 +39,7 @@ export default {
   },
   components: {
     sidebar,
+    aptlist
   },
 
   setup() {},
@@ -50,6 +53,12 @@ export default {
 .layout {
   display: grid;
   grid-template-columns: minmax(20vw, 300px) 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+.apt-list {
+  display: grid;
   height: 100%;
   width: 100%;
 }

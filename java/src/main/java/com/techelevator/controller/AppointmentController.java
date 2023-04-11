@@ -18,14 +18,8 @@ public class AppointmentController {
         this.appointmentDao = appointmentDao;
     }
 
-    @GetMapping("/appointments")
-    public List<Appointment> findAllAppointments() {
-
-        return findAllAppointments();
-
-    }
     @GetMapping("/appointment/{id}")
-    public Appointment getAppointmentById(@RequestParam int id) {
+    public Appointment getAppointmentById(@PathVariable int id) {
         Appointment appointment = appointmentDao.getAppointmentByAptId(id);
         if (appointment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
@@ -36,7 +30,7 @@ public class AppointmentController {
     }
 
     @GetMapping("patient/appointment/{id}")
-    public Appointment[] getPatientAppointments(@RequestParam int id) {
+    public Appointment[] getPatientAppointments(@PathVariable int id) {
         List<Appointment> appointment = appointmentDao.getAppointmentsByUserId(id);
         if (appointment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
@@ -47,7 +41,7 @@ public class AppointmentController {
     }
 
     @GetMapping("provider/appointment/{id}")
-    public Appointment[] getProviderAppointments(@RequestParam int id) {
+    public Appointment[] getProviderAppointments(@PathVariable int id) {
         Appointment appointment = (Appointment) appointmentDao.findAllAppointmentsByProviderId(id);
         if (appointment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
@@ -56,22 +50,20 @@ public class AppointmentController {
             return new Appointment[]{(Appointment) appointmentDao.findAllAppointmentsByProviderId(id)};
         }
     }
-    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping("")
+
+    @PostMapping("/appointment")
     public void createAppointment(@RequestBody Appointment appointment) {
-            appointmentDao.create(appointment);
-    //TODO need to be looked at
+        appointmentDao.create(appointment);
+
     }
 
     @PutMapping("/appointment")
     public void updateAppointment(@RequestBody Appointment appointment) {
-
         appointmentDao.update(appointment);
     }
 
     @DeleteMapping("/appointment/{id}")
-    public void deleteAppointment(@RequestParam int id) {
-
+    public void deleteAppointment(@PathVariable int id) {
         appointmentDao.delete(id);
     }
 }
