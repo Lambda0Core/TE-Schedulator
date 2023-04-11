@@ -4,10 +4,12 @@ import com.techelevator.model.Provider;
 import com.techelevator.model.Review;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcProviderDao implements ProviderDao {
 
     private final JdbcTemplate jdbcTemplate;

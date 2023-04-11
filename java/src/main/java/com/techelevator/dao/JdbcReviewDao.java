@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import com.techelevator.model.User;
 
+
+@Component
 public class JdbcReviewDao implements ReviewDao {
 
 
