@@ -22,10 +22,10 @@ export default {
 
 <style scoped>
 #sidebar {
-  padding-top: 2rem;
+  padding: 2rem 1.5rem;
   height: 100%;
   width: 100%;
-  background-color: #a9ffe5;
+  background-color: #268598;
 }
 #list {
   display: grid;
