@@ -11,6 +11,5 @@ public interface PatientDao {
 
     Patient getPatientByPatientId(int patientId);
 
-    List<Patient> findAllByUserId(int userId);
-
+    List<Patient> findAllByUserId(int id);
 }

@@ -18,6 +18,12 @@ public class AppointmentController {
         this.appointmentDao = appointmentDao;
     }
 
+    @GetMapping("/appointments")
+    public List<Appointment> findAllAppointments() {
+
+        return findAllAppointments();
+
+    }
     @GetMapping("/appointment/{id}")
     public Appointment getAppointmentById(@RequestParam int id) {
         Appointment appointment = appointmentDao.getAppointmentByAptId(id);
@@ -30,7 +36,7 @@ public class AppointmentController {
     }
 
     @GetMapping("patient/appointment/{id}")
-    public Appointment[] getPatientAppointments(@PathVariable int id) {
+    public Appointment[] getPatientAppointments(@RequestParam int id) {
         List<Appointment> appointment = appointmentDao.getAppointmentsByUserId(id);
         if (appointment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
@@ -50,20 +56,22 @@ public class AppointmentController {
             return new Appointment[]{(Appointment) appointmentDao.findAllAppointmentsByProviderId(id)};
         }
     }
-
-    @PostMapping("/appointment")
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping("")
     public void createAppointment(@RequestBody Appointment appointment) {
             appointmentDao.create(appointment);
-
+    //TODO need to be looked at
     }
 
     @PutMapping("/appointment")
     public void updateAppointment(@RequestBody Appointment appointment) {
+
         appointmentDao.update(appointment);
     }
 
     @DeleteMapping("/appointment/{id}")
     public void deleteAppointment(@RequestParam int id) {
+
         appointmentDao.delete(id);
     }
 }

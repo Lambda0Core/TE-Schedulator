@@ -48,16 +48,11 @@ public class JdbcPatientDao implements PatientDao {
 
     @Override
     public List<Patient> findAllByUserId(int userId) {
-        List<Patient> patients = new ArrayList<>();
-        String sql = "select * from patient where user_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        while (results.next()) {
-            Patient patient = mapRowToPatient(results);
-            patients.add(patient);
-        }
-
-        return patients;
+        return null;
     }
+
+
+
 
     private Patient mapRowToPatient(SqlRowSet rs) {
         Patient patient = new Patient();
