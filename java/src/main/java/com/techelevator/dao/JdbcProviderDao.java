@@ -40,6 +40,18 @@ public class JdbcProviderDao implements ProviderDao {
     }
 
     @Override
+    public Provider getProviderIdByLastName(int lastName) {
+        String sql = "SELECT provider_id FROM provider WHERE last_name = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lastName);
+        if (results.next()) {
+            return mapRowToProvider(results);
+        } else {
+            return null;
+        }
+    }
+
+
+    @Override
     public Provider getProviderByUserId(int userId) {
         String sql = "SELECT * FROM provider WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);

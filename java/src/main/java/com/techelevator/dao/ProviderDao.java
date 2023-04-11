@@ -12,6 +12,8 @@ public interface ProviderDao {
 
     Provider getProviderByUserId(int userId);
 
+    Provider getProviderIdByLastName(int lastName);
+
     List<Provider> findAllByUserId(int userId);
 
     List<Provider> findAllByProviderId(int providerId);

@@ -19,4 +19,6 @@ public interface ReviewDao {
     Review findByReviewName(String reviewName);
 
     int findIdByReviewName(String reviewName);
+
+    boolean create(String reviewTitle, String reviewContents, int providerId);
 }
