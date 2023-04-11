@@ -2,16 +2,12 @@ package com.techelevator.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.techelevator.model.Appointment;
-import com.techelevator.model.Office;
-import com.techelevator.model.Review;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -83,6 +79,54 @@ public class JdbcAppointmentDao implements AppointmentDao {
             throw new UsernameNotFoundException(aptName + " was not found...");
         }
         return aptId;
+    }
+
+    @Override
+    public void create(Appointment appointment) {
+
+        try {
+            String sql = "INSERT INTO public.appointment(\n" +
+                    "\tapt_id, apt_name, apt_status, apt_agenda, apt_date, user_id, provider_id)\n" +
+                    "\tVALUES (?, ?, ?, ?, ?, ?, ?);";
+            jdbcTemplate.queryForObject(sql, Integer.class, appointment.getStatus(),
+                    appointment.getAgenda(), appointment.getDate(),
+                    appointment.getUserId(), appointment.getProviderId());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return;
+    }
+
+    @Override
+    public void update(Appointment appointment) {
+
+        try {
+            String sql = "UPDATE public.appointment\n" +
+                    "\tSET apt_id=?, apt_name=?, apt_status=?, apt_agenda=?, apt_date=?, user_id=?, provider_id=?\n" +
+                    "\tWHERE appointment_id =?;";
+            jdbcTemplate.update(sql, appointment.getId(), appointment.getName(),
+                    appointment.getStatus(), appointment.getDate(),
+                    appointment.getAgenda(), appointment.getDate(),
+                    appointment.getUserId(), appointment.getProviderId());
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return;
+    }
+
+    @Override
+    public void delete(int id) {
+        try{
+            String sql = "DELETE FROM public.appointment\n" +
+                    "\tWHERE appointment_id =?;";
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return;
     }
 
     private Appointment mapRowToAppointment(SqlRowSet rs) {
