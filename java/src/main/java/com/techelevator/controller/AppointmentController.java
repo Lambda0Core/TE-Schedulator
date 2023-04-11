@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class AppointmentController {
@@ -28,13 +30,13 @@ public class AppointmentController {
     }
 
     @GetMapping("patient/appointment/{id}")
-    public Appointment[] getPatientAppointments(@RequestParam int id) {
-        Appointment appointment = appointmentDao.getAppointmentsByUserId(id);
+    public Appointment[] getPatientAppointments(@PathVariable int id) {
+        List<Appointment> appointment = appointmentDao.getAppointmentsByUserId(id);
         if (appointment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
         } else {
 
-            return new Appointment[]{appointmentDao.getAppointmentsByUserId(id)};
+            return appointment.toArray( new Appointment[]{} );
         }
     }
 
