@@ -1,6 +1,7 @@
 <template>
   <div class="layout">
     <sidebar :sidebarOptions="options" />
+    <div>Content Goes Here</div>
   </div>
 </template>
 
@@ -14,7 +15,7 @@ export default {
     return {
       options: [
         {
-          title: "Upcoming Appointments",
+          title: "Appointments",
           icon: "calendar-regular.svg",
           link: "/"
         },
@@ -42,10 +43,10 @@ export default {
 
 
 
-<style>
+<style scoped>
 .layout {
   display: grid;
-  grid-template-columns: minmax(20vw, 300px) 1fr;
+  grid-template-columns: 400px 1fr;
   height: 100%;
   width: 100%;
 }

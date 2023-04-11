@@ -13,6 +13,8 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 .container {
   margin: 0;
   display: grid;
@@ -20,12 +22,13 @@ export default {
 }
 .text {
   display: inline-block;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  color: white;
-  font-size: 1.5rem;
+  font-family: 'Open Sans', sans-serif;
+  color: #daffe9;
+  font-size: 1.7rem;
   margin: 1.5rem 0.5rem;
 }
 a {
+  
   text-decoration: none;
 }
 .img-container {
@@ -34,7 +37,7 @@ a {
   justify-content: center;
 }
 img {
-  height: 2rem;
-  width: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 </style>
