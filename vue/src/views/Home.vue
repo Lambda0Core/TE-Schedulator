@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <sidebar :sidebarOptions="options" />
-    <div class="apt-list">Appointment List Goes Here
+    <div class="apt-list">
       <aptlist/>
     </div>
   </div>
