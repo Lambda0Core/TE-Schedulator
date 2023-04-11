@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS patient (
 	 user_id SERIAL,
 	
 	CONSTRAINT fk_title FOREIGN KEY (title_id) REFERENCES title(title_id),
-	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
+	CONSTRAINT fk_patient_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
     CONSTRAINT PK_patient PRIMARY KEY (patient_id)
 );
 
@@ -54,7 +54,7 @@ CREATE TABLE provider (
 
 	  CONSTRAINT PK_provider PRIMARY KEY (provider_id),      
       CONSTRAINT fk_office_id FOREIGN KEY (office_id) REFERENCES office(office_id),
-	  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES user(user_id),
+	  CONSTRAINT fk_provider_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
 	  CONSTRAINT fk_title_id FOREIGN KEY (title_id) REFERENCES title(title_id)   
 );
 
