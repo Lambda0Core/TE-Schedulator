@@ -19,6 +19,7 @@ export default {
   methods: {
     getAppointments() {
       AptService.get(5001).then((response) => {
+        console.log(response.data);
         this.appointment = response.data;
       });
     },

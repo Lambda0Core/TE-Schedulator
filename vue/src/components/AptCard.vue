@@ -3,7 +3,7 @@
       <h2>{{ appointment.name }}</h2>
       <div class="identity">
         <div class="img"/>
-        <h3>Dr. Westendorf</h3>
+        <h3>Dr. {{ appointment.providerFirstName }} {{ appointment.providerLastName }}</h3>
       </div>
       <p class="agenda">{{ appointment.agenda }}</p>
       <p class="date">{{ appointment.date }}</p>

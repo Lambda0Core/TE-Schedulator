@@ -59,10 +59,10 @@ public class JdbcAppointmentDao implements AppointmentDao {
                 "a.apt_date,\n" +
                 "a.user_id,\n" +
                 "a.provider_id,\n" +
-                "pr.first_name AS provider_last_name,\n" +
-                "pr.last_name AS provider_first_name,\n" +
-                "pa.first_name AS patient_last_name,\n" +
-                "pa.last_name AS patient_first_name\n" +
+                "pr.first_name AS provider_first_name,\n" +
+                "pr.last_name AS provider_last_name,\n" +
+                "pa.first_name AS patient_first_name,\n" +
+                "pa.last_name AS patient_last_name\n" +
                 "FROM appointment a\n" +
                 "JOIN provider pr ON pr.provider_id = a.provider_id\n" +
                 "JOIN patient pa ON pa.user_id = a.user_id\n" +
@@ -87,10 +87,10 @@ public class JdbcAppointmentDao implements AppointmentDao {
                 "a.apt_date,\n" +
                 "a.user_id,\n" +
                 "a.provider_id,\n" +
-                "pr.first_name AS provider_last_name,\n" +
-                "pr.last_name AS provider_first_name,\n" +
-                "pa.first_name AS patient_last_name,\n" +
-                "pa.last_name AS patient_first_name\n" +
+                "pr.first_name AS provider_first_name,\n" +
+                "pr.last_name AS provider_last_name,\n" +
+                "pa.first_name AS patient_first_name,\n" +
+                "pa.last_name AS patient_last_name\n" +
                 "FROM appointment a\n" +
                 "JOIN provider pr ON pr.provider_id = a.provider_id\n" +
                 "JOIN patient pa ON pa.user_id = a.user_id\n" +
@@ -115,10 +115,10 @@ public class JdbcAppointmentDao implements AppointmentDao {
                 "a.apt_date,\n" +
                 "a.user_id,\n" +
                 "a.provider_id,\n" +
-                "pr.first_name AS provider_last_name,\n" +
-                "pr.last_name AS provider_first_name,\n" +
-                "pa.first_name AS patient_last_name,\n" +
-                "pa.last_name AS patient_first_name\n" +
+                "pr.first_name AS provider_first_name,\n" +
+                "pr.last_name AS provider_last_name,\n" +
+                "pa.first_name AS patient_first_name,\n" +
+                "pa.last_name AS patient_last_name\n" +
                 "FROM appointment a\n" +
                 "JOIN provider pr ON pr.provider_id = a.provider_id\n" +
                 "JOIN patient pa ON pa.user_id = a.user_id\n" +
