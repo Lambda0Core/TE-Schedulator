@@ -21,7 +21,7 @@ export default {
 .logoHeader{
     display: flex;
     align-items: center;
-    border-bottom: #47d7ac 0.5rem solid;
+    border-bottom: var(--primary400) 0.5rem solid;
     padding-bottom: 1rem;
 }
 .logo{
@@ -39,7 +39,7 @@ export default {
 #logout {
   align-self: flex-end;
   flex-grow: 0;
-  color: #268598;
+  color: var(--primary600);
   margin: 0.5rem;
   margin-right: 3.5rem;
   font-size: 1.5rem;

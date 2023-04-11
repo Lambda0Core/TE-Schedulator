@@ -23,7 +23,7 @@ export default {
 .text {
   display: inline-block;
   font-family: 'Open Sans', sans-serif;
-  color: #daffe9;
+  color: var(--primary200);
   font-size: 1.7rem;
   margin: 1.5rem 0.5rem;
 }

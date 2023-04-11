@@ -77,7 +77,7 @@ export default {
 
 <style scoped>
 h1{
-  color: #053484;
+  color: var(--primary800);
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
 .form-input-group {
@@ -93,7 +93,7 @@ label {
   margin-right: 0.5rem;
   display: block;
   text-align: center;
-  color: #053484;
+  color: var(--primary800);
   font: bold;  
 }
 form{
@@ -106,14 +106,14 @@ button{
   height: 30px;
   border-radius: 6px;
   font-size: 16px;
-  background-color:  #47d7ac;
-  color: #053484;
-  border: 3px solid #053484;
+  background-color:  var(--primary400);
+  color: var(--primary800);
+  border: 3px solid var(--primary800);
   transition-duration: 0.4s;
 }
 button:hover {
-  background-color: #053484;
-  border: 3px solid #47d7ac;
+  background-color: var(--primary800);
+  border: 3px solid var(--primary400);
   color: white;
 }
 #register{

@@ -26,7 +26,7 @@ export default {
 #sidebar {
   height: 100%;
   width: 100%;
-  background-color: #268598;
+  background-color: var(--primary600);
 }
 .sidebar-container {
   padding: 2rem 1.5rem;

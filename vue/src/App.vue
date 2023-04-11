@@ -21,6 +21,10 @@ export default ({
 #app{
   width: 100vw;
   height: 100vh;
+  --primary200: #daffe9;
+  --primary400: #47d7ac;
+  --primary600: #268598;
+  --primary800: #053484;
 }
 
 </style>
