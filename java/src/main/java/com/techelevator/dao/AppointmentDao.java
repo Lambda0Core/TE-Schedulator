@@ -16,4 +16,9 @@ public interface AppointmentDao {
 
     int findIdByAptName(String aptName);
 
+    void create(Appointment appointment);
+
+    void update(Appointment appointment);
+
+    void delete(int id);
 }

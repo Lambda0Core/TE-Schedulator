@@ -1,15 +1,16 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.AppointmentDao;
+import com.techelevator.model.Appointment;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.Date;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @CrossOrigin
 public class AppointmentController {
 
-    /*private AppointmentDao appointmentDao;
+    private AppointmentDao appointmentDao;
 
     public AppointmentController(AppointmentDao appointmentDao) {
         this.appointmentDao = appointmentDao;
@@ -17,34 +18,50 @@ public class AppointmentController {
 
     @GetMapping("/appointment/{id}")
     public Appointment getAppointmentById(@RequestParam int id) {
-        // TODO Connect to DAO
-        return null;
+        Appointment appointment = appointmentDao.getAppointmentByAptId(id);
+        if (appointment == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
+        } else {
+
+            return appointmentDao.getAppointmentByAptId(id);
+        }
     }
 
     @GetMapping("patient/appointment/{id}")
     public Appointment[] getPatientAppointments(@RequestParam int id) {
-        // TODO Connect to DAO
-        return null;
+        Appointment appointment = appointmentDao.getAppointmentsByUserId(id);
+        if (appointment == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
+        } else {
+
+            return new Appointment[]{appointmentDao.getAppointmentsByUserId(id)};
+        }
     }
 
     @GetMapping("provider/appointment/{id}")
     public Appointment[] getProviderAppointments(@RequestParam int id) {
-        // TODO Connect to DAO
-        return null;
+        Appointment appointment = (Appointment) appointmentDao.findAllAppointmentsByProviderId(id);
+        if (appointment == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
+        } else {
+
+            return new Appointment[]{(Appointment) appointmentDao.findAllAppointmentsByProviderId(id)};
+        }
     }
 
     @PostMapping("/appointment")
-    public void createAppointment() {
-        // TODO Connect to DAO
+    public void createAppointment(@RequestBody Appointment appointment) {
+            appointmentDao.create(appointment);
+
     }
 
-    @PutMapping("/appointment/{id}")
-    public void updateAppointment(@RequestParam int id) {
-        // TODO Connect to DAO
+    @PutMapping("/appointment")
+    public void updateAppointment(@RequestBody Appointment appointment) {
+        appointmentDao.update(appointment);
     }
 
     @DeleteMapping("/appointment/{id}")
     public void deleteAppointment(@RequestParam int id) {
-        // TODO Connect to DAO
-    }*/
+        appointmentDao.delete(id);
+    }
 }
