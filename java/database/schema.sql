@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS patient (
 CREATE TABLE provider (
 	  provider_id SERIAL,
       office_id int not null,
+	  user_id int not null,
 	  first_name varchar(100) NOT NULL,
 	  last_name varchar(100) NOT NULL,
 	  title_id SERIAL, 
@@ -53,6 +54,7 @@ CREATE TABLE provider (
 
 	  CONSTRAINT PK_provider PRIMARY KEY (provider_id),      
       CONSTRAINT fk_office_id FOREIGN KEY (office_id) REFERENCES office(office_id),
+	  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES user(user_id),
 	  CONSTRAINT fk_title_id FOREIGN KEY (title_id) REFERENCES title(title_id)   
 );
 

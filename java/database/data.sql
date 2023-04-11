@@ -24,8 +24,8 @@ VALUES (1000, '1234 HELPSTREET', 'Burrito', 'OH', '440-469-1337', '9:00 AM', '6:
 INSERT INTO patient (patient_id, first_name, last_name, title_id, user_id)
 VALUES (2000, 'Greg', 'Westendorf', 0, 3001);
 
-INSERT INTO provider (provider_id, office_id, first_name, last_name, title_id, date_availibility)
-VALUES (4000, 1003, 'Emily', 'LeFebvre', 1, '2000-10-11');
+INSERT INTO provider (provider_id, office_id, user_id, first_name, last_name, title_id, date_availibility)
+VALUES (4000, 1003, 3002, 'Emily', 'LeFebvre', 1, '2000-10-11');
 
 INSERT INTO review (review_id, review_title, review_desc, user_id, provider_id)
 VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with broken ankles!', 3001, 4000);
