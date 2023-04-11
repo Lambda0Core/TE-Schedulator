@@ -12,7 +12,7 @@ public interface ProviderDao {
 
     Provider getProviderByUserId(int userId);
 
-    Provider getProviderIdByLastName(int lastName);
+    Provider getProviderIdByLastName(String lastName);
 
     List<Provider> findAllByUserId(int userId);
 
