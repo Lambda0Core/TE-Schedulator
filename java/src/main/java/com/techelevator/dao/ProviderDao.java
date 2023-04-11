@@ -17,4 +17,7 @@ public interface ProviderDao {
     List<Provider> findAllByUserId(int userId);
 
     List<Provider> findAllByProviderId(int providerId);
+
+//    String getProviderFirstNameById(int providerId);
+
 }

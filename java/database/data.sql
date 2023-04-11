@@ -28,7 +28,10 @@ INSERT INTO provider (provider_id, office_id, user_id, first_name, last_name, ti
 VALUES (4000, 1003, 3002, 'Emily', 'LeFebvre', 1, '2000-10-11');
 
 INSERT INTO review (review_id, review_title, review_desc, user_id, provider_id)
-VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with broken ankles!', 3001, 4000);
+VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with broken ankles!', 3001, 4000),
+       (8000, 'Dr. Emily has another victim', 'Poor Lazlo... he was the finest mind of our generation!', 3001, 4000),
+       (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with broken ankles!', 3001, 4000);
+       
 
 INSERT INTO appointment (apt_id, apt_name, apt_status, apt_agenda, apt_date, user_id, provider_id)
 VALUES (5001, 'Check-Up', 'Ongoing', 'Just a quick check up!', '2023-05-10', 3001, 4000);

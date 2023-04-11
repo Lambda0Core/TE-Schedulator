@@ -83,7 +83,21 @@ public class ProviderController {
 
             return providerDao.getProviderIdByLastName(lastName);
         }
+
+
     }
+//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+//    String getProviderFirstNameById(@RequestParam int id) {
+//        String provider = providerDao.getProviderFirstNameById(id);
+//
+//        if (provider == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
+//        } else {
+//
+//            return providerDao.getProviderFirstNameById(id);
+//        }
+//    }
+
 
 }
 

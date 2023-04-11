@@ -91,6 +91,14 @@ public class JdbcProviderDao implements ProviderDao {
         return providers;
     }
 
+//    @Override
+//    public String getProviderFirstNameById(int providerId) {
+//        String sql = "select first_name from provider where provider_id = ?;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, providerId);
+//        String firstName;
+//        return firstName = results.toString();
+//    }
+
     private Provider mapRowToProvider(SqlRowSet rs) {
         Provider provider = new Provider();
         provider.setId(rs.getInt("provider_id"));
