@@ -22,7 +22,7 @@ export default {
   methods: {
     get() {
     AptService
-    this.getTopics();
+    this.get();
         }
       }
   }
