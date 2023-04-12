@@ -4,6 +4,7 @@ import com.techelevator.model.Provider;
 import com.techelevator.model.Review;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -91,13 +92,11 @@ public class JdbcProviderDao implements ProviderDao {
         return providers;
     }
 
-//    @Override
-//    public String getProviderFirstNameById(int providerId) {
-//        String sql = "select first_name from provider where provider_id = ?;";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, providerId);
-//        String firstName;
-//        return firstName = results.toString();
-//    }
+    @Override
+    public boolean create(int officeId, int userId, String first_name, String last_name, int titleId) {
+        String insertCreateSql = "insert into provider (office_id, user_id, first_name, last_name, title_id) values (?, ?, ?, ?, ?) ";
+        return jdbcTemplate.update(insertCreateSql, officeId, userId, first_name, last_name, titleId) == 1;
+    }
 
     private Provider mapRowToProvider(SqlRowSet rs) {
         Provider provider = new Provider();

@@ -18,6 +18,6 @@ public interface ProviderDao {
 
     List<Provider> findAllByProviderId(int providerId);
 
-//    String getProviderFirstNameById(int providerId);
+    boolean create(int officeId, int userId, String first_name, String last_name, int titleId);
 
 }
