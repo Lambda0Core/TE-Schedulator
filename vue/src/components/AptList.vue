@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Upcoming Appointments</h1>
-    <div class="list" >
+    <div class="list">
       <div v-for="appointment in appointments" :key="appointment.id">
         <apt-card :appointment="appointment" />
       </div>
@@ -15,9 +15,13 @@ import AptCard from "./AptCard.vue";
 
 export default {
   name: "apt-list",
+  components: {
+    AptCard,
+  },
+  
   data() {
     return {
-      appointments: []
+      appointments: [],
     };
   },
   methods: {
@@ -31,9 +35,7 @@ export default {
   created() {
     this.getAppointments();
   },
-  components: {
-    AptCard
-  }
+  
 };
 </script>
 
@@ -44,7 +46,7 @@ h1 {
   color: var(--primary600);
 }
 .box {
-  width:fit-content;
+  width: fit-content;
   padding: 1rem 2rem;
   border: 1px black solid;
 }
