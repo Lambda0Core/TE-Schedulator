@@ -149,9 +149,9 @@ public class JdbcAppointmentDao implements AppointmentDao {
 
         try {
             String sql = "INSERT INTO public.appointment(\n" +
-                    "\tapt_id, apt_name, apt_status, apt_agenda, apt_date, user_id, provider_id)\n" +
-                    "\tVALUES (?, ?, ?, ?, ?, ?, ?);";
-            jdbcTemplate.queryForObject(sql, Integer.class, appointment.getStatus(),
+                    "\tapt_name, apt_status, apt_agenda, apt_date, user_id, provider_id)\n" +
+                    "\tVALUES ( ?, ?, ?, ?, ?, ?);";
+            jdbcTemplate.queryForObject(sql, Integer.class, appointment.getName(), appointment.getStatus(),
                     appointment.getAgenda(), appointment.getDate(),
                     appointment.getUserId(), appointment.getProviderId());
 
@@ -185,6 +185,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
         try{
             String sql = "DELETE FROM public.appointment\n" +
                     "\tWHERE appointment_id =?;";
+            jdbcTemplate.update(sql, id);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

@@ -91,10 +91,10 @@ public class JdbcOfficeDao implements OfficeDao {
     public void update(Office office) {
         try {
             String sql = "UPDATE public.office\n" +
-                    "\tSET office_id=?, office_address=?, office_city_name=?, office_state_acronym=?, office_phone_number=?, office_open_time=?, office_close_time=?\n" +
+                    "\tSET office_address=?, office_city_name=?, office_state_acronym=?, office_phone_number=?, office_open_time=?, office_close_time=?\n" +
                     "\tWHERE office_id =?;";
-            jdbcTemplate.update(sql, office.getId(), office.getAddress(), office.getCityName(),
-                    office.getStateAcronym(), office.getPhoneNumber(), office.getOpenTime(), office.getCloseTime());
+            jdbcTemplate.update(sql, office.getAddress(), office.getCityName(),
+                    office.getStateAcronym(), office.getPhoneNumber(), office.getOpenTime(), office.getCloseTime(), office.getId());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
