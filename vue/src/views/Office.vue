@@ -1,5 +1,6 @@
 <template>
-  <office-component />
+  <office-component></office-component>
+  
 </template>
 
 <script>
