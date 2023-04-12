@@ -9,6 +9,7 @@ import java.util.Set;
 public class Office {
 
     private int id;
+    private String name;
     private String address;
     private String cityName;
     private String stateAcronym;
@@ -19,8 +20,9 @@ public class Office {
 
     public Office() { }
 
-    public Office(int id, String address, String cityName, String stateAcronym, String phoneNumber, String openTime, String closeTime) {
+    public Office(int id, String name, String address, String cityName, String stateAcronym, String phoneNumber, String openTime, String closeTime) {
         this.id = id;
+        this.name = name;
         this.address = address;
         this.cityName = cityName;
         this.stateAcronym = stateAcronym;
@@ -35,6 +37,14 @@ public class Office {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {

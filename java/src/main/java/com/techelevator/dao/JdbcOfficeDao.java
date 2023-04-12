@@ -77,9 +77,9 @@ public class JdbcOfficeDao implements OfficeDao {
     public void create(Office office) {
         try {
             String sql = "INSERT INTO public.office(\n" +
-                    "\toffice_address, office_city_name, office_state_acronym, office_phone_number, office_open_time, office_close_time)\n" +
-                    "\tVALUES ( ?, ?, ?, ?, ?, ?);";
-            jdbcTemplate.queryForObject(sql, Integer.class, office.getAddress(),
+                    "\toffice_name, office_address, office_city_name, office_state_acronym, office_phone_number, office_open_time, office_close_time)\n" +
+                    "\tVALUES ( ?, ?, ?, ?, ?, ?, ?);";
+            jdbcTemplate.queryForObject(sql, Integer.class, office.getName(), office.getAddress(),
                     office.getCityName(), office.getStateAcronym(), office.getPhoneNumber(),
                     office.getOpenTime(), office.getCloseTime());
         } catch (Exception e) {
@@ -91,9 +91,9 @@ public class JdbcOfficeDao implements OfficeDao {
     public void update(Office office) {
         try {
             String sql = "UPDATE public.office\n" +
-                    "\tSET office_address=?, office_city_name=?, office_state_acronym=?, office_phone_number=?, office_open_time=?, office_close_time=?\n" +
+                    "\tSET office_name=?, office_address=?, office_city_name=?, office_state_acronym=?, office_phone_number=?, office_open_time=?, office_close_time=?\n" +
                     "\tWHERE office_id =?;";
-            jdbcTemplate.update(sql, office.getAddress(), office.getCityName(),
+            jdbcTemplate.update(sql, office.getName(), office.getAddress(), office.getCityName(),
                     office.getStateAcronym(), office.getPhoneNumber(), office.getOpenTime(), office.getCloseTime(), office.getId());
 
         } catch (Exception e) {
@@ -117,6 +117,7 @@ public class JdbcOfficeDao implements OfficeDao {
     private Office mapRowToOffice(SqlRowSet rs) {
         Office office = new Office();
         office.setId(rs.getInt("office_id"));
+        office.setName(rs.getString("office_name"));
         office.setAddress(rs.getString("office_address"));
         office.setCityName(rs.getString("office_city_name"));
         office.setStateAcronym(rs.getString("office_state_acronym"));
