@@ -49,6 +49,12 @@ public class JdbcPatientDao implements PatientDao {
         return null;
     }
 
+    @Override
+    public boolean create(String first_name, String last_name, int titleId, int userId) {
+        String insertCreateSql = "insert into patient (first_name, last_name, title_id, user_id) values (?,?,?,?)";
+        return jdbcTemplate.update(insertCreateSql, first_name, last_name, titleId, userId) == 1;
+    }
+
 
     private Patient mapRowToPatient(SqlRowSet rs) {
         Patient patient = new Patient();

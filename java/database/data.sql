@@ -41,11 +41,11 @@ VALUES (2000, 'Greg', 'Westendorf', 0, 3001),
        (2001, 'Alice', 'Margatroid', 0, 3007),
        (2002, 'Lazlo', 'Westendorf', 0, 3004);
 
-INSERT INTO provider (provider_id, office_id, user_id, first_name, last_name, title_id, date_availability)
-VALUES (4000, 1003, 3002, 'Emily', 'LeFebvre', 1, '2003-03-29'),
-       (4001, 1003, 3005, 'Andy', 'Jocke', 1, '2000-10-11'),
-       (4002, 1003, 3003, 'Bryce', 'Huhtala', 1, '2001-10-11'),
-       (4003, 1003, 3006, 'Max', 'Shatskiy', 1, '2002-10-11');
+INSERT INTO provider (provider_id, office_id, user_id, first_name, last_name, title_id)
+VALUES (4000, 1003, 3002, 'Emily', 'LeFebvre', 1),
+       (4001, 1003, 3005, 'Andy', 'Jocke', 1),
+       (4002, 1003, 3003, 'Bryce', 'Huhtala', 1),
+       (4003, 1003, 3006, 'Max', 'Shatskiy', 1);
 
 INSERT INTO review (review_id, review_title, review_desc, user_id, provider_id)
 VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with broken ankles!', 3001, 4000),

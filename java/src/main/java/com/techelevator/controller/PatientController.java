@@ -2,10 +2,12 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.PatientDao;
 import com.techelevator.model.Patient;
+import com.techelevator.model.Provider;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -46,4 +48,13 @@ public class PatientController {
             return patientDao.getPatientByPatientId(id);
         }
     }
+    @PostMapping("/patient")
+    public boolean createPatient(@Valid @RequestBody Patient patient, @RequestParam String firstName, @RequestParam String lastName, @RequestParam int titleId, @RequestParam int userId) {
+        if (patient == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "404 not found");
+        }
+
+        return patientDao.create(firstName, lastName, titleId, userId);
+    }
+
 }

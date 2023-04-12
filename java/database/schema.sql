@@ -51,7 +51,6 @@ CREATE TABLE provider (
 	  first_name varchar(100) NOT NULL,
 	  last_name varchar(100) NOT NULL,
 	  title_id SERIAL, 
-	  date_availability date NOT NULL,
 
 	  CONSTRAINT PK_provider PRIMARY KEY (provider_id),      
       CONSTRAINT fk_office_id FOREIGN KEY (office_id) REFERENCES office(office_id),

@@ -86,17 +86,15 @@ public class ProviderController {
 
 
     }
-//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-//    String getProviderFirstNameById(@RequestParam int id) {
-//        String provider = providerDao.getProviderFirstNameById(id);
-//
-//        if (provider == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
-//        } else {
-//
-//            return providerDao.getProviderFirstNameById(id);
-//        }
-//    }
+
+    @PostMapping("/provider")
+    public boolean createProvider(@Valid @RequestBody Provider provider, @RequestParam int officeId, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam int titleId) {
+        if (provider == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "404 not found");
+        }
+
+        return providerDao.create(officeId, userId, firstName, lastName, titleId);
+    }
 
 
 }

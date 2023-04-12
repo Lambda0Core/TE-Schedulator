@@ -15,5 +15,7 @@ public interface PatientDao {
 
     Patient getPrinciplePatient(int patientId);
 
+    boolean create(String first_name, String last_name, int titleId, int userId);
+
 
 }
