@@ -10,11 +10,11 @@ export default {
     return axios.get(`/appointment/${id}`);
   },
 
-  getPatientId(userId) {
+  getAppointmentsByPatientId(userId) {
     return axios.get(`patient/appointment/${userId}`);
   },
 
-  getProviderId(providerId) {
+  getAppointmentsByProviderId(providerId) {
     return axios.get(`patient/appointment/${providerId}`);
   },
 

@@ -59,7 +59,7 @@ const router = new Router({
       }
     },
     {
-      path: "/office",
+      path: "/office/:id",
       name: "office",
       component: Office,
       meta: {
