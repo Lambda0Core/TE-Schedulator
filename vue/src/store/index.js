@@ -59,7 +59,8 @@ export default new Vuex.Store({
         icon: "hospital-solid.svg",
         content: "provider-office"
       }
-    ]
+    ],
+    content: ""
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
