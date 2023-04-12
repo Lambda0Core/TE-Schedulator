@@ -1,23 +1,28 @@
 <template>
   <div class="layout">
-   <patient-page />
+    <patient-page v-if="userType == 'patient'" />
+    <provider-page v-if="userType == 'provider'" />
   </div>
-  
 </template>
 
 <script>
-
 import PatientPage from "../components/PatientPage.vue";
+import ProviderPage from "../components/ProviderPage.vue";
 
 export default {
   name: "home",
 
   data() {
-    return {
+    return {};
+  },
+  computed: {
+    userType() {
+      return this.$store.state.userType;
     }
   },
   components: {
-    PatientPage
+    PatientPage,
+    ProviderPage,
   },
 
   setup() {},
