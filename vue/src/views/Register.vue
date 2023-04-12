@@ -22,7 +22,7 @@
       <div class="form-input-group">
         <label for="confirmPassword">Confirm Password</label>
         <input
-          type="text"
+          type="password"
           id="confirmPassword"
           v-model="user.confirmPassword"
           required
@@ -48,11 +48,19 @@
       </div>
       <div id="selectBox">
         <label for="userType">User Type</label>
-        <select id="userType" v-model="user.role">
+        <select id="userType" v-model="user.title">
           <option value="patient">Patient</option>
           <option value="doctor">Doctor</option>
           
         </select>
+        <div v-if="user.title === 'doctor'">
+          <label for="office">Office</label>
+          <select id="office" v-model="user.office"></select>
+          <option v-for="office in officeDetails" :key="office.id" :value="office.id">
+            {{office.name}}
+          </option>
+
+        </div>
       </div>
       <div id="registerButton">
         <button type="submit">Create Account</button>
@@ -69,6 +77,7 @@
 
 <script>
 import authService from "../services/AuthService";
+import officeService from "../services/OfficeService";
 
 export default {
   name: "register",
@@ -80,7 +89,9 @@ export default {
         firstname: "",
         lastname: "",
         confirmPassword: "",
-        role: "patient",
+        role: "user",
+        titlename: "",
+        office: ""
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
@@ -116,6 +127,12 @@ export default {
       this.registrationErrorMsg = "There were problems registering this user.";
     },
   },
+computed:{
+  officeDetails(){
+    return officeService.list()
+  }
+}
+
 };
 </script>
 

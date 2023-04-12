@@ -27,7 +27,8 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        showSidebar: true
       }
     },
     {
@@ -35,7 +36,8 @@ const router = new Router({
       name: "login",
       component: Login,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        showSidebar: false
       }
     },
     {
@@ -43,7 +45,8 @@ const router = new Router({
       name: "logout",
       component: Logout,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        showSidebar: false
       }
     },
     {
@@ -51,7 +54,8 @@ const router = new Router({
       name: "register",
       component: Register,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        showSidebar: false
       }
     },
     {
@@ -59,7 +63,8 @@ const router = new Router({
       name: "office",
       component: Office,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        showSidebar: true
       }
     }
   ]  

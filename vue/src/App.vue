@@ -1,24 +1,52 @@
 <template>
-  <div id="app">
-    <logo-header/>
-    <router-view />
+  <div id="app" >
+    <logo-header />
+    <main :class="displayClass">
+      <sidebar v-if="this.$route.meta.showSidebar" :sidebarOptions="options" />
+      <router-view />
+    </main>
   </div>
 </template>
 <script>
 import logoHeader from "./components/LogoHeader.vue";
+import sidebar from "./components/SidebarComponent.vue";
 
-export default ({
-  components:{
+export default {
+  components: {
     logoHeader,
+    sidebar,
   },
-  
-  setup() {
+  computed: {
+    options() {
+      if (this.$store.state.userType == "patient") {
+        return this.$store.state.patientSidebarOptions;
+      } else {
+        return this.$store.state.providerSidebarOption;
+      }
+    },
+    displayClass() {
+      if (this.$route.meta.showSidebar) return "";
+      else return "sidebarHidden"
+    }
     
   },
-})
+  setup() {},
+};
 </script>
 <style>
-#app{
+body {
+  margin: 0;
+}
+main {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: 100%;
+  width: 100%;
+}
+main.sidebarHidden {
+  grid-template-columns: 1fr;
+}
+#app {
   width: 100vw;
   height: 100vh;
   --primary200: #daffe9;
@@ -26,6 +54,5 @@ export default ({
   --primary600: #268598;
   --primary800: #053484;
 }
-
 </style>
 

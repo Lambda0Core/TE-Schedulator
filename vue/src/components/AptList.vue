@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     getAppointments() {
-      AptService.getPatientId(3001).then((response) => {
+      AptService.getAppointmentsByPatientId(3001).then((response) => {
         console.log(response.data);
         this.appointments = response.data;
       });
