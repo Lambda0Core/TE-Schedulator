@@ -106,7 +106,6 @@ public class JdbcProviderDao implements ProviderDao {
         provider.setFirstName(rs.getString("first_name"));
         provider.setLastName(rs.getString("last_name"));
         provider.setTitleId(rs.getInt("title_id"));
-        provider.setDateAvailability(rs.getDate("date_availability").toLocalDate());
         return provider;
     }
 }
