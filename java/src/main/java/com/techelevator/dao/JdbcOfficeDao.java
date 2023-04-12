@@ -35,6 +35,7 @@ public class JdbcOfficeDao implements OfficeDao {
         return officeId;
     }
 
+
     @Override
     public Office getOfficeById(int officeId) {
         String sql = "SELECT * FROM office WHERE office_id = ?";
@@ -70,6 +71,47 @@ public class JdbcOfficeDao implements OfficeDao {
             }
         }
         throw new UsernameNotFoundException("No office was found at " + address);
+    }
+
+    @Override
+    public void create(Office office) {
+        try {
+            String sql = "INSERT INTO public.office(\n" +
+                    "\toffice_address, office_city_name, office_state_acronym, office_phone_number, office_open_time, office_close_time)\n" +
+                    "\tVALUES ( ?, ?, ?, ?, ?, ?);";
+            jdbcTemplate.queryForObject(sql, Integer.class, office.getAddress(),
+                    office.getCityName(), office.getStateAcronym(), office.getPhoneNumber(),
+                    office.getOpenTime(), office.getCloseTime());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());}
+
+    }
+
+    @Override
+    public void update(Office office) {
+        try {
+            String sql = "UPDATE public.office\n" +
+                    "\tSET office_id=?, office_address=?, office_city_name=?, office_state_acronym=?, office_phone_number=?, office_open_time=?, office_close_time=?\n" +
+                    "\tWHERE office_id =?;";
+            jdbcTemplate.update(sql, office.getId(), office.getAddress(), office.getCityName(),
+                    office.getStateAcronym(), office.getPhoneNumber(), office.getOpenTime(), office.getCloseTime());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void delete(int id) {
+        try{
+            String sql = "DELETE FROM public.office\n" +
+                    "\tWHERE office_id =?;";
+            jdbcTemplate.update(sql, id);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private Office mapRowToOffice(SqlRowSet rs) {

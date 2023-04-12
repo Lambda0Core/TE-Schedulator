@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-      <h2>{{ appointment.name }}</h2>
+      <p class="date">{{ appointment.date }}</p>
       <div class="identity">
         <div class="img"/>
-        <h3>Dr. Westendorf</h3>
+        <h3>Dr. {{ appointment.providerFirstName }} {{ appointment.providerLastName }}</h3>
       </div>
+      <h2>{{ appointment.name }}</h2>
       <p class="agenda">{{ appointment.agenda }}</p>
-      <p class="date">{{ appointment.date }}</p>
   </div>
 </template>
 
@@ -21,7 +21,8 @@ export default {
 .container {
     color: var(--primary800);
     padding: 1rem 3rem;
-    width: fit-content;
+    width: auto;
+    height: 225px;
     border: 3px var(--primary600) solid;
     border-radius: 1rem;
     box-shadow: 15px 15px var(--primary200);
@@ -38,9 +39,22 @@ export default {
     border: 1px var(--primary600) solid;
     border-radius: 3rem;
 }
+h2 {
+    font-size: 1.25rem;
+    display: inline-block;   
+}
 h3 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: inline-block;   
+}
+.date {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.agenda {
+    color: var(--primary600);
+    margin-top: 0;
 }
 </style>

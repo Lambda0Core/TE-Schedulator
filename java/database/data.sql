@@ -58,8 +58,8 @@ VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with
 
 INSERT INTO appointment (apt_id, apt_name, apt_status, apt_agenda, apt_date, user_id, provider_id)
 VALUES (5001, 'Check-Up', 'Ongoing', 'Just a quick check up!', '2023-05-10', 3001, 4000),
-       (5001, 'Amputation Session', 'Ongoing', 'We needed a test subject for our new tools, and you have been late on your medical bills...', '2023-06-10', 3001, 4000),
-       (5001, 'Drug Perscription', 'Ongoing', 'We will need to provide experimental new painkillers after your procedure.', '2023-07-10', 3001, 4000);
+       (5002, 'Amputation Session', 'Ongoing', 'We needed a test subject for our new tools, and you have been late on your medical bills...', '2023-06-10', 3001, 4000),
+       (5003, 'Drug Perscription', 'Ongoing', 'We will need to provide experimental new painkillers after your procedure.', '2023-07-10', 3001, 4000);
 
 
 COMMIT TRANSACTION;

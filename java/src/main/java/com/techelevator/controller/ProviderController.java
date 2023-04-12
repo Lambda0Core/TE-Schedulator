@@ -22,34 +22,34 @@ public class ProviderController {
         this.providerDao = providerDao;
     }
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
+    @RequestMapping(path = "/provider/", method = RequestMethod.GET)
     public List<Provider> findAllProviders() {
         return providerDao.findAllProviders();
     }
 
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public List<Provider> findAllProvidersById(@RequestParam int id) {
-        List<Provider> providers = providerDao.findAllByProviderId(id);
-
-        if (providers == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
-        } else {
-
-            return providerDao.findAllByProviderId(id);
-        }
-    }
-
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public List<Provider> findAllByUserId(@RequestParam int id) {
-        List<Provider> providers = providerDao.findAllByUserId(id);
-
-        if (providers == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
-        } else {
-
-            return providerDao.findAllByUserId(id);
-        }
-    }
+//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+//    public List<Provider> findAllProvidersById(@RequestParam int id) {
+//        List<Provider> providers = providerDao.findAllByProviderId(id);
+//
+//        if (providers == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
+//        } else {
+//
+//            return providerDao.findAllByProviderId(id);
+//        }
+//    }
+//
+//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+//    public List<Provider> findAllByUserId(@RequestParam int id) {
+//        List<Provider> providers = providerDao.findAllByUserId(id);
+//
+//        if (providers == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
+//        } else {
+//
+//            return providerDao.findAllByUserId(id);
+//        }
+//    }
 
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
     public Provider getProviderById(@RequestParam int id) {
@@ -62,16 +62,16 @@ public class ProviderController {
         }
     }
 
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public Provider getProviderByUserId(@RequestParam int id) {
-        Provider provider = providerDao.getProviderByUserId(id);
-        if (provider == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
-        } else {
-
-            return providerDao.getProviderByUserId(id);
-        }
-    }
+//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
+//    public Provider getProviderByUserId(@RequestParam int id) {
+//        Provider provider = providerDao.getProviderByUserId(id);
+//        if (provider == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
+//        } else {
+//
+//            return providerDao.getProviderByUserId(id);
+//        }
+//    }
 
 
     @RequestMapping(path = "/provider/{lastName}", method = RequestMethod.GET)
