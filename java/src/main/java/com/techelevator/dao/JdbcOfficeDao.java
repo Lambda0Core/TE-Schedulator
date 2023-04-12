@@ -123,7 +123,7 @@ public class JdbcOfficeDao implements OfficeDao {
         office.setStateAcronym(rs.getString("office_state_acronym"));
         office.setPhoneNumber(rs.getString("office_phone_number"));
         office.setOpenTime(rs.getString("office_open_time"));
-        office.setCloseTime(rs.getString("office_closed_time"));
+        office.setCloseTime(rs.getString("office_close_time"));
         return office;
     }
 }
