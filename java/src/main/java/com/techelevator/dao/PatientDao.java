@@ -12,4 +12,8 @@ public interface PatientDao {
     Patient getPatientByPatientId(int patientId);
 
     List<Patient> findAllByUserId(int id);
+
+    Patient getPrinciplePatient(int patientId);
+
+
 }
