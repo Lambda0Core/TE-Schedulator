@@ -22,7 +22,7 @@ public class ProviderController {
         this.providerDao = providerDao;
     }
 
-    @RequestMapping(path = "/provider/", method = RequestMethod.GET)
+    @RequestMapping(path = "/provider", method = RequestMethod.GET)
     public List<Provider> findAllProviders() {
         return providerDao.findAllProviders();
     }
