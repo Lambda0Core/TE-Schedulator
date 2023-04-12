@@ -1,15 +1,16 @@
 <template>
   <div class="list">
       <!-- v-for that lists ProviderListElements -->
-      <provider-list-element />
+      <provider-card />
   </div>
 </template>
 
 <script>
-import ProviderListElement from './ProviderListElement.vue'
+import ProviderCard from './ProviderCard.vue'
 export default {
-  components: { ProviderListElement },
-    name: "ProviderList",
+  components: { 
+    ProviderCard },
+    name: "ProviderCard",
 }
 </script>
 
