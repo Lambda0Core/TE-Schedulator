@@ -1,12 +1,12 @@
 <template>
   <div class="layout">
     <sidebar :sidebarOptions="options" />
-    <div>Content Goes Here</div>
+    <div></div>
   </div>
 </template>
 
 <script>
-import sidebar from "../components/SidebarComponent.vue";
+import sidebar from "./SidebarComponent.vue";
 
 export default {
   name: "PatientPage",
