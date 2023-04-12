@@ -21,6 +21,45 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     userType: 'patient',
+    patientSidebarOptions: [
+      {
+        title: "Appointments",
+        icon: "calendar-regular.svg",
+        link: "/"
+      },
+      {
+        title: "Find a Provider",
+        icon: "briefcase-medical-solid.svg",
+        link: "/search"
+      },
+      {
+        title: "My Doctors",
+        icon: "user-doctor-solid.svg",
+        link: "/mydoctors"
+      }
+    ],
+    providerSidebarOptions: [
+      {
+        title: "Schedule",
+        icon: "calendar-regular.svg",
+        link: "/"
+      },
+      {
+        title: "Patients",
+        icon: "heart-pulse-solid.svg",
+        link: "/mypatients"
+      },
+      {
+        title: "Reviews",
+        icon: "star-solid.svg",
+        link: "/reviews"
+      },
+      {
+        title: "Office",
+        icon: "hospital-solid.svg",
+        link: "/office"
+      }
+    ]
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {

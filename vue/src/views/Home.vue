@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import PatientPage from "../components/PatientPage.vue";
-import ProviderPage from "../components/ProviderPage.vue";
+import PatientPage from "./PatientLandingPage.vue";
+import ProviderPage from "./ProviderLandingPage.vue";
 
 export default {
   name: "home",
