@@ -1,13 +1,17 @@
 <template>
   <div class="layout">
     <div>
-    <apt-list />
+      <apt-list v-if="this.$store.state.content=='patient-appointments'" />
+    </div>   
+    <div>
+      <provider-list  v-if="this.$store.state.content=='patient-providerlist'" />
     </div>   
   </div>
 </template>
 
 <script>
 import AptList from '../components/AptList.vue';
+import ProviderList from '../components/ProviderList.vue';
 
 
 export default {
@@ -16,10 +20,9 @@ export default {
 
   components: {
     AptList,
-    
+    ProviderList
   },
 
-  setup() {},
 };
 </script>
 

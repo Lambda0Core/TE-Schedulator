@@ -1,6 +1,7 @@
 <template>
   <div class="list">
       <!-- v-for that lists ProviderListElements -->
+      Test
       <provider-card />
   </div>
 </template>
@@ -8,9 +9,10 @@
 <script>
 import ProviderCard from './ProviderCard.vue'
 export default {
+  name: "ProviderList",
   components: { 
-    ProviderCard },
-    name: "ProviderCard",
+    ProviderCard 
+  },
 }
 </script>
 
