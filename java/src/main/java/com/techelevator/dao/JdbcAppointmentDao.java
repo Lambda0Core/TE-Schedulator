@@ -158,7 +158,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return;
+
     }
 
     @Override
@@ -177,7 +177,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return;
+
     }
 
     @Override
@@ -189,7 +189,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return;
+
     }
 
     private Appointment mapRowToAppointment(SqlRowSet rs) {

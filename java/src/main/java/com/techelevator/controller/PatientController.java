@@ -46,11 +46,6 @@ public class PatientController {
             return patientDao.getPatientByPatientId(id);
         }
     }
-
-<<<<<<< HEAD
-}
-=======
 }
 
 
->>>>>>> ecc3011ce9c8f366e65870aa33194dab7f6b90d6
