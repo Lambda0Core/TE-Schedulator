@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <logo-header />
-    <main>
-      <sidebar :sidebarOptions="options"/>
+    <main :class="displayClass">
+      <sidebar v-if="this.$route.meta.showSidebar" :sidebarOptions="options" />
       <router-view />
     </main>
   </div>
@@ -16,10 +16,19 @@ export default {
     logoHeader,
     sidebar,
   },
-  data() {
-    return {
-      options: this.$store.state.patientSidebarOptions
+  computed: {
+    options() {
+      if (this.$store.state.userType == "patient") {
+        return this.$store.state.patientSidebarOptions;
+      } else {
+        return this.$store.state.providerStidebarOption;
+      }
+    },
+    displayClass() {
+      if (this.$route.meta.showSidebar) return "";
+      else return "sidebarHidden"
     }
+    
   },
   setup() {},
 };
@@ -33,6 +42,9 @@ main {
   grid-template-columns: 300px 1fr;
   height: 100%;
   width: 100%;
+}
+main.sidebarHidden {
+  grid-template-columns: 1fr;
 }
 #app {
   width: 100vw;
