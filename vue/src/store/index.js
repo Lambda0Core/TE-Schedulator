@@ -25,39 +25,39 @@ export default new Vuex.Store({
       {
         title: "Appointments",
         icon: "calendar-regular.svg",
-        link: "/"
+        content: "patient-appointments"
       },
       {
         title: "Find a Provider",
         icon: "briefcase-medical-solid.svg",
-        link: "/search"
+        content: "patient-providerlist"
       },
       {
         title: "My Doctors",
         icon: "user-doctor-solid.svg",
-        link: "/mydoctors"
+        content: "patient-mydoctors"
       }
     ],
     providerSidebarOptions: [
       {
         title: "Schedule",
         icon: "calendar-regular.svg",
-        link: "/"
+        content: "provider-calendar"
       },
       {
         title: "Patients",
         icon: "heart-pulse-solid.svg",
-        link: "/mypatients"
+        content: "provider-mypatients"
       },
       {
         title: "Reviews",
         icon: "star-solid.svg",
-        link: "/reviews"
+        content: "provider-reviews"
       },
       {
         title: "Office",
         icon: "hospital-solid.svg",
-        link: "/office"
+        content: "provider-office"
       }
     ]
   },
@@ -74,6 +74,9 @@ export default new Vuex.Store({
     SET_USER_TYPE(state, type) {
       state.userType = type;
       localStorage.setItem('user-type',JSON.stringify(type));
+    },
+    SET_CONTENT_PAGE(state, contentName) {
+      state.content = contentName;
     },
     LOGOUT(state) {
       localStorage.removeItem('token');

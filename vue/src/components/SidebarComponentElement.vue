@@ -1,14 +1,19 @@
 <template>
-  <router-link class="container" v-bind:to="element.link">
+  <div class="container" v-on:click="setContentPage()">
     <div class="img-container"><img :src="require(`../../public/icon/${element.icon}`)" alt="" /></div>
     <div class="text">{{ element.title }}</div>
-  </router-link>
+  </div>
 </template>
 
 <script>
 export default {
   name: "sidebar-element",
   props: ["element"],
+  methods: {
+    setContentPage() {
+      this.$store.commit("SET_CONTENT_PAGE",this.element.content);
+    }
+  }
 };
 </script>
 
@@ -16,6 +21,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 .container {
+  cursor: pointer;
   margin: 2rem 0rem;
   display: flex;
   flex-direction: column;
