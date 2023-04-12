@@ -1,45 +1,23 @@
 <template>
   <div class="layout">
-    <sidebar :sidebarOptions="options" />
-    <div class="apt-list">
-      <aptlist/>
-    </div>
+   <patient-page />
   </div>
   
 </template>
 
 <script>
 
-import sidebar from "../components/SidebarComponent.vue";
-import aptlist from "../components/AptList.vue";
+import PatientPage from "../components/PatientPage.vue";
 
 export default {
-  name: "PatientPage",
+  name: "home",
 
   data() {
     return {
-      options: [
-        {
-          title: "Upcoming Appointments",
-          icon: "calendar-regular.svg",
-          link: "/"
-        },
-        {
-          title: "Find a Provider (MAINTENANCE)",
-          icon: "briefcase-medical-solid.svg",
-          link: ""
-        },
-        {
-          title: "My Doctors (MAINTENANCE)",
-          icon: "user-doctor-solid.svg",
-          link: ""
-        }
-      ]
     }
   },
   components: {
-    sidebar,
-    aptlist
+    PatientPage
   },
 
   setup() {},

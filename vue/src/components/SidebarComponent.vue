@@ -1,9 +1,9 @@
 <template>
-  <div id="sidebar" >
+  <div id="sidebar">
     <div class="sidebar-container">
       <div class="list">
         <div v-for="option in sidebarOptions" v-bind:key="option.title">
-            <sidebar-element :element="option" />
+          <sidebar-element :element="option" />
         </div>
       </div>
     </div>
