@@ -8,8 +8,7 @@ import OfficeComponent from '../components/OfficeComponent.vue'
 
 export default {
     name: "office",
-    components: {
-        
+    components: {        
         OfficeComponent
     }
 }
