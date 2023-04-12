@@ -41,7 +41,7 @@ VALUES (2000, 'Greg', 'Westendorf', 0, 3001),
        (2001, 'Alice', 'Margatroid', 0, 3007),
        (2002, 'Lazlo', 'Westendorf', 0, 3004);
 
-INSERT INTO provider (provider_id, office_id, user_id, first_name, last_name, title_id, date_availibility)
+INSERT INTO provider (provider_id, office_id, user_id, first_name, last_name, title_id, date_availability)
 VALUES (4000, 1003, 3002, 'Emily', 'LeFebvre', 1, '2003-03-29'),
        (4001, 1003, 3005, 'Andy', 'Jocke', 1, '2000-10-11'),
        (4002, 1003, 3003, 'Bryce', 'Huhtala', 1, '2001-10-11'),
