@@ -21,7 +21,7 @@ export default {
       if (this.$store.state.userType == "patient") {
         return this.$store.state.patientSidebarOptions;
       } else {
-        return this.$store.state.providerStidebarOption;
+        return this.$store.state.providerSidebarOption;
       }
     },
     displayClass() {
