@@ -16,16 +16,18 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 .container {
-  margin: 0;
-  display: grid;
-  grid-template-columns: 4rem 1fr;
+  margin: 2rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* grid-template-columns: 4rem 1fr; */
 }
 .text {
   display: inline-block;
   font-family: 'Open Sans', sans-serif;
   color: var(--primary200);
   font-size: 1.7rem;
-  margin: 1.5rem 0.5rem;
+  margin: 0.5rem 0.5rem;
 }
 a {
   

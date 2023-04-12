@@ -44,7 +44,10 @@ public class JdbcPatientDao implements PatientDao {
         return null;
     }
 
-
+    @Override
+    public Patient getPrinciplePatient(int patientId) {
+        return null;
+    }
 
 
     private Patient mapRowToPatient(SqlRowSet rs) {

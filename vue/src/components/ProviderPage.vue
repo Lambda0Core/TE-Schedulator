@@ -9,25 +9,30 @@
 import sidebar from "./SidebarComponent.vue";
 
 export default {
-  name: "PatientPage",
+  name: "ProviderPage",
 
   data() {
     return {
       options: [
         {
-          title: "Appointments",
+          title: "Schedule",
           icon: "calendar-regular.svg",
           link: "/"
         },
         {
-          title: "Find a Provider",
-          icon: "briefcase-medical-solid.svg",
-          link: "/search"
+          title: "Patients",
+          icon: "heart-pulse-solid.svg",
+          link: "/mypatients"
         },
         {
-          title: "My Doctors",
-          icon: "user-doctor-solid.svg",
-          link: "/mydoctors"
+          title: "Reviews",
+          icon: "star-solid.svg",
+          link: "/reviews"
+        },
+        {
+          title: "Office",
+          icon: "hospital-solid.svg",
+          link: "/office"
         }
       ]
     }
