@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS title (
 
 CREATE TABLE IF NOT EXISTS office (
 	office_id SERIAL,
+	office_name varchar(100) NOT NULL,
     office_address varchar(100) NOT NULL,
     office_city_name varchar(50) NOT NULL,
     office_state_acronym varchar(2) NOT NULL,  	
@@ -50,7 +51,7 @@ CREATE TABLE provider (
 	  first_name varchar(100) NOT NULL,
 	  last_name varchar(100) NOT NULL,
 	  title_id SERIAL, 
-	  date_availibility date NOT NULL,
+	  date_availability date NOT NULL,
 
 	  CONSTRAINT PK_provider PRIMARY KEY (provider_id),      
       CONSTRAINT fk_office_id FOREIGN KEY (office_id) REFERENCES office(office_id),
