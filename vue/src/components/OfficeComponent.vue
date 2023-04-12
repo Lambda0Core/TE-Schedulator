@@ -11,7 +11,7 @@
       <h1>List of Offices</h1>
       <div class="office" v-for="office in offices" v-bind:key="office.id" >
           <router-link v-bind:to="{ name: 'office', params: { id: office.id } }">
-              {{ offices.name }} {{ office.address }}
+              {{ office.name }} {{ office.address }}
           </router-link>
       </div>
 
@@ -23,7 +23,7 @@ import OfficeService from '../services/OfficeService'
 
 export default {
     name: 'office-component',
-    props: ["office"],
+    // props: ["office"],
     data() {
         return {
             offices: [],
