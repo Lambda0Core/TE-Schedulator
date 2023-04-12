@@ -4,6 +4,7 @@
       <apt-list v-if="this.$store.state.content=='patient-appointments'" />
     </div>   
     <div>
+      
       <provider-list  v-if="this.$store.state.content=='patient-providerlist'" />
     </div>   
   </div>

@@ -14,7 +14,7 @@
 export default {
     name: 'apt-card',
     props: ["appointment"],
-}
+};
 </script>
 
 <style scoped>
