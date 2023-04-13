@@ -10,7 +10,7 @@ public interface ReviewDao {
 
     List<Review> findAllByUserId(int userId);
 
-    List<Review> findAllByProviderId(int providerID);
+    List<Review> findAllByDetailsId(int detailsID);
 
     Review getReviewById(int reviewId);
 
@@ -20,5 +20,5 @@ public interface ReviewDao {
 
     int findIdByReviewName(String reviewName);
 
-    boolean create(String reviewTitle, String reviewContents, int providerId);
+    boolean create(String reviewTitle, String reviewContents, int detailsId);
 }

@@ -1,7 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, title, office, patient, provider, review, appointment;
-
+DROP TABLE IF EXISTS users, title, office, user_details, review, appointment;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -28,47 +27,43 @@ CREATE TABLE IF NOT EXISTS office (
 	office_phone_number varchar(20) NOT NULL,
     office_open_time varchar(50) NOT NULL,
     office_close_time varchar(50) NOT NULL,
+	office_users SERIAL,
 	CONSTRAINT PK_office PRIMARY KEY (office_id)
 );
 
-
-CREATE TABLE IF NOT EXISTS patient (
-	 patient_id SERIAL,
-	 first_name varchar(100) NOT NULL,
-	 last_name varchar(100) NOT NULL,
-	 title_id SERIAL, 
-	 user_id SERIAL,
-	
-	CONSTRAINT fk_title FOREIGN KEY (title_id) REFERENCES title(title_id),
-	CONSTRAINT fk_patient_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
-    CONSTRAINT PK_patient PRIMARY KEY (patient_id)
-);
-
-CREATE TABLE provider (
-	  provider_id SERIAL,
-      office_id int not null,
+CREATE TABLE details (
+	  details_id SERIAL,
 	  user_id int not null,
 	  first_name varchar(100) NOT NULL,
 	  last_name varchar(100) NOT NULL,
+	  is_provider boolean NOT NULL,
 	  title_id SERIAL, 
 
-	  CONSTRAINT PK_provider PRIMARY KEY (provider_id),      
-      CONSTRAINT fk_office_id FOREIGN KEY (office_id) REFERENCES office(office_id),
-	  CONSTRAINT fk_provider_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
+	  CONSTRAINT PK_details PRIMARY KEY (details_id),
+	  CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users(user_id),
 	  CONSTRAINT fk_title_id FOREIGN KEY (title_id) REFERENCES title(title_id)   
 );
 
+
+
+CREATE TABLE office_users (
+	details_id SERIAL,
+	office_id SERIAL,
+	CONSTRAINT pk_office_users PRIMARY KEY (details_id, office_id),
+	CONSTRAINT pk_office_id FOREIGN KEY (office_id) REFERENCES office(office_id),
+    CONSTRAINT pk_details_id FOREIGN KEY (details_id) REFERENCES details(details_id)
+);
 
 CREATE TABLE IF NOT EXISTS review (
 	 review_id SERIAL,
 	 review_title varchar(50) NOT NULL, 
 	 review_desc varchar(200) NOT NULL, 
      user_id SERIAL,
-	 provider_id SERIAL,
+	 details_id SERIAL,
 
 	CONSTRAINT PK_review PRIMARY KEY (review_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
-    CONSTRAINT fk_provider_id FOREIGN KEY (provider_id) REFERENCES provider(provider_id)    
+    CONSTRAINT fk_user_details_id FOREIGN KEY (details_id) REFERENCES details(details_id)    
 );
 
 
@@ -79,11 +74,11 @@ CREATE TABLE IF NOT EXISTS appointment (
 	 apt_agenda varchar(200) NOT NULL, 
 	 apt_date date NOT NULL,
      user_id SERIAL,
-	 provider_id SERIAL,
+	 details_id SERIAL,
 
 	CONSTRAINT PK_appointment PRIMARY KEY (apt_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
-    CONSTRAINT fk_provider_id FOREIGN KEY (provider_id) REFERENCES provider(provider_id)    
+    CONSTRAINT fk_user_details_id FOREIGN KEY (details_id) REFERENCES details(details_id)    
 );
 
 COMMIT TRANSACTION;
