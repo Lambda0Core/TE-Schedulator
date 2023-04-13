@@ -5,6 +5,7 @@
     <div>
           <label for="office">Select Office Location</label>
           <select id="office" v-model="user.office">
+            <option value="">All Offices</option>
             <option
               v-for="office in offices"
               :key="office.id"
@@ -44,6 +45,18 @@ export default {
       },
     };
   },
+computed: {
+    filteredProviders() {
+      if (this.user.office) {
+        return this.providers.filter(
+          (provider) => provider.officeId === this.user.office
+        );
+      } else {
+        return this.providers;
+      }
+    },
+  },
+
   methods: {
     getProviders() {
       ProviderService.list().then((response) => {
