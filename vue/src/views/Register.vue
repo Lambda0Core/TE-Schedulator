@@ -27,45 +27,38 @@
           v-model="user.confirmPassword"
           required
         />
-         </div>
-        <div class="form-input-group">
+      </div>
+      <div class="form-input-group">
         <label for="firstName">First Name</label>
-        <input
-          type="text"
-          id="firstName"
-          v-model="user.firstName"
-          required
-        />
-        </div>
-        <div class="form-input-group">
+        <input type="text" id="firstName" v-model="user.firstName" required />
+      </div>
+      <div class="form-input-group">
         <label for="confirmPassword">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          v-model="user.lastName"
-          required
-        />
+        <input type="text" id="lastName" v-model="user.lastName" required />
       </div>
       <div id="selectBox">
         <label for="userType">User Type</label>
         <select id="userType" v-model="user.title">
           <option value="patient">Patient</option>
           <option value="doctor">Doctor</option>
-          
         </select>
         <div v-if="user.title === 'doctor'">
           <label for="office">Office</label>
-          <select id="office" v-model="user.office"></select>
-          <option v-for="office in officeDetails" :key="office.id" :value="office.id">
-            {{office.name}}
-          </option>
-
+          <select id="office" v-model="user.office">
+            <option
+              v-for="office in offices"
+              :key="office.id"
+              :value="office.id"
+            >
+              {{ office.name }}
+            </option>
+          </select>
         </div>
       </div>
       <div id="registerButton">
         <button type="submit">Create Account</button>
       </div>
-      
+
       <p>
         <router-link :to="{ name: 'login' }"
           >Already have an account? Log in.</router-link
@@ -90,9 +83,10 @@ export default {
         lastname: "",
         confirmPassword: "",
         role: "user",
-        titlename: "",
-        office: ""
+        title: "",
+        office: "",
       },
+      offices: [],
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
     };
@@ -126,13 +120,18 @@ export default {
       this.registrationErrors = false;
       this.registrationErrorMsg = "There were problems registering this user.";
     },
-  },
-computed:{
-  officeDetails(){
-    return officeService.list()
-  }
-}
 
+    officeList() {
+      officeService.list().then((response) => {
+        console.log(response.data);
+        this.offices = response.data;
+      });
+    },
+
+    created() {
+      this.officeList();
+    },
+  },
 };
 </script>
 
@@ -188,19 +187,16 @@ button:hover {
   width: 100%;
   align-items: center;
 }
-.selectBox{
-display: flex;  
-justify-content: center;
+.selectBox {
+  display: flex;
+  justify-content: center;
 }
-select{   
+select {
   justify-content: center;
   align-items: center;
   font-size: 16px;
   width: 150px;
   height: 25px;
   margin-bottom: 1rem;
-  
-
-  
 }
 </style>
