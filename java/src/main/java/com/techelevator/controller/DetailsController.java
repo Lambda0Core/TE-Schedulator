@@ -50,7 +50,7 @@ public class DetailsController {
 //    }
 
     @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
-    public Details getDetailsById(@RequestParam int id) {
+    public Details getDetailsById(@PathVariable int id) {
         Details details = detailsDao.getDetailsById(id);
         if (details == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
@@ -60,40 +60,32 @@ public class DetailsController {
         }
     }
 
-    @RequestMapping(path = "/details/{officeId}", method = RequestMethod.GET)
-    public int getDetailsByOfficeId(@RequestParam int id) {
-    int detailsId = detailsDao.getDetailsByOfficeId(id);
-        if (detailsId <= 0) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Office not found");
-    } else {
-        return detailsDao.getDetailsByOfficeId(id);
-    }
-}
-
-//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-//    public Provider getProviderByUserId(@RequestParam int id) {
-//        Provider provider = providerDao.getProviderByUserId(id);
-//        if (provider == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
+    // TODO This path was ambiguous and needs to fixed
+//    @RequestMapping(path = "/details/{officeId}", method = RequestMethod.GET)
+//    public int getDetailsByOfficeId(@RequestParam int id) {
+//        int detailsId = detailsDao.getDetailsByOfficeId(id);
+//            if (detailsId <= 0) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Office not found");
 //        } else {
-//
-//            return providerDao.getProviderByUserId(id);
+//            return detailsDao.getDetailsByOfficeId(id);
 //        }
 //    }
 
 
-    @RequestMapping(path = "/details/{lastName}", method = RequestMethod.GET)
-    public Details getDetailsIdByLastName(@RequestParam String lastName) {
-        Details details = detailsDao.getDetailsIdByLastName(lastName);
-        if (details == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
-        } else {
 
-            return detailsDao.getDetailsIdByLastName(lastName);
-        }
-
-
-    }
+    // TODO This path was ambiguous and needs to fixed
+//    @RequestMapping(path = "/details/{lastName}", method = RequestMethod.GET)
+//    public Details getDetailsIdByLastName(@RequestParam String lastName) {
+//        Details details = detailsDao.getDetailsIdByLastName(lastName);
+//        if (details == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
+//        } else {
+//
+//            return detailsDao.getDetailsIdByLastName(lastName);
+//        }
+//
+//
+//    }
 
     @PostMapping("/details")
     public boolean createDetails(@Valid @RequestBody Details details, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam boolean isProvider, @RequestParam int titleId) {
