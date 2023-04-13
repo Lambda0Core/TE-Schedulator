@@ -4,16 +4,49 @@
       <div class="img" />
       <h3>
         Dr. {{ provider.firstName }} {{ provider.lastName }}
-      </h3>
+        </h3>
+        <h2>
+          Office Location 
+          {{office.name}}          
+        </h2>
+        <p>
+          {{office.name}}
+        </p>
     </div>
     
   </div>
 </template>
 
 <script>
+import officeService from "../services/OfficeService";
+
 export default {
   name: "provider-card",
   props: ["provider"],
+ data() {
+    return {
+      
+      office:{
+        office:'',
+      },
+      user:{
+        office: '',
+      },
+    };
+  },
+created() {
+      this.officeGetId(this.provider.office);
+    },
+methods:{
+  officeGetId(id) {
+      officeService.get(id).then((response) => {
+        console.log(response.data);
+        this.office = response.data;
+      });
+    },
+
+    
+}
 };
 </script>
 
