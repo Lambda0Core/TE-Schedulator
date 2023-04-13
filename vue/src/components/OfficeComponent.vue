@@ -6,14 +6,12 @@
       v-for="office in offices"
       v-bind:key="office.id"
     >
-      <router-link v-bind:to="{ name: 'office' }">
-        <h2>{{ office.name }}</h2>
-        <p class="full-address">
-          {{ office.address }} {{ office.cityName }} {{ office.stateAcronym }}
-        </p>
-        <p class="phone">{{ office.phoneNumber }}</p>
-        <div class="hours">{{ office.openTime }} to {{ office.closeTime }}</div>
-      </router-link>
+      <h2>{{ office.name }}</h2>
+      <p class="full-address">
+        {{ office.address }} {{ office.cityName }} {{ office.stateAcronym }}
+      </p>
+      <p class="phone">{{ office.phoneNumber }}</p>
+      <div class="hours">{{ office.openTime }} to {{ office.closeTime }}</div>
     </div>
   </div>
 </template>
@@ -23,16 +21,23 @@ import OfficeService from "../services/OfficeService";
 
 export default {
   name: "office-component",
-  
+
   data() {
     return {
       offices: [],
     };
   },
+  methods: {
+      list() {
+          OfficeService.list().then((response) => {
+              console.log(response.data);
+              this.offices = response.data;
+          })
+      }
+  },
   created() {
-    OfficeService.list().then((response) => {
-      this.offices = response.data;
-    });
+    this.list();
+    
   },
 };
 </script>
@@ -40,30 +45,17 @@ export default {
 <style scoped>
 .office-container {
   color: var(--primary800);
-    padding: 1rem 3rem;
-    width: auto;
-    height: 225px;
-    border: 3px var(--primary600) solid;
-    border-radius: 1rem;
-    box-shadow: 15px 15px var(--primary200);
+  padding: 1rem 3rem;
+  /* width: auto; */
+  max-width: 50%;
+  height: 225px;
+  border: 3px var(--primary600) solid;
+  border-radius: 1rem;
+  box-shadow: 15px 15px var(--primary200);
+  margin-bottom: 2rem;
 }
-.full-address {
-    display: flex;
-    align-items: center;
-    grid-gap: 0.5rem;
-    font-size: 1.25rem;
-    display: inline-block; 
+.office-container h2, .office-container .phone, .office-container .hours, .office-container .full-address  {
+    text-align: left;
 }
-.phone {
-    display: flex;
-    align-items: center;
-    grid-gap: 0.5rem;
-    font-size: 1.25rem;
-     
-}
-.hours {
-    margin: 0;
-    font-size: 1.5rem;
-    
-}
+
 </style>
