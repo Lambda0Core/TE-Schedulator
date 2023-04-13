@@ -23,41 +23,46 @@ export default new Vuex.Store({
     userType: 'patient',
     patientSidebarOptions: [
       {
+        title: "Home",
+        icon: "heart-pulse-solid.svg",
+        link: "/"
+      },
+      {
         title: "Appointments",
         icon: "calendar-regular.svg",
-        content: "patient-appointments"
+        link: "appointments"
       },
       {
         title: "Find a Provider",
         icon: "briefcase-medical-solid.svg",
-        content: "patient-providerlist"
+        link: "find-a-provider"
       },
       {
         title: "My Doctors",
         icon: "user-doctor-solid.svg",
-        content: "patient-mydoctors"
+        link: "my-doctors"
       }
     ],
     providerSidebarOptions: [
       {
         title: "Schedule",
         icon: "calendar-regular.svg",
-        content: "provider-calendar"
+        link: "provider-calendar"
       },
       {
         title: "Patients",
         icon: "heart-pulse-solid.svg",
-        content: "provider-mypatients"
+        link: "provider-mypatients"
       },
       {
         title: "Reviews",
         icon: "star-solid.svg",
-        content: "provider-reviews"
+        link: "provider-reviews"
       },
       {
         title: "Office",
         icon: "hospital-solid.svg",
-        content: "provider-office"
+        link: "provider-office"
       }
     ],
     content: ""

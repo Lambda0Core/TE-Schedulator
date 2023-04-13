@@ -1,8 +1,8 @@
 <template>
-  <div class="container" v-on:click="setContentPage()">
+  <router-link class="container" :to="element.link">
     <div class="img-container"><img :src="require(`../../public/icon/${element.icon}`)" alt="" /></div>
     <div class="text">{{ element.title }}</div>
-  </div>
+  </router-link>
 </template>
 
 <script>
