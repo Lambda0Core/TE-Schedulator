@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.DetailsDao;
 import com.techelevator.model.Details;
+import com.techelevator.model.Office;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -59,16 +60,15 @@ public class DetailsController {
         }
     }
 
-    @RequestMapping(path = "/provider/{officeId}", method = RequestMethod.GET)
-    public Provider getProviderByOfficeId(@RequestParam int id) {
-        Provider provider = providerDao.getProviderByOfficeId(id);
-        if (provider == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
-        } else {
-
-            return providerDao.getProviderById(id);
-        }
+    @RequestMapping(path = "/details/{officeId}", method = RequestMethod.GET)
+    public int getDetailsByOfficeId(@RequestParam int id) {
+    int detailsId = detailsDao.getDetailsByOfficeId(id);
+        if (detailsId <= 0) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Office not found");
+    } else {
+        return detailsDao.getDetailsByOfficeId(id);
     }
+}
 
 //    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
 //    public Provider getProviderByUserId(@RequestParam int id) {

@@ -1,8 +1,10 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Details;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -54,14 +56,13 @@ public class JdbcDetailsDao implements DetailsDao {
 
 
     @Override
-    public Details getDetailsByUserId(int userId) {
-        String sql = "SELECT * FROM details WHERE user_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        if (results.next()) {
-            return mapRowToProvider(results);
-        } else {
-            return null;
+    public int getDetailsByUserId(int userId) {
+        try {
+           userId = jdbcTemplate.queryForObject("SELECT * from details where user_id = ?;", int.class, userId);
+       } catch (EmptyResultDataAccessException e) {
+            throw new UsernameNotFoundException("That user could not be found");
         }
+            return userId;
     }
 
     @Override
@@ -95,6 +96,15 @@ public class JdbcDetailsDao implements DetailsDao {
         String insertCreateSql = "insert into details (user_id, first_name, last_name, is_provider, title_id) values (?, ?, ?, ?, ?)";
         return jdbcTemplate.update(insertCreateSql, userId, first_name, last_name, isProvider, titleId) == 1;
     }
+
+    @Override
+    public int getDetailsByOfficeId(int officeId) {
+        String sql = "SELECT DISTINCT details_id FROM office_users WHERE office_id = 1001;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
+        officeId = Integer.parseInt(results.toString());
+
+        return officeId;
+        }
 
     private Details mapRowToProvider(SqlRowSet rs) {
         Details details = new Details();

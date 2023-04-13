@@ -114,6 +114,8 @@ public class JdbcOfficeDao implements OfficeDao {
         }
     }
 
+
+
     private Office mapRowToOffice(SqlRowSet rs) {
         Office office = new Office();
         office.setId(rs.getInt("office_id"));
