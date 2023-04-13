@@ -49,26 +49,17 @@ public class DetailsController {
 //        }
 //    }
 
-<<<<<<< HEAD:java/src/main/java/com/techelevator/controller/ProviderController.java
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public Provider getProviderById(@PathVariable int id) {
-        Provider provider = providerDao.getProviderById(id);
-        if (provider == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
-=======
     @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
     public Details getDetailsById(@RequestParam int id) {
         Details details = detailsDao.getDetailsById(id);
         if (details == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
->>>>>>> 591f4b9c696065a1aafaa3d0cb72fe5666fabf95:java/src/main/java/com/techelevator/controller/DetailsController.java
         } else {
 
             return detailsDao.getDetailsById(id);
         }
     }
 
-<<<<<<< HEAD
     @RequestMapping(path = "/details/{officeId}", method = RequestMethod.GET)
     public int getDetailsByOfficeId(@RequestParam int id) {
     int detailsId = detailsDao.getDetailsByOfficeId(id);
@@ -76,17 +67,6 @@ public class DetailsController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Office not found");
     } else {
         return detailsDao.getDetailsByOfficeId(id);
-=======
-    @RequestMapping(path = "/providers/{officeId}", method = RequestMethod.GET)
-    public List<Provider>  getProviderByOfficeId(@PathVariable int officeId) {
-        List<Provider> providers =  providerDao.getProviderByOfficeId(officeId);
-        if (providers == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
-        } else {
-
-            return providers;
-        }
->>>>>>> 596b8cb67dfee8d1839eaf4d47506832fe549c1c
     }
 }
 
@@ -102,19 +82,11 @@ public class DetailsController {
 //    }
 
 
-<<<<<<< HEAD:java/src/main/java/com/techelevator/controller/ProviderController.java
-    @RequestMapping(path = "/provider/{lastName}", method = RequestMethod.GET)
-    public Provider getProviderIdByLastName(@PathVariable String lastName) {
-        Provider provider = providerDao.getProviderIdByLastName(lastName);
-        if (provider == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
-=======
     @RequestMapping(path = "/details/{lastName}", method = RequestMethod.GET)
     public Details getDetailsIdByLastName(@RequestParam String lastName) {
         Details details = detailsDao.getDetailsIdByLastName(lastName);
         if (details == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
->>>>>>> 591f4b9c696065a1aafaa3d0cb72fe5666fabf95:java/src/main/java/com/techelevator/controller/DetailsController.java
         } else {
 
             return detailsDao.getDetailsIdByLastName(lastName);
@@ -123,15 +95,9 @@ public class DetailsController {
 
     }
 
-<<<<<<< HEAD:java/src/main/java/com/techelevator/controller/ProviderController.java
-    @PostMapping("/provider")
-    public boolean createProvider(@Valid @RequestBody Provider provider, @PathVariable int officeId, @PathVariable int userId, @PathVariable String firstName, @PathVariable String lastName, @PathVariable int titleId) {
-        if (provider == null) {
-=======
     @PostMapping("/details")
     public boolean createDetails(@Valid @RequestBody Details details, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam boolean isProvider, @RequestParam int titleId) {
         if (details == null) {
->>>>>>> 591f4b9c696065a1aafaa3d0cb72fe5666fabf95:java/src/main/java/com/techelevator/controller/DetailsController.java
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "404 not found");
         }
 
