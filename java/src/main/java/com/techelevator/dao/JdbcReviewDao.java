@@ -54,7 +54,7 @@ public class JdbcReviewDao implements ReviewDao {
     }
 
     @Override
-    public List<Review> findAllByProviderId(int providerId) {
+    public List<Review> findAllByDetailsId(int providerId) {
         List<Review> reviews = new ArrayList<>();
         String sql = "select * from review where provider_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, providerId);
@@ -117,7 +117,7 @@ public class JdbcReviewDao implements ReviewDao {
     }
 
     @Override
-    public boolean create(String reviewTitle, String reviewContents, int providerId) {
+    public boolean create(String reviewTitle, String reviewContents, int detailsId) {
         /* How to create a review!
         You might notice it'll prompt you for four different properties in your create, what do I need you might ask!
         (1). You'll need to parse the subject and contents of the review into SEPARATE strings
@@ -128,8 +128,8 @@ public class JdbcReviewDao implements ReviewDao {
         v--------------------------------------------v
         Remove once principal is setup and working*/
      int temporary = 9001;
-     String sql = "insert into review (review_title, review_desc, user_id, provider_id) values (?, ?, ?, ?)";
-     return jdbcTemplate.update(sql, reviewTitle, reviewContents, temporary, providerId) == 1;
+     String sql = "insert into review (review_title, review_desc, user_id, details_id) values (?, ?, ?, ?)";
+     return jdbcTemplate.update(sql, reviewTitle, reviewContents, temporary, detailsId) == 1;
     }
 
 
@@ -141,7 +141,7 @@ public class JdbcReviewDao implements ReviewDao {
         review.setReviewTitle(rs.getString("review_title"));
         review.setReviewDesc(rs.getString("review_desc"));
         review.setUserId(rs.getInt("user_id"));
-        review.setProviderId(rs.getInt("provider_id"));
+        review.setDetailsId(rs.getInt("details_id"));
         return review;
     }
 

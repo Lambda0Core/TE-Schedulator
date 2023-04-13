@@ -2,27 +2,25 @@ package com.techelevator.model;
 
 import java.time.LocalDate;
 
-public class Provider {
+public class Details {
 
     private int id;
-    private int officeId;
     private int userId;
     private String firstName;
     private String lastName;
     private int titleId;
-    private LocalDate dateAvailability;
+    private boolean isProvider;
 
-    public Provider(int id, int officeId, int userId, String firstName, String lastName, int titleId, LocalDate dateAvailability) {
+    public Details(int id, int userId, String firstName, String lastName, int titleId, boolean isProvider) {
         this.id = id;
-        this.officeId = officeId;
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.titleId = titleId;
-        this.dateAvailability = dateAvailability;
+        this.isProvider = isProvider;
     }
 
-    public Provider() { }
+    public Details() { }
 
     public int getId() {
         return id;
@@ -30,14 +28,6 @@ public class Provider {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getOfficeId() {
-        return officeId;
-    }
-
-    public void setOfficeId(int officeId) {
-        this.officeId = officeId;
     }
 
     public int getUserId() {
@@ -72,11 +62,11 @@ public class Provider {
         this.titleId = titleId;
     }
 
-    public LocalDate getDateAvailability() {
-        return dateAvailability;
+    public boolean getIsProvider() {
+        return isProvider;
     }
 
-    public void setDateAvailability(LocalDate dateAvailability) {
-        this.dateAvailability = dateAvailability;
+    public void setIsProvider(boolean isProvider) {
+        this.isProvider = isProvider;
     }
 }

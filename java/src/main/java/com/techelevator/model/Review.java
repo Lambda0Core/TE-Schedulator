@@ -12,14 +12,14 @@ public class Review {
     private String reviewTitle;
     private String reviewDesc;
     private int userId;
-    private int providerId;
+    private int detailsId;
 
-    public Review(int reviewId, String reviewTitle, String reviewDesc, int userId, int providerId) {
+    public Review(int reviewId, String reviewTitle, String reviewDesc, int userId, int detailsId) {
         this.reviewId = reviewId;
         this.reviewTitle = reviewTitle;
         this.reviewDesc = reviewDesc;
         this.userId = userId;
-        this.providerId = providerId;
+        this.detailsId = detailsId;
     }
 
     public int getReviewId() {
@@ -54,12 +54,12 @@ public class Review {
         this.userId = userId;
     }
 
-    public int getProviderId() {
-        return providerId;
+    public int getDetailsId() {
+        return detailsId;
     }
 
-    public void setProviderId(int providerId) {
-        this.providerId = providerId;
+    public void setDetailsId(int detailsId) {
+        this.detailsId = detailsId;
     }
 
     public Review() { }

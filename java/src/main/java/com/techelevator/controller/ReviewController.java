@@ -33,7 +33,7 @@ public class ReviewController {
 
     @GetMapping("/provider/review/{id}")
     public Review[] getProviderReviews(@RequestParam int id) {
-        List<Review> review = reviewDao.findAllByProviderId(id);
+        List<Review> review = reviewDao.findAllByDetailsId(id);
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
         } else {

@@ -1,30 +1,27 @@
 package com.techelevator.controller;
 
-import com.techelevator.dao.ProviderDao;
-import com.techelevator.dao.ReviewDao;
-import com.techelevator.model.Provider;
-import com.techelevator.model.Review;
+import com.techelevator.dao.DetailsDao;
+import com.techelevator.model.Details;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin
-public class ProviderController {
+public class DetailsController {
 
-    ProviderDao providerDao;
+    DetailsDao detailsDao;
 
-    public ProviderController(ProviderDao providerDao) {
-        this.providerDao = providerDao;
+    public DetailsController(DetailsDao detailsDao) {
+        this.detailsDao = detailsDao;
     }
 
-    @RequestMapping(path = "/provider", method = RequestMethod.GET)
-    public List<Provider> findAllProviders() {
-        return providerDao.findAllProviders();
+    @RequestMapping(path = "/details", method = RequestMethod.GET)
+    public List<Details> findAllDetails() {
+        return detailsDao.findAllDetails();
     }
 
 //    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
@@ -51,14 +48,14 @@ public class ProviderController {
 //        }
 //    }
 
-    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public Provider getProviderById(@RequestParam int id) {
-        Provider provider = providerDao.getProviderById(id);
-        if (provider == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
+    @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
+    public Details getDetailsById(@RequestParam int id) {
+        Details details = detailsDao.getDetailsById(id);
+        if (details == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
         } else {
 
-            return providerDao.getProviderById(id);
+            return detailsDao.getDetailsById(id);
         }
     }
 
@@ -74,26 +71,26 @@ public class ProviderController {
 //    }
 
 
-    @RequestMapping(path = "/provider/{lastName}", method = RequestMethod.GET)
-    public Provider getProviderIdByLastName(@RequestParam String lastName) {
-        Provider provider = providerDao.getProviderIdByLastName(lastName);
-        if (provider == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
+    @RequestMapping(path = "/details/{lastName}", method = RequestMethod.GET)
+    public Details getDetailsIdByLastName(@RequestParam String lastName) {
+        Details details = detailsDao.getDetailsIdByLastName(lastName);
+        if (details == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
         } else {
 
-            return providerDao.getProviderIdByLastName(lastName);
+            return detailsDao.getDetailsIdByLastName(lastName);
         }
 
 
     }
 
-    @PostMapping("/provider")
-    public boolean createProvider(@Valid @RequestBody Provider provider, @RequestParam int officeId, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam int titleId) {
-        if (provider == null) {
+    @PostMapping("/details")
+    public boolean createDetails(@Valid @RequestBody Details details, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam boolean isProvider, @RequestParam int titleId) {
+        if (details == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "404 not found");
         }
 
-        return providerDao.create(officeId, userId, firstName, lastName, titleId);
+        return detailsDao.create(userId, firstName, lastName, isProvider, titleId);
     }
 
 
