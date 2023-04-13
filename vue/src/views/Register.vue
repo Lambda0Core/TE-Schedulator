@@ -83,7 +83,7 @@ export default {
         lastname: "",
         confirmPassword: "",
         role: "user",
-        titlename: "",
+        title: "",
         office: "",
       },
       offices: [],
