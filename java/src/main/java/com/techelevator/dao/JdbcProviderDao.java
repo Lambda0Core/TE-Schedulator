@@ -41,7 +41,19 @@ public class JdbcProviderDao implements ProviderDao {
             return null;
         }
     }
-
+    @Override
+    public Provider getProviderByOfficeId(int officeId) {
+        String sql = "select *\n" +
+                "from provider\n" +
+                "join office on provider.office_id = office.office_id\n" +
+                "where office_id =?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
+        if (results.next()) {
+            return mapRowToProvider(results);
+        } else {
+            return null;
+        }
+    }
 
     @Override
     public Provider getProviderIdByLastName(String lastName) {

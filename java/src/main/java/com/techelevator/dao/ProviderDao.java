@@ -10,6 +10,8 @@ public interface ProviderDao {
 
     Provider getProviderById(int providerId);
 
+    Provider getProviderByOfficeId(int officeId);
+
     Provider getProviderByUserId(int userId);
 
     Provider getProviderIdByLastName(String lastName);
