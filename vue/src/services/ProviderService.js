@@ -7,7 +7,7 @@ export default {
   },
 
   get(id) {
-    return axios.get(`/provider/${id}`);
+    return axios.get(`/providers/${id}`);
   },
 
 

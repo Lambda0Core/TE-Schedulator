@@ -10,7 +10,7 @@ public interface ProviderDao {
 
     Provider getProviderById(int providerId);
 
-    Provider getProviderByOfficeId(int officeId);
+    List<Provider>  getProviderByOfficeId(int officeId);
 
     Provider getProviderByUserId(int userId);
 

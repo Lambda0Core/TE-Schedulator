@@ -1,32 +1,33 @@
 <template>
-<div><h1>Local Providers</h1>
- 
+  <div>
+    <h1>Local Providers</h1>
+
     <!-- v-for that lists ProviderListElements -->
     <div>
-          <label for="office">Select Office Location</label>
-          <select id="office" v-model="user.office">
-            <option value="">All Offices</option>
-            <option
-              v-for="office in offices"
-              :key="office.id"
-              :value="office.id"            >
-              {{ office.name }}
-            </option>
-          </select>
-        </div>
+      <label for="office">Select Office Location</label>
+      <select id="office" v-model.number="officeid" v-on:change = "getProviders()">
+        <option value="">All Offices</option>
+        <option
+        
+          v-for="office in offices"
+          :key="office.id"
+          :value="office.id"
+        >
+          {{ office.name }}
+        </option>
+      </select>
+    </div>
     <div class="list">
       <div v-for="provider in providers" :key="provider.id">
         <provider-card :provider="provider" />
-        <!-- //todo add search bar -->       
+        <!-- //todo add search bar -->
       </div>
-      
     </div>
   </div>
-  
 </template>
 
 <script>
-import ProviderService from "../services/ProviderService.js";
+import providerService from "../services/ProviderService";
 import ProviderCard from "./ProviderCard.vue";
 import officeService from "../services/OfficeService";
 
@@ -40,26 +41,30 @@ export default {
     return {
       providers: [],
       offices: [],
-      user:{
-        office: '',
+      officeid: 0,
+      providersByOffice: [],
+      user: {
+        office: "",
       },
     };
   },
-computed: {
+  computed: {
     filteredProviders() {
-      if (this.user.office) {
-        return this.providers.filter(
-          (provider) => provider.officeId === this.user.office
-        );
-      } else {
-        return this.providers;
-      }
+      // if (this.user.office) {
+      //   return this.providers.filter(
+      //     (provider) => provider.officeId === this.officeid
+      //   );
+      // } else {
+      //   return this.providers;
+      // }
+
+      return this.getProviders();
     },
   },
 
   methods: {
     getProviders() {
-      ProviderService.list().then((response) => {
+      providerService.get(this.officeid).then((response) => {
         console.log(response.data);
         this.providers = response.data;
       });
@@ -72,7 +77,6 @@ computed: {
     },
   },
   created() {
-    this.getProviders();
     this.officeList();
   },
 };

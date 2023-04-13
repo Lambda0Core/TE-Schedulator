@@ -42,17 +42,16 @@ public class JdbcProviderDao implements ProviderDao {
         }
     }
     @Override
-    public Provider getProviderByOfficeId(int officeId) {
+    public List<Provider> getProviderByOfficeId(int officeId) {
+        List<Provider> providers = new ArrayList<>();
         String sql = "select *\n" +
                 "from provider\n" +
                 "join office on provider.office_id = office.office_id\n" +
-                "where office_id =?";
+                "where office.office_id =?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
-        if (results.next()) {
-            return mapRowToProvider(results);
-        } else {
-            return null;
-        }
+        while (results.next()) {
+            providers.add(mapRowToProvider(results));
+        } return providers;
     }
 
     @Override

@@ -52,7 +52,7 @@ public class ProviderController {
 //    }
 
     @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-    public Provider getProviderById(@RequestParam int id) {
+    public Provider getProviderById(@PathVariable int id) {
         Provider provider = providerDao.getProviderById(id);
         if (provider == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
@@ -62,14 +62,14 @@ public class ProviderController {
         }
     }
 
-    @RequestMapping(path = "/provider/{officeId}", method = RequestMethod.GET)
-    public Provider getProviderByOfficeId(@RequestParam int id) {
-        Provider provider = providerDao.getProviderByOfficeId(id);
-        if (provider == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
+    @RequestMapping(path = "/providers/{officeId}", method = RequestMethod.GET)
+    public List<Provider>  getProviderByOfficeId(@PathVariable int officeId) {
+        List<Provider> providers =  providerDao.getProviderByOfficeId(officeId);
+        if (providers == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
         } else {
 
-            return providerDao.getProviderById(id);
+            return providers;
         }
     }
 
@@ -86,7 +86,7 @@ public class ProviderController {
 
 
     @RequestMapping(path = "/provider/{lastName}", method = RequestMethod.GET)
-    public Provider getProviderIdByLastName(@RequestParam String lastName) {
+    public Provider getProviderIdByLastName(@PathVariable String lastName) {
         Provider provider = providerDao.getProviderIdByLastName(lastName);
         if (provider == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
@@ -99,7 +99,7 @@ public class ProviderController {
     }
 
     @PostMapping("/provider")
-    public boolean createProvider(@Valid @RequestBody Provider provider, @RequestParam int officeId, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam int titleId) {
+    public boolean createProvider(@Valid @RequestBody Provider provider, @PathVariable int officeId, @PathVariable int userId, @PathVariable String firstName, @PathVariable String lastName, @PathVariable int titleId) {
         if (provider == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "404 not found");
         }
