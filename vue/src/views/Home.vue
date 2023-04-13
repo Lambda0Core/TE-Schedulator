@@ -34,8 +34,6 @@ export default {
 
 <style>
 .layout {
-  display: grid;
-  grid-template-columns: minmax(20vw, 300px) 1fr;
   height: 100%;
   width: 100%;
 }
