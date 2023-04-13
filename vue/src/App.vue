@@ -3,7 +3,9 @@
     <logo-header />
     <main :class="displayClass">
       <sidebar v-if="this.$route.meta.showSidebar" :sidebarOptions="options" />
-      <router-view />
+      <div class="contentLayout">
+        <router-view />
+      </div>
     </main>
   </div>
 </template>
@@ -36,6 +38,9 @@ export default {
 <style>
 body {
   margin: 0;
+}
+.contentLayout {
+  padding: 2rem;
 }
 main {
   display: grid;

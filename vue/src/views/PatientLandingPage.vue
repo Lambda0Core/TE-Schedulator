@@ -1,27 +1,17 @@
 <template>
-  <div class="layout">
-    <div>
-      <apt-list v-if="this.$store.state.content=='patient-appointments'" />
-    </div>   
-    <div>
-      
-      <provider-list  v-if="this.$store.state.content=='patient-providerlist'" />
-    </div>   
-  </div>
+      <apt-list />
 </template>
 
 <script>
 import AptList from '../components/AptList.vue';
-import ProviderList from '../components/ProviderList.vue';
 
 
 export default {
-  name: "PatientPage",
+  name: "PatientHome",
 
 
   components: {
     AptList,
-    ProviderList
   },
 
 };
@@ -29,10 +19,4 @@ export default {
 
 
 <style scoped>
-.layout {
-  
-  grid-template-columns: fit-content 1fr;
-  height: 100%;
-  width: 100%;
-}
 </style>

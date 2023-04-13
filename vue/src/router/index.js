@@ -6,6 +6,8 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import Office from '../views/Office.vue'
+import Provider from '../views/FindAProvider.vue'
+import Appointments from '../views/PatientAppointments.vue'
 import NotFoundComponent from '../components/NotFoundComponent.vue'
 
 Vue.use(Router)
@@ -60,6 +62,30 @@ const router = new Router({
       }
     },
     {
+      path: "*",
+      name: "not-found-component",
+      component: NotFoundComponent,
+      
+    },
+    {
+      path: "/appointments",
+      name: "appointments",
+      component: Appointments,
+      meta: {
+        requiresAuth: false,
+        showSidebar: true
+      }
+    },
+    {
+      path: "/find-a-provider",
+      name: "find-a-provider",
+      component: Provider,
+      meta: {
+        requiresAuth: false,
+        showSidebar: true
+      }
+    },
+    {
       path: "/office",
       name: "office",
       component: Office,
@@ -67,12 +93,6 @@ const router = new Router({
         requiresAuth: false,
         showSidebar: true
       }
-    },
-    {
-      path: "*",
-      name: "not-found-component",
-      component: NotFoundComponent,
-      
     }
   ]  
 })
