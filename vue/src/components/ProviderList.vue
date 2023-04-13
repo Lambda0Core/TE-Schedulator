@@ -1,17 +1,33 @@
 <template>
-  <div class="list">
+<div><h1>Local Providers</h1>
+ 
     <!-- v-for that lists ProviderListElements -->
-    <h1>Local Providers</h1>
-    Test
-     <div v-for="provider in providers" :key="provider.id">
-    <provider-card :provider="provider" />
-     </div>
+    <div>
+          <label for="office">Select Office Location</label>
+          <select id="office" v-model="user.office">
+            <option
+              v-for="office in offices"
+              :key="office.id"
+              :value="office.id"            >
+              {{ office.name }}
+            </option>
+          </select>
+        </div>
+    <div class="list">
+      <div v-for="provider in providers" :key="provider.id">
+        <provider-card :provider="provider" />
+        <!-- //todo add search bar -->       
+      </div>
+      
+    </div>
   </div>
+  
 </template>
 
 <script>
 import ProviderService from "../services/ProviderService.js";
 import ProviderCard from "./ProviderCard.vue";
+import officeService from "../services/OfficeService";
 
 export default {
   name: "ProviderList",
@@ -22,19 +38,29 @@ export default {
   data() {
     return {
       providers: [],
+      offices: [],
+      user:{
+        office: '',
+      },
     };
   },
   methods: {
     getProviders() {
-      ProviderService.list()
-      .then((response)=>{
+      ProviderService.list().then((response) => {
         console.log(response.data);
         this.providers = response.data;
+      });
+    },
+    officeList() {
+      officeService.list().then((response) => {
+        console.log(response.data);
+        this.offices = response.data;
       });
     },
   },
   created() {
     this.getProviders();
+    this.officeList();
   },
 };
 </script>
@@ -58,5 +84,20 @@ h1 {
   grid-template-rows: 1fr;
   height: fit-content;
   grid-gap: 3rem;
+}
+label {
+  margin-left: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+  font-size: 20px;
+  color: var(--primary800);
+  font: bold;
+}
+select {
+  margin-left: 3rem;
+  justify-content: center;
+  width: 10rem;
+  height: 2rem;
+  font-size: 16px;
 }
 </style>

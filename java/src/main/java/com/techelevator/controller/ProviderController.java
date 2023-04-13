@@ -62,6 +62,17 @@ public class ProviderController {
         }
     }
 
+    @RequestMapping(path = "/provider/{officeId}", method = RequestMethod.GET)
+    public Provider getProviderByOfficeId(@RequestParam int id) {
+        Provider provider = providerDao.getProviderByOfficeId(id);
+        if (provider == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider not found");
+        } else {
+
+            return providerDao.getProviderById(id);
+        }
+    }
+
 //    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
 //    public Provider getProviderByUserId(@RequestParam int id) {
 //        Provider provider = providerDao.getProviderByUserId(id);

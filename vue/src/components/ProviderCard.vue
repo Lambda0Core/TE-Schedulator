@@ -3,7 +3,7 @@
     <div class="identity">
       <div class="img" />
       <h3>
-        Dr. {{ provider.providerFirstName }} {{ provider.providerLastName }}
+        Dr. {{ provider.firstName }} {{ provider.lastName }}
       </h3>
     </div>
     

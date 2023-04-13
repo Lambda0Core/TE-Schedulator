@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 .layout {
-  display: grid;
+  
   grid-template-columns: fit-content 1fr;
   height: 100%;
   width: 100%;
