@@ -16,6 +16,11 @@ public class RegisterUserDto {
     @NotEmpty
     private String confirmPassword;
     @NotEmpty(message = "Please select a role for this user.")
+    private String firstName;
+    private String lastName;
+    private String title;
+    private int officeId;
+    private int titleId;
     private String role;
 
     public String getUsername() {
@@ -48,5 +53,45 @@ public class RegisterUserDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
+    }
+
+    public int getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(int titleId) {
+        this.titleId = titleId;
     }
 }

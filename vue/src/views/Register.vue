@@ -39,10 +39,10 @@
       <div id="selectBox">
         <label for="userType">User Type</label>
         <select id="userType" v-model="user.title">
-          <option value="patient">Patient</option>
-          <option value="doctor">Doctor</option>
+          <option value="Patient">Patient</option>
+          <option value="Provider">Provider</option>
         </select>
-        <div v-if="user.title === 'doctor'">
+        <div v-if="user.title === 'Provider'">
           <label for="office">Office</label>
           <select id="office" v-model="user.office">
             <option
@@ -84,7 +84,7 @@ export default {
         confirmPassword: "",
         role: "user",
         title: "",
-        office: "",
+        officeId: 1000,
       },
       offices: [],
       registrationErrors: false,
