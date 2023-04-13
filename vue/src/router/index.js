@@ -6,6 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import Office from '../views/Office.vue'
+import NotFoundComponent from '../components/NotFoundComponent.vue'
 
 Vue.use(Router)
 
@@ -66,6 +67,12 @@ const router = new Router({
         requiresAuth: false,
         showSidebar: true
       }
+    },
+    {
+      path: "*",
+      name: "not-found-component",
+      component: NotFoundComponent,
+      
     }
   ]  
 })
