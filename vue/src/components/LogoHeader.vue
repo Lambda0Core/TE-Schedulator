@@ -22,10 +22,12 @@ export default {
     display: flex;
     align-items: center;
     border-bottom: var(--primary400) 0.5rem solid;
-    padding-bottom: 1rem;
+    padding-bottom: 0.25rem;
 }
 .logo{
-  height: 150px;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  height: 110px;
 }
 .name{
   height: 100px;

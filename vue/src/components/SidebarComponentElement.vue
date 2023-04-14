@@ -18,7 +18,6 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 .container {
   cursor: pointer;
@@ -30,8 +29,7 @@ export default {
 }
 .text {
   display: inline-block;
-  font-family: 'Open Sans', sans-serif;
-  color: var(--primary200);
+  color: var(--neutral200);
   font-size: 1.7rem;
   margin: 0.5rem 0.5rem;
 }
