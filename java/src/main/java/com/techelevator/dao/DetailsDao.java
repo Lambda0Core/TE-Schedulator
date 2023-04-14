@@ -10,9 +10,7 @@ public interface DetailsDao {
 
     Details getDetailsById(int detailsId);
 
-
-    //Broken, will be fixed momentarily!
-    int getDetailsByOfficeId(int officeId);
+    Details getDetailsByOfficeId(int officeId);
 
     Details getDetailsByUserId(int userId);
 

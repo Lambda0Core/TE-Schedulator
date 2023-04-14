@@ -1,8 +1,10 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Details;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class JdbcDetailsDao implements DetailsDao {
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
-            Details detail = mapRowToDetails(results);
+            Details detail = mapRowToProvider(results);
             details.add(detail);
         }
         return details;
@@ -34,7 +36,7 @@ public class JdbcDetailsDao implements DetailsDao {
         String sql = "SELECT * FROM details WHERE details_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
         if (results.next()) {
-            return mapRowToDetails(results);
+            return mapRowToProvider(results);
         } else {
             return null;
         }
@@ -46,7 +48,7 @@ public class JdbcDetailsDao implements DetailsDao {
         String sql = "SELECT details_id FROM details WHERE last_name = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lastName);
         if (results.next()) {
-            return mapRowToDetails(results);
+            return mapRowToProvider(results);
         } else {
             return null;
         }
@@ -55,7 +57,6 @@ public class JdbcDetailsDao implements DetailsDao {
 
     @Override
     public Details getDetailsByUserId(int userId) {
-<<<<<<< HEAD
         String sql = "SELECT * from details where user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         if (results.next()) {
@@ -71,12 +72,6 @@ public class JdbcDetailsDao implements DetailsDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
         if (results.next()) {
             return mapRowToProvider(results);
-=======
-        String sql = "SELECT * FROM details WHERE user_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        if (results.next()) {
-            return mapRowToDetails(results);
->>>>>>> eefb8fd660af9a86eb09d7abc55c6eed17e94971
         } else {
             return null;
         }
@@ -88,7 +83,7 @@ public class JdbcDetailsDao implements DetailsDao {
         String sql = "select * from details where user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
-            Details detail = mapRowToDetails(results);
+            Details detail = mapRowToProvider(results);
             details.add(detail);
         }
 
@@ -101,7 +96,7 @@ public class JdbcDetailsDao implements DetailsDao {
         String sql = "select * from details where details_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
         while (results.next()) {
-            Details detail = mapRowToDetails(results);
+            Details detail = mapRowToProvider(results);
             detailList.add(detail);
         }
 
@@ -115,15 +110,17 @@ public class JdbcDetailsDao implements DetailsDao {
     }
 
     @Override
-    public int getDetailsByOfficeId(int officeId) {
-        String sql = "SELECT DISTINCT details_id FROM office_users WHERE office_id = 1001;";
+    public Details getDetailsByOfficeId(int officeId) {
+        String sql = "SELECT DISTINCT details_id FROM office_users WHERE office_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
-        officeId = Integer.parseInt(results.toString());
-
-        return officeId;
+        if (results.next()) {
+            return mapRowToProvider(results);
+        } else {
+            return null;
         }
+    }
 
-    private Details mapRowToDetails(SqlRowSet rs) {
+    private Details mapRowToProvider(SqlRowSet rs) {
         Details details = new Details();
         details.setId(rs.getInt("details_id"));
         details.setUserId(rs.getInt("user_id"));
