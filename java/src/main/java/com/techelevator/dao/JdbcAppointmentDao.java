@@ -24,21 +24,15 @@ public class JdbcAppointmentDao implements AppointmentDao {
     public List<Appointment> findAllAppointments() {
         List<Appointment> appointments= new ArrayList<>();
         String sql =
-                "SELECT\n" +
-                "a.apt_id,\n" +
-                "a.apt_name,\n" +
-                "a.apt_status,\n" +
-                "a.apt_agenda,\n" +
-                "a.apt_date,\n" +
-                "a.user_id,\n" +
-                "a.provider_id,\n" +
-                "pr.first_name AS provider_last_name,\n" +
-                "pr.last_name AS provider_first_name,\n" +
-                "pa.first_name AS patient_last_name,\n" +
-                "pa.last_name AS patient_first_name\n" +
-                "FROM appointment a\n" +
-                "JOIN provider pr ON pr.provider_id = a.provider_id\n" +
-                "JOIN patient pa ON pa.user_id = a.user_id;";
+                "select \n" +
+                        "apt.apt_id, \n" +
+                        "apt.apt_name, \n" +
+                        "apt.apt_status, \n" +
+                        "apt.apt_agenda, \n" +
+                        "apt.apt_date, \n" +
+                        "apt.user_id as patient_user_id, \n" +
+                        "apt.details_id as provider_details_id\n" +
+                        "from appointment apt";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -51,22 +45,16 @@ public class JdbcAppointmentDao implements AppointmentDao {
     @Override
     public Appointment getAppointmentByAptId(int aptId) {
         String sql =
-                "SELECT\n" +
-                "a.apt_id,\n" +
-                "a.apt_name,\n" +
-                "a.apt_status,\n" +
-                "a.apt_agenda,\n" +
-                "a.apt_date,\n" +
-                "a.user_id,\n" +
-                "a.provider_id,\n" +
-                "pr.first_name AS provider_first_name,\n" +
-                "pr.last_name AS provider_last_name,\n" +
-                "pa.first_name AS patient_first_name,\n" +
-                "pa.last_name AS patient_last_name\n" +
-                "FROM appointment a\n" +
-                "JOIN provider pr ON pr.provider_id = a.provider_id\n" +
-                "JOIN patient pa ON pa.user_id = a.user_id\n" +
-                "WHERE a.apt_id = ?";
+                "select \n" +
+                        "apt.apt_id, \n" +
+                        "apt.apt_name, \n" +
+                        "apt.apt_status, \n" +
+                        "apt.apt_agenda, \n" +
+                        "apt.apt_date, \n" +
+                        "apt.user_id as patient_user_id, \n" +
+                        "apt.details_id as provider_details_id\n" +
+                        "from appointment apt\n" +
+                        "where apt.apt_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, aptId);
         if (results.next()) {
             return mapRowToAppointment(results);
@@ -75,26 +63,47 @@ public class JdbcAppointmentDao implements AppointmentDao {
         }
     }
 
+
+//    @Override
+//    public List<Appointment> findAllAppointmentsByProviderDetailsId(int userId) {
+//        List<Appointment> appointments = new ArrayList<>();
+//        String sql =
+//                "select \n" +
+//                "apt.apt_id, \n" +
+//                "apt.apt_name, \n" +
+//                "apt.apt_status, \n" +
+//                "apt.apt_agenda, \n" +
+//                "apt.apt_date, \n" +
+//                "apt.user_id as patient_user_id, \n" +
+//                "apt.details_id as provider_details_id\n" +
+//                "from appointment apt\n" +
+//                "JOIN details pat on pat.details_id = apt.details_id\n" +
+//                "WHERE is_provider = true\n" +
+//                "AND apt.details_id = ?";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+//        while (results.next()) {
+//            Appointment appointment = mapRowToAppointment(results);
+//            appointments.add(appointment);
+//        }
+//        return appointments;
+//    }
+
     @Override
-    public List<Appointment> getAppointmentsByUserId(int userId) {
+    public List<Appointment> findAllAppointmentsByPatientUserId(int userId) {
         List<Appointment> appointments = new ArrayList<>();
         String sql =
-                "SELECT\n" +
-                "a.apt_id,\n" +
-                "a.apt_name,\n" +
-                "a.apt_status,\n" +
-                "a.apt_agenda,\n" +
-                "a.apt_date,\n" +
-                "a.user_id,\n" +
-                "a.provider_id,\n" +
-                "pr.first_name AS provider_first_name,\n" +
-                "pr.last_name AS provider_last_name,\n" +
-                "pa.first_name AS patient_first_name,\n" +
-                "pa.last_name AS patient_last_name\n" +
-                "FROM appointment a\n" +
-                "JOIN provider pr ON pr.provider_id = a.provider_id\n" +
-                "JOIN patient pa ON pa.user_id = a.user_id\n" +
-                "WHERE a.user_id = ?";
+                "select \n" +
+                        "apt.apt_id, \n" +
+                        "apt.apt_name, \n" +
+                        "apt.apt_status, \n" +
+                        "apt.apt_agenda, \n" +
+                        "apt.apt_date, \n" +
+                        "apt.user_id as patient_user_id, \n" +
+                        "apt.details_id as provider_details_id\n" +
+                        "from appointment apt\n" +
+                        "JOIN details pat on pat.details_id = apt.details_id\n" +
+                        "WHERE is_provider = true\n" +
+                        "AND apt.details_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
             Appointment appointment = mapRowToAppointment(results);
@@ -104,26 +113,45 @@ public class JdbcAppointmentDao implements AppointmentDao {
     }
 
     @Override
-    public List <Appointment> findAllAppointmentsByProviderId(int providerId) {
+    public List<Appointment> findAllAppointmentsByProviderDetailsId(int providerId) {
         List<Appointment> appointments = new ArrayList<>();
         String sql =
-                "SELECT\n" +
-                "a.apt_id,\n" +
-                "a.apt_name,\n" +
-                "a.apt_status,\n" +
-                "a.apt_agenda,\n" +
-                "a.apt_date,\n" +
-                "a.user_id,\n" +
-                "a.provider_id,\n" +
-                "pr.first_name AS provider_first_name,\n" +
-                "pr.last_name AS provider_last_name,\n" +
-                "pa.first_name AS patient_first_name,\n" +
-                "pa.last_name AS patient_last_name\n" +
-                "FROM appointment a\n" +
-                "JOIN provider pr ON pr.provider_id = a.provider_id\n" +
-                "JOIN patient pa ON pa.user_id = a.user_id\n" +
-                "WHERE a.provider_id = ?";;
+                "select \n" +
+                        "apt.apt_id, \n" +
+                        "apt.apt_name, \n" +
+                        "apt.apt_status, \n" +
+                        "apt.apt_agenda, \n" +
+                        "apt.apt_date, \n" +
+                        "apt.user_id as patient_user_id, \n" +
+                        "apt.details_id as provider_details_id\n" +
+                        "from appointment apt\n" +
+                        "JOIN details pat on pat.details_id = apt.details_id\n" +
+                        "WHERE apt.details_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, providerId);
+        while (results.next()) {
+            Appointment appointment = mapRowToAppointment(results);
+            appointments.add(appointment);
+        }
+        return appointments;
+    }
+
+    @Override
+    public List<Appointment> findAllAppointmentsBothIds(int userId,int providerId) {
+        List<Appointment> appointments = new ArrayList<>();
+        String sql =
+                "select \n" +
+                        "apt.apt_id, \n" +
+                        "apt.apt_name, \n" +
+                        "apt.apt_status, \n" +
+                        "apt.apt_agenda, \n" +
+                        "apt.apt_date, \n" +
+                        "apt.user_id as patient_user_id, \n" +
+                        "apt.details_id as provider_details_id\n" +
+                        "from appointment apt\n" +
+                        "JOIN details pat on pat.details_id = apt.details_id\n" +
+                        "WHERE apt.user_id = ?\n" +
+                        "AND apt.details_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, providerId);
         while (results.next()) {
             Appointment appointment = mapRowToAppointment(results);
             appointments.add(appointment);
@@ -149,11 +177,11 @@ public class JdbcAppointmentDao implements AppointmentDao {
 
         try {
             String sql = "INSERT INTO public.appointment(\n" +
-                    "\tapt_name, apt_status, apt_agenda, apt_date, user_id, provider_id)\n" +
+                    "\tapt_name, apt_status, apt_agenda, apt_date, user_id, details_id)\n" +
                     "\tVALUES ( ?, ?, ?, ?, ?, ?);";
             jdbcTemplate.queryForObject(sql, Integer.class, appointment.getName(), appointment.getStatus(),
                     appointment.getAgenda(), appointment.getDate(),
-                    appointment.getUserId(), appointment.getProviderId());
+                    appointment.getUserId(), appointment.getDetailsId());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -171,7 +199,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
             jdbcTemplate.update(sql, appointment.getId(), appointment.getName(),
                     appointment.getStatus(), appointment.getDate(),
                     appointment.getAgenda(), appointment.getDate(),
-                    appointment.getUserId(), appointment.getProviderId());
+                    appointment.getUserId(), appointment.getDetailsId());
 
 
         } catch (Exception e) {
@@ -201,11 +229,8 @@ public class JdbcAppointmentDao implements AppointmentDao {
         appointment.setAgenda(rs.getString("apt_agenda"));
         appointment.setDate(rs.getDate("apt_date").toLocalDate());
         appointment.setUserId(rs.getInt("user_id"));
-        appointment.setProviderId(rs.getInt("provider_id"));
-        appointment.setProviderFirstName(rs.getString("provider_first_name"));
-        appointment.setProviderLastName(rs.getString("provider_last_name"));
-        appointment.setPatientFirstName(rs.getString("patient_first_name"));
-        appointment.setPatientLastName(rs.getString("patient_last_name"));
+        appointment.setProviderId(rs.getInt("details_id"));
+        appointment.setProviderFirstName(rs.getString("full_name"));
         return appointment;
     }
 }

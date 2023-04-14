@@ -29,9 +29,10 @@ public class AppointmentController {
         }
     }
 
-    @GetMapping("patient/appointment/{id}")
-    public Appointment[] getPatientAppointments(@PathVariable int id) {
-        List<Appointment> appointment = appointmentDao.getAppointmentsByUserId(id);
+
+    @GetMapping("users/appointment/{id}")
+    public Appointment[] findAllPatientAppointments(@PathVariable int id) {
+        List<Appointment> appointment = appointmentDao.findAllAppointmentsByPatientUserId(id);
         if (appointment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
         } else {
@@ -40,14 +41,14 @@ public class AppointmentController {
         }
     }
 
-    @GetMapping("provider/appointment/{id}")
-    public Appointment[] getProviderAppointments(@PathVariable int id) {
-        Appointment appointment = (Appointment) appointmentDao.findAllAppointmentsByProviderId(id);
+    @GetMapping("details/appointment/{id}")
+    public Appointment[] findAllProviderAppointments(@PathVariable int id) {
+        Appointment appointment = (Appointment) appointmentDao.findAllAppointmentsByProviderDetailsId(id);
         if (appointment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
         } else {
 
-            return new Appointment[]{(Appointment) appointmentDao.findAllAppointmentsByProviderId(id)};
+            return new Appointment[]{(Appointment) appointmentDao.findAllAppointmentsByProviderDetailsId(id)};
         }
     }
 

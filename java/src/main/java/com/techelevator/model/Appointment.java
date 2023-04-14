@@ -11,7 +11,7 @@ public class Appointment {
     private String agenda;
     private LocalDate date;
     private int userId;
-    private int providerId;
+    private int detailsId;
     private String patientFirstName;
     private String patientLastName;
     private String providerFirstName;
@@ -20,7 +20,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(int id, String name, String status, String agenda, LocalDate date, int userId, int providerId,
+    public Appointment(int id, String name, String status, String agenda, LocalDate date, int userId, int detailsId,
                        String patientFirstName, String patientLastName, String providerFirstName, String providerLastName) {
         this.id = id;
         this.name = name;
@@ -28,7 +28,7 @@ public class Appointment {
         this.agenda = agenda;
         this.date = date;
         this.userId = userId;
-        this.providerId = providerId;
+        this.detailsId = detailsId;
         this.patientFirstName = patientFirstName;
         this.patientLastName = patientLastName;
         this.providerFirstName = providerFirstName;
@@ -83,12 +83,12 @@ public class Appointment {
         this.userId = userId;
     }
 
-    public int getProviderId() {
-        return providerId;
+    public int getDetailsId() {
+        return detailsId;
     }
 
-    public void setProviderId(int providerId) {
-        this.providerId = providerId;
+    public void setProviderId(int detailsId) {
+        this.detailsId = detailsId;
     }
 
     public String getPatientFirstName() {

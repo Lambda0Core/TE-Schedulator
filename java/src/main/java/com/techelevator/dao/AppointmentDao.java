@@ -10,9 +10,11 @@ public interface AppointmentDao {
 
     Appointment getAppointmentByAptId(int aptId);
 
-    List<Appointment> getAppointmentsByUserId(int userId);
+    List<Appointment> findAllAppointmentsByPatientUserId(int userId);
 
-    List<Appointment> findAllAppointmentsByProviderId(int providerId);
+    List<Appointment> findAllAppointmentsByProviderDetailsId(int providerId);
+
+    List<Appointment> findAllAppointmentsBothIds(int userId,int providerId);
 
     int findIdByAptName(String aptName);
 
