@@ -86,7 +86,7 @@ public class JdbcOfficeDao implements OfficeDao {
             System.out.println(e.getMessage());}
 
     }
-//TODO add new method or change current update to update office by details id
+
     @Override
     public void update(Office office) {
         try {
@@ -114,6 +114,20 @@ public class JdbcOfficeDao implements OfficeDao {
         }
     }
 
+    @Override
+    public Office getOfficeByDetailsId(int detailsId) {
+        String sql = "SELECT o.office_id, o.office_name, o.office_address, o.office_city_name, o.office_state_acronym, o.office_phone_number, o.office_open_time, o.office_close_time\n" +
+                "FROM office o\n" +
+                "JOIN office_users ou ON o.office_id = ou.office_id\n" +
+                "JOIN details d ON ou.details_id = d.details_id\n" +
+                "WHERE d.details_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
+        if (results.next()) {
+            return mapRowToOffice(results);
+        } else {
+            return null;
+        }
+    }
 
 
     private Office mapRowToOffice(SqlRowSet rs) {

@@ -21,4 +21,7 @@ public interface OfficeDao {
 
     void delete(int id);
 
+    Office getOfficeByDetailsId(int detailsId);
+
+
 }
