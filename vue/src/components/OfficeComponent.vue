@@ -26,15 +26,15 @@ export default {
     };
   },
   methods: {
-      getOfficeByDetails() {
-          OfficeService.getOfficeByDetailsId().then((response) => {
+      getOfficeByDetails(detailsId) {
+          OfficeService.getOfficeByDetailsId(detailsId).then((response) => {
               console.log(response.data);
               this.offices = response.data;
           });
       }
   },
   created() {
-    this.getOfficeByDetails;
+    this.getOfficeByDetails(4001);
     
   },
 };

@@ -4,7 +4,7 @@
     <div class="full-address">
       <h3>
         Located at: {{ office.address }} {{ office.cityName }}
-        {{ office.stateAcronym }}"
+        {{ office.stateAcronym }}
       </h3>
     </div>
     <h4>Office Hours: {{ office.openTime }} to {{ office.closeTime }}</h4>
