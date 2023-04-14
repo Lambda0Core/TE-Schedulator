@@ -73,8 +73,8 @@ public class DetailsController {
 
     // TODO This path was ambiguous and needs to fixed
     @RequestMapping(path = "office/details/{officeId}", method = RequestMethod.GET)
-    public Details getDetailsByOfficeId(@RequestParam int id) {
-        Details details = detailsDao.getDetailsByOfficeId(id);
+    public List<Details> findAllDetailsByOfficeId(@RequestParam int id) {
+        List<Details> details = findAllDetailsByOfficeId(id);
         if (details == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
         } else {
