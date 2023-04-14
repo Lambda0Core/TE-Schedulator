@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import providerService from "../services/ProviderService";
+import UserDetailsService from "../services/UserDetailsService";
 import ProviderCard from "./ProviderCard.vue";
 import officeService from "../services/OfficeService";
 
@@ -64,7 +64,7 @@ export default {
 
   methods: {
     getProviders() {
-      providerService.get(this.officeid).then((response) => {
+      UserDetailsService.get(this.officeid).then((response) => {
         console.log(response.data);
         this.providers = response.data;
       });
