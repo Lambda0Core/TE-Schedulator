@@ -11,6 +11,7 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
+const currentUserType = localStorage.getItem('user-type');
 
 
 if(currentToken != null) {
@@ -21,7 +22,7 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    userType: 'patient',
+    userType: currentUserType || 'patient',
     providers: [],
     offices:[],
     
@@ -40,11 +41,6 @@ export default new Vuex.Store({
         title: "Find a Provider",
         icon: "briefcase-medical-solid.svg",
         link: "find-a-provider"
-      },
-      {
-        title: "My Doctors",
-        icon: "user-doctor-solid.svg",
-        link: "my-doctors"
       }
     ],
     providerSidebarOptions: [
@@ -52,11 +48,6 @@ export default new Vuex.Store({
         title: "Schedule",
         icon: "calendar-regular.svg",
         link: "provider-calendar"
-      },
-      {
-        title: "Patients",
-        icon: "heart-pulse-solid.svg",
-        link: "provider-mypatients"
       },
       {
         title: "Reviews",
