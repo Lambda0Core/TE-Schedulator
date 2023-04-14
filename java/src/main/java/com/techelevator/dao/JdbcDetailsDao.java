@@ -120,8 +120,7 @@ public class JdbcDetailsDao implements DetailsDao {
     public List<Details> getDetailsByOfficeId(int id) {
         List<Details> details = new ArrayList<>();
         String sql = "SELECT DISTINCT d.details_id, d.user_id, d.first_name, d.last_name, d.is_provider, d.title_id, d.office_id  FROM details as d \n" +
-                "JOIN office_users as o ON d.details_id = o.details_id \n" +
-                "WHERE o.office_id = ?";
+                "WHERE d.office_id = ?";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         while (results.next()) {
