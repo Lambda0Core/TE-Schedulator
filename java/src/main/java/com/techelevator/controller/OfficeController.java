@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class OfficeController {
-    //TODO need get office by details id -path details/office/{id}
+
     private OfficeDao officeDao;
 
     public OfficeController(OfficeDao officeDao) {
@@ -32,6 +32,17 @@ public class OfficeController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Office not found");
         } else {
         return officeDao.getOfficeById(id);
+        }
+    }
+
+    @GetMapping("/details/office/{id}")
+    public Office getOfficeByDetailsId(@PathVariable int id) {
+
+        Office office = officeDao.getOfficeByDetailsId(id);
+        if (office == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Office not found");
+        } else {
+            return officeDao.getOfficeByDetailsId(id);
         }
     }
 

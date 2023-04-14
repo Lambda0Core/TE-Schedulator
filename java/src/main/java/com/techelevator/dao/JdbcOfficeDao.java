@@ -86,7 +86,7 @@ public class JdbcOfficeDao implements OfficeDao {
             System.out.println(e.getMessage());}
 
     }
-//TODO add new method or change current update to update office by details id
+
     @Override
     public void update(Office office) {
         try {
