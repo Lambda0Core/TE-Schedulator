@@ -39,6 +39,8 @@ CREATE TABLE details (
 	  is_provider boolean NOT NULL,
 	  title_id SERIAL, 
 	  office_id int,
+	  available_from DATE,
+	  available_to DATE,
 
 	  CONSTRAINT PK_details PRIMARY KEY (details_id),
 	  CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users(user_id),
