@@ -2,14 +2,12 @@ package com.techelevator.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.techelevator.model.Office;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -42,6 +40,16 @@ public class JdbcOfficeDao implements OfficeDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
         if (results.next()) {
             return mapRowToOffice(results);
+        } else {
+            return null;
+        }
+    }
+    @Override
+    public List<Office> getOfficesByLocation(int officeId) {
+        String sql = "SELECT * FROM office WHERE office_name = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
+        if (results.next()) {
+            return (List<Office>) mapRowToOffice(results);
         } else {
             return null;
         }

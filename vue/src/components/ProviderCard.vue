@@ -3,14 +3,14 @@
     <div class="identity">
       <div class="img" />
       <h3>
-        Dr. {{ provider.firstName }} {{ provider.lastName }}
+        Dr. {{ provider.firstName }} {{ provider.lastName }} 
         </h3>
         <h2>
           Office Location 
           {{office.name}}          
         </h2>
         <p>
-          {{office.name}}
+         
         </p>
     </div>
     
@@ -24,22 +24,17 @@ export default {
   name: "provider-card",
   props: ["provider"],
  data() {
-    return {
-      
-      office:{
-        office:'',
-      },
-      user:{
-        office: '',
-      },
-    };
+    return {      
+      office:{},
+      };
   },
 created() {
-      this.officeGetId(this.provider.office);
+      this.getOffice();
     },
 methods:{
-  officeGetId(id) {
-      officeService.get(id).then((response) => {
+  
+      getOffice() {
+      officeService.get(this.provider.officeId).then((response) => {
         console.log(response.data);
         this.office = response.data;
       });

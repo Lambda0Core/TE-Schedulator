@@ -24,6 +24,7 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+ 
   routes: [
     {
       path: '/',
@@ -93,7 +94,16 @@ const router = new Router({
         requiresAuth: false,
         showSidebar: true
       }
-    }
+    },
+    {
+      path: "/provider/:providerid",
+      name: "provider-details",
+      component: Provider,
+      meta: {
+        requiresAuth: true,
+        showSidebar: true
+      }
+    },
   ]  
 })
 
