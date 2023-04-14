@@ -108,7 +108,7 @@ public class JdbcDetailsDao implements DetailsDao {
 
     private Details mapRowToProvider(SqlRowSet rs) {
         Details details = new Details();
-        details.setId(rs.getInt("provider_id"));
+        details.setId(rs.getInt("details_id"));
         details.setUserId(rs.getInt("user_id"));
         details.setFirstName(rs.getString("first_name"));
         details.setLastName(rs.getString("last_name"));
