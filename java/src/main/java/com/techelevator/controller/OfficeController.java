@@ -45,7 +45,14 @@ public class OfficeController {
             return officeDao.getOfficeByDetailsId(id);
         }
     }
-
+    @GetMapping("/office/location/{locationId}")
+    public List<Office> getOfficesByLocation(@PathVariable int locationId) {
+        List<Office> offices = officeDao.getOfficesByLocation(locationId);
+        if (offices == null || offices.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No offices found for this location");
+        }
+        return offices;
+    }
     @PostMapping("/office")
     public void createOffice(@RequestBody Office office) {
         officeDao.create(office);

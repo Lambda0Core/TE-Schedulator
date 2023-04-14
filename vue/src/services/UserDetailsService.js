@@ -9,6 +9,9 @@ export default {
   get(id) {
     return axios.get(`/details/${id}`);
   },
+  getDetailsByOfficeId(id){
+      return axios.get(`/office/details/${id}`);
+  }
 
 
 

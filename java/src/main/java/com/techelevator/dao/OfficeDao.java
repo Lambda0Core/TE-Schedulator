@@ -24,4 +24,6 @@ public interface OfficeDao {
     Office getOfficeByDetailsId(int detailsId);
 
 
+    List<Office> getOfficesByLocation(int locationId);
+
 }

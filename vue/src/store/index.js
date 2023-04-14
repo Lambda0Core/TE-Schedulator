@@ -12,6 +12,7 @@ Vue.use(Vuex)
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 
+
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     userType: 'patient',
+    providers: [],
+    offices:[],
+    
     patientSidebarOptions: [
       {
         title: "Home",
@@ -90,6 +94,13 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    setProviders(state, providers){
+      state.providers=providers;
+    },
+    setOffices(state, offices){
+      state.offices=offices;
     }
-  }
+  },
+  
 })

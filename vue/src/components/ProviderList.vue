@@ -5,14 +5,13 @@
     <!-- v-for that lists ProviderListElements -->
     <div>
       <label for="office">Select Office Location</label>
-      <select id="office" v-model.number="officeid" v-on:change = "getProviders()">
-        <option value="">All Offices</option>
-        <option
-        
-          v-for="office in offices"
-          :key="office.id"
-          :value="office.id"
-        >
+      <select
+        id="office"
+        v-model.number="officeid"
+        v-on:change="getProviders()"
+      >
+        <option value="-1">All Offices</option>
+        <option v-for="office in offices" :key="office.id" :value="office.id">
           {{ office.name }}
         </option>
       </select>
@@ -42,7 +41,7 @@ export default {
       providers: [],
       offices: [],
       officeid: 0,
-      providersByOffice: [],
+
       user: {
         office: "",
       },
@@ -50,24 +49,35 @@ export default {
   },
   computed: {
     filteredProviders() {
-      // if (this.user.office) {
-      //   return this.providers.filter(
-      //     (provider) => provider.officeId === this.officeid
-      //   );
-      // } else {
-      //   return this.providers;
-      // }
+      if (this.user.office) {
+        return this.providers.filter(
+          (provider) => provider.officeId === this.officeid
+        );
+      } else {
+        return this.providers;
+      }
 
-      return this.getProviders();
+      // return this.getProviders();
     },
   },
 
   methods: {
     getProviders() {
-      UserDetailsService.get(this.officeid).then((response) => {
-        console.log(response.data);
-        this.providers = response.data;
-      });
+      if (this.officeid === -1) {
+        UserDetailsService.list().then((response) => {
+          console.log(response.data);
+          this.providers = response.data.filter(entry=>{
+            return entry.isProvider;
+          });
+        });
+      } else {
+        UserDetailsService.getDetailsByOfficeId(this.officeid).then(
+          (response) => {
+            console.log(response.data);
+            this.providers = response.data;
+          }
+        );
+      }
     },
     officeList() {
       officeService.list().then((response) => {
