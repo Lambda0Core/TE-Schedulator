@@ -7,7 +7,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -54,6 +56,19 @@ public class JdbcDetailsDao implements DetailsDao {
         }
     }
 
+//    @Override
+//    public Details getFullNameByDetailsId(int detailsId) {
+//        String sql = "SELECT DISTINCT CONCAT(first_name, ' ', last_name) \n" +
+//                "as full_name \n" +
+//                "FROM details\n" +
+//                "WHERE details_id = ?;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
+//        if (results.next()) {
+//            return mapRowToProvider(results);
+//        } else {
+//            return null;
+//        }
+//    }
 
     @Override
     public Details getDetailsByUserId(int userId) {
@@ -115,13 +130,18 @@ public class JdbcDetailsDao implements DetailsDao {
         return jdbcTemplate.update(insertCreateSql, userId, first_name, last_name, isProvider, titleId, officeId) == 1;
     }
 
+    @Override
+    public boolean updateAvailability(Date availableFrom, Date availableTo, int detailsId) {
+        String insertAviSql = "UPDATE details SET available_from = ?, available_to = ? WHERE details_id = ?;";
+        return jdbcTemplate.update(insertAviSql, availableFrom, availableTo, detailsId) == 1;
+    }
+
 
     @Override
     public List<Details> getDetailsByOfficeId(int id) {
         List<Details> details = new ArrayList<>();
         String sql = "SELECT DISTINCT d.details_id, d.user_id, d.first_name, d.last_name, d.is_provider, d.title_id, d.office_id  FROM details as d \n" +
-                "JOIN office_users as o ON d.details_id = o.details_id \n" +
-                "WHERE o.office_id = ?";
+                "WHERE d.office_id = ?";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         while (results.next()) {
@@ -140,6 +160,8 @@ public class JdbcDetailsDao implements DetailsDao {
         details.setIsProvider(rs.getBoolean("is_provider"));
         details.setTitleId(rs.getInt("title_id"));
         details.setOfficeId(rs.getInt("office_id"));
+        details.setAvailableFrom(rs.getDate("available_from"));
+        details.setAvailableTo(rs.getDate("available_to"));
         return details;
     }
 }

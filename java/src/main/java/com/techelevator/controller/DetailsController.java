@@ -60,6 +60,17 @@ public class DetailsController {
         }
     }
 
+//    @RequestMapping(path = "fullname/details/{id}", method = RequestMethod.GET)
+//    public Details getFullNameByDetailsId(@PathVariable int id) {
+//        Details details = detailsDao.getFullNameByDetailsId(id);
+//        if (details == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
+//        } else {
+//
+//            return detailsDao.getFullNameByDetailsId(id);
+//        }
+//    }
+
     @RequestMapping(path = "provider/details/{id}", method = RequestMethod.GET)
     public Details getProviderDetailsById(@PathVariable int id) {
         Details details = detailsDao.getDetailsById(id);
