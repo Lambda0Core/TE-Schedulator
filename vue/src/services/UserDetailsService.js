@@ -3,11 +3,11 @@ import axios from 'axios';
 export default {
     
   list() {
-    return axios.get('/provider');
+    return axios.get('/details');
   },
 
   get(id) {
-    return axios.get(`/providers/${id}`);
+    return axios.get(`/details/${id}`);
   },
 
 
