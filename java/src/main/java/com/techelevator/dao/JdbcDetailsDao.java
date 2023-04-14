@@ -110,15 +110,16 @@ public class JdbcDetailsDao implements DetailsDao {
     }
 
     @Override
-    public Details getDetailsByOfficeId(int officeId) {
-        String sql = "SELECT DISTINCT details_id FROM office_users WHERE office_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
-        if (results.next()) {
-            return mapRowToProvider(results);
-        } else {
-            return null;
-        }
+    public List<Details> getDetailsByOfficeId(int officeId) {
+    List<Details> details = new ArrayList<>();
+    String sql = "SELECT DISTINCT details_id FROM office_users WHERE office_id = ?;";
+    SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
+        while (results.next()) {
+        Details detail = mapRowToProvider(results);
+        details.add(detail);
     }
+        return details;
+}
 
     private Details mapRowToProvider(SqlRowSet rs) {
         Details details = new Details();
