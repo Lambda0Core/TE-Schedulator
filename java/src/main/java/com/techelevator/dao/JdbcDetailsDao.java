@@ -110,16 +110,26 @@ public class JdbcDetailsDao implements DetailsDao {
     }
 
     @Override
-    public List<Details> getDetailsByOfficeId(int officeId) {
-    List<Details> details = new ArrayList<>();
-    String sql = "SELECT DISTINCT details_id FROM office_users WHERE office_id = ?;";
-    SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
-        while (results.next()) {
-        Details detail = mapRowToProvider(results);
-        details.add(detail);
+    public boolean createProvider(int userId, String first_name, String last_name, boolean isProvider, int titleId, int officeId) {
+        String insertCreateSql = "insert into details (user_id, first_name, last_name, is_provider, title_id, office_id) values (?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(insertCreateSql, userId, first_name, last_name, isProvider, titleId, officeId) == 1;
     }
+
+
+    @Override
+    public List<Details> getDetailsByOfficeId(int id) {
+        List<Details> details = new ArrayList<>();
+        String sql = "SELECT DISTINCT d.details_id, d.user_id, d.first_name, d.last_name, d.is_provider, d.title_id  FROM details as d \n" +
+                "JOIN office_users as o ON d.details_id = o.details_id \n" +
+                "WHERE o.office_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        while (results.next()) {
+            Details detail = mapRowToProvider(results);
+            details.add(detail);
+        }
         return details;
-}
+    }
 
     private Details mapRowToProvider(SqlRowSet rs) {
         Details details = new Details();
@@ -129,6 +139,7 @@ public class JdbcDetailsDao implements DetailsDao {
         details.setLastName(rs.getString("last_name"));
         details.setIsProvider(rs.getBoolean("is_provider"));
         details.setTitleId(rs.getInt("title_id"));
+        details.setOfficeId(rs.getInt("office_id"));
         return details;
     }
 }

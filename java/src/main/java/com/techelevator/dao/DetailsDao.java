@@ -26,6 +26,8 @@ public interface DetailsDao {
 
     List<Details> findAllByDetailsId(int detailsId);
 
+    boolean createProvider(int userId, String first_name, String last_name, boolean isProvider, int titleId, int officeId);
+
     boolean create(int userId, String first_name, String last_name, boolean isProvider, int titleId);
 
 }

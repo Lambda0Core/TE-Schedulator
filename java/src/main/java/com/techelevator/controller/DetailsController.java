@@ -72,15 +72,9 @@ public class DetailsController {
     }
 
     // TODO This path was ambiguous and needs to fixed
-    @RequestMapping(path = "office/details/{officeId}", method = RequestMethod.GET)
-    public List<Details> findAllDetailsByOfficeId(@RequestParam int id) {
-        List<Details> details = findAllDetailsByOfficeId(id);
-        if (details == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
-        } else {
-
-            return detailsDao.getDetailsByOfficeId(id);
-        }
+    @RequestMapping(path = "office/details/{id}", method = RequestMethod.GET)
+    public List<Details> getDetailsByOfficeId(@PathVariable int id) {
+        return detailsDao.getDetailsByOfficeId(id);
     }
 
 
@@ -100,13 +94,23 @@ public class DetailsController {
 //    }
 
     @PostMapping("/details")
-    public boolean createDetails(@Valid @RequestBody Details details, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam boolean isProvider, @RequestParam int titleId) {
+    public boolean create(@Valid @RequestBody Details details, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam boolean isProvider, @RequestParam int titleId) {
         if (details == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "404 not found");
         }
 
         return detailsDao.create(userId, firstName, lastName, isProvider, titleId);
     }
+
+    @PostMapping("/details/provider")
+    public boolean createProvider(@Valid @RequestBody Details details, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam boolean isProvider, @RequestParam int titleId, @RequestParam int officeId) {
+        if (details == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "404 not found");
+        }
+
+        return detailsDao.createProvider(userId, firstName, lastName, isProvider, titleId, officeId);
+    }
+
 
 
 }
