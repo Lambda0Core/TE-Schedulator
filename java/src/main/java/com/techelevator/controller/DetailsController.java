@@ -49,7 +49,7 @@ public class DetailsController {
 //        }
 //    }
 
-    @RequestMapping(path = "provider/details/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
     public Details getDetailsById(@PathVariable int id) {
         Details details = detailsDao.getDetailsById(id);
         if (details == null) {
@@ -60,7 +60,7 @@ public class DetailsController {
         }
     }
 
-    @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "provider/details/{id}", method = RequestMethod.GET)
     public Details getProviderDetailsById(@PathVariable int id) {
         Details details = detailsDao.getDetailsById(id);
         if (details == null) {
