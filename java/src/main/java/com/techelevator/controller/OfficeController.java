@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class OfficeController {
-
+    //TODO need get office by details id -path details/office/{id}
     private OfficeDao officeDao;
 
     public OfficeController(OfficeDao officeDao) {
