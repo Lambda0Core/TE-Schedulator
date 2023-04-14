@@ -13,9 +13,17 @@
 </template>
 
 <script>
+
+
 export default {
     name: 'office-card',
     props: ["office"],
+    data() {
+      return {
+       
+      };
+    }
+
 
 };
 </script>
