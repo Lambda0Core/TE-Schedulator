@@ -1,37 +1,22 @@
 <template>
-  <div class="layout">
-    <sidebar :sidebarOptions="options" />
-    <div></div>
-  </div>
+      <apt-list />
 </template>
 
 <script>
-import sidebar from "../components/SidebarComponent.vue";
+import AptList from '../components/AptList.vue';
+
 
 export default {
   name: "ProviderPage",
 
-  data() {
-    return {
-      options: this.$store.state.providerSidebarOptions
-    }
-  },
+
   components: {
-    sidebar,
+    AptList,
   },
 
-  setup() {},
 };
 </script>
 
 
-
-
 <style scoped>
-.layout {
-  display: grid;
-  grid-template-columns: fit-content 1fr;
-  height: 100%;
-  width: 100%;
-}
 </style>

@@ -1,10 +1,8 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Details;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ public class JdbcDetailsDao implements DetailsDao {
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
-            Details detail = mapRowToProvider(results);
+            Details detail = mapRowToDetails(results);
             details.add(detail);
         }
         return details;
@@ -36,7 +34,7 @@ public class JdbcDetailsDao implements DetailsDao {
         String sql = "SELECT * FROM details WHERE details_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
         if (results.next()) {
-            return mapRowToProvider(results);
+            return mapRowToDetails(results);
         } else {
             return null;
         }
@@ -48,7 +46,7 @@ public class JdbcDetailsDao implements DetailsDao {
         String sql = "SELECT details_id FROM details WHERE last_name = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lastName);
         if (results.next()) {
-            return mapRowToProvider(results);
+            return mapRowToDetails(results);
         } else {
             return null;
         }
@@ -56,13 +54,14 @@ public class JdbcDetailsDao implements DetailsDao {
 
 
     @Override
-    public int getDetailsByUserId(int userId) {
-        try {
-           userId = jdbcTemplate.queryForObject("SELECT * from details where user_id = ?;", int.class, userId);
-       } catch (EmptyResultDataAccessException e) {
-            throw new UsernameNotFoundException("That user could not be found");
+    public Details getDetailsByUserId(int userId) {
+        String sql = "SELECT * FROM details WHERE user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        if (results.next()) {
+            return mapRowToDetails(results);
+        } else {
+            return null;
         }
-            return userId;
     }
 
     @Override
@@ -71,7 +70,7 @@ public class JdbcDetailsDao implements DetailsDao {
         String sql = "select * from details where user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
-            Details detail = mapRowToProvider(results);
+            Details detail = mapRowToDetails(results);
             details.add(detail);
         }
 
@@ -84,7 +83,7 @@ public class JdbcDetailsDao implements DetailsDao {
         String sql = "select * from details where details_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
         while (results.next()) {
-            Details detail = mapRowToProvider(results);
+            Details detail = mapRowToDetails(results);
             detailList.add(detail);
         }
 
@@ -106,7 +105,7 @@ public class JdbcDetailsDao implements DetailsDao {
         return officeId;
         }
 
-    private Details mapRowToProvider(SqlRowSet rs) {
+    private Details mapRowToDetails(SqlRowSet rs) {
         Details details = new Details();
         details.setId(rs.getInt("details_id"));
         details.setUserId(rs.getInt("user_id"));

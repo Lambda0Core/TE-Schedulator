@@ -12,7 +12,7 @@ public interface DetailsDao {
 
     int getDetailsByOfficeId(int officeId);
 
-    int getDetailsByUserId(int userId);
+    Details getDetailsByUserId(int userId);
 
     Details getDetailsIdByLastName(String lastName);
 
