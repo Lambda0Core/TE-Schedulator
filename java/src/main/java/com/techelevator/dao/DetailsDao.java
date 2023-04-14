@@ -15,8 +15,8 @@ public interface DetailsDao {
     Details getDetailsByUserId(int userId);
 
 //    String getFullNameByUserId(int userId);
-//
-//    String getFullNameByDetailsId(int DetailsId);
+
+//    Details getFullNameByDetailsId(int detailsId);
 
     Details getProviderDetailsById(int detailsId);
 

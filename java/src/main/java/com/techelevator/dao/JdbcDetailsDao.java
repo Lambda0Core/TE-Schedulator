@@ -54,6 +54,19 @@ public class JdbcDetailsDao implements DetailsDao {
         }
     }
 
+//    @Override
+//    public Details getFullNameByDetailsId(int detailsId) {
+//        String sql = "SELECT DISTINCT CONCAT(first_name, ' ', last_name) \n" +
+//                "as full_name \n" +
+//                "FROM details\n" +
+//                "WHERE details_id = ?;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
+//        if (results.next()) {
+//            return mapRowToProvider(results);
+//        } else {
+//            return null;
+//        }
+//    }
 
     @Override
     public Details getDetailsByUserId(int userId) {

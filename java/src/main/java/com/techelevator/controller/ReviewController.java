@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ReviewDao;
+import com.techelevator.model.Office;
 import com.techelevator.model.Review;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,11 @@ public class ReviewController {
 
     public ReviewController(ReviewDao reviewDao) {
         this.reviewDao = reviewDao;
+    }
+
+    @GetMapping("/review")
+    public List<Review> listAll() {
+        return reviewDao.findAll();
     }
 
     @GetMapping("/review/{id}")
@@ -42,13 +48,13 @@ public class ReviewController {
         }
     }
 
-    @PostMapping("/provider/review")
-    public boolean createProviderReview(@Valid @RequestBody Review review, @RequestParam String reviewTitle, @RequestParam String reviewDesc, @RequestParam int providerId) {
+    @PostMapping("/review")
+    public boolean createReview(@Valid @RequestBody Review review, @RequestParam String reviewTitle, @RequestParam String reviewDesc, @RequestParam int detailsId) {
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
         }
 
-        return reviewDao.create(reviewTitle, reviewDesc, providerId);
+        return reviewDao.create(reviewTitle, reviewDesc, detailsId);
     }
 
 }

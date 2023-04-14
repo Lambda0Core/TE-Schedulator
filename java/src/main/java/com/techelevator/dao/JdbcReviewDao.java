@@ -56,7 +56,7 @@ public class JdbcReviewDao implements ReviewDao {
     @Override
     public List<Review> findAllByDetailsId(int providerId) {
         List<Review> reviews = new ArrayList<>();
-        String sql = "select * from review where provider_id = ?;";
+        String sql = "select * from review where details_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, providerId);
         while (results.next()) {
             Review review = mapRowToReview(results);
