@@ -1,61 +1,64 @@
 <template>
   <div>
     <h1>List of Offices</h1>
-    <div
-      class="office-container"
-      v-for="office in offices"
-      v-bind:key="office.id"
-    >
-      <h2>{{ office.name }}</h2>
-      <p class="full-address">
-        {{ office.address }} {{ office.cityName }} {{ office.stateAcronym }}
-      </p>
-      <p class="phone">{{ office.phoneNumber }}</p>
-      <div class="hours">{{ office.openTime }} to {{ office.closeTime }}</div>
+    <div class="office-container">
+     <div v-for="office in offices" v-bind:key="office.id">
+       <office-card :office="office" />
     </div>
+    
+       </div>
   </div>
 </template>
 
 <script>
-import OfficeService from "../services/OfficeService";
+// import OfficeService from "../services/OfficeService";
+import OfficeCard from './OfficeCard.vue';
+
 
 export default {
+  components: { OfficeCard },
   name: "office-component",
+  
 
   data() {
     return {
       offices: [],
     };
   },
-  methods: {
-      list() {
-          OfficeService.list().then((response) => {
-              console.log(response.data);
-              this.offices = response.data;
-          })
-      }
-  },
-  created() {
-    this.list();
+  // methods: {
+  //     getOfficeByDetails() {
+  //         OfficeService.getOfficeByDetailsId.then((response) => {
+  //             console.log(response.data);
+  //             this.offices = response.data;
+  //         });
+  //     }
+  // },
+  // created() {
+  //   this.getOfficeByDetails;
     
-  },
+  // },
 };
 </script>
 
 <style scoped>
-.office-container {
-  color: var(--primary800);
-  padding: 1rem 3rem;
-  /* width: auto; */
-  max-width: 50%;
-  height: 225px;
-  border: 3px var(--primary600) solid;
-  border-radius: 1rem;
-  box-shadow: 15px 15px var(--primary200);
-  margin-bottom: 2rem;
+h1 {
+  margin-left: 3rem;
+  margin-top: 3rem;
+  color: var(--primary600);
 }
-.office-container h2, .office-container .phone, .office-container .hours, .office-container .full-address  {
-    text-align: left;
+.box {
+  width: fit-content;
+  padding: 1rem 2rem;
+  border: 1px black solid;
+}
+.office-container {
+  margin: 3rem;
+  margin-right: 15rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  height: fit-content;
+  grid-gap: 3rem;
 }
 
 </style>

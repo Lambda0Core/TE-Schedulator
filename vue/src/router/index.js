@@ -86,7 +86,7 @@ const router = new Router({
       }
     },
     {
-      path: "/office",
+      path: "/provider-office",
       name: "office",
       component: Office,
       meta: {
