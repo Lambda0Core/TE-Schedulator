@@ -38,9 +38,11 @@ CREATE TABLE details (
 	  last_name varchar(100) NOT NULL,
 	  is_provider boolean NOT NULL,
 	  title_id SERIAL, 
+	  office_id int,
 
 	  CONSTRAINT PK_details PRIMARY KEY (details_id),
 	  CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users(user_id),
+      CONSTRAINT pk_office_id FOREIGN KEY (office_id) REFERENCES office(office_id),
 	  CONSTRAINT fk_title_id FOREIGN KEY (title_id) REFERENCES title(title_id)   
 );
 

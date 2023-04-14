@@ -10,14 +10,32 @@ public class Details {
     private String lastName;
     private int titleId;
     private boolean isProvider;
+    private int officeId;
 
-    public Details(int id, int userId, String firstName, String lastName, int titleId, boolean isProvider) {
+    public Details(int id, int userId, String firstName, String lastName, int titleId, boolean isProvider, int officeId) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.titleId = titleId;
         this.isProvider = isProvider;
+        this.officeId = officeId;
+    }
+
+    public boolean isProvider() {
+        return isProvider;
+    }
+
+    public void setProvider(boolean provider) {
+        isProvider = provider;
+    }
+
+    public int getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
     }
 
     public Details() { }

@@ -36,15 +36,18 @@ VALUES (1000, 'West Medical','1234 HELPSTREET', 'Burrito', 'OH', '440-469-1337',
        (1001, 'North Medical','1337 STREET', 'Vermon', 'PA', '340-400-4269', '9:00 AM', '6:00 PM'),
        (1002, 'South Medical','14m3 STREET', 'Vermon', 'PA', '340-500-4269', '6:00 PM', '9:00 AM');
 
-INSERT INTO details (details_id, user_id, first_name, last_name, is_provider, title_id)
-VALUES (2000, 3001, 'Greg', 'Westendorf', FALSE, 0),
-       (2001, 3007, 'Alice', 'Margatroid', FALSE, 0),
-       (2002, 3004, 'Lazlo', 'Westendorf', FALSE, 0),
-       (4000, 3002, 'Emily', 'LeFebvre', TRUE, 1),
-       (4001, 3005, 'Andy', 'Jocke', TRUE, 1),
-       (4002, 3003, 'Bryce', 'Huhtala', TRUE, 1),
-       (4003, 3006, 'Max', 'Shatskiy', TRUE, 1);
+-- For Providers with Offices!
+INSERT INTO details (details_id, user_id, first_name, last_name, is_provider, title_id, office_id)
+VALUES (4000, 3002, 'Emily', 'LeFebvre', TRUE, 1, 1000),
+       (4001, 3005, 'Andy', 'Jocke', TRUE, 1, 1001),
+       (4002, 3003, 'Bryce', 'Huhtala', TRUE, 1, 1001),
+       (4003, 3006, 'Max', 'Shatskiy', TRUE, 1, 1002),
+       (2001, 3007, 'Alice', 'Margatroid', TRUE, 1, 1002);
 
+       INSERT INTO details (details_id, user_id, first_name, last_name, is_provider, title_id)
+VALUES (2000, 3001, 'Greg', 'Westendorf', FALSE, 0),
+       (2002, 3004, 'Lazlo', 'Westendorf', FALSE, 0);
+       
 INSERT INTO office_users (details_id, office_id) 
 VALUES (4000, 1000),
        (4001, 1001),
