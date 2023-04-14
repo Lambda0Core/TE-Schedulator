@@ -11,10 +11,13 @@ public class LoginResponseDto {
 
     private String token;
     private User user;
+    private boolean isProvider;
 
-    public LoginResponseDto(String token, User user) {
+
+    public LoginResponseDto(String token, User user, boolean isProvider) {
         this.token = token;
         this.user = user;
+        this.isProvider = isProvider;
     }
 
     @JsonProperty("token")
@@ -33,5 +36,13 @@ public class LoginResponseDto {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isProvider() {
+        return isProvider;
+    }
+
+    public void setProvider(boolean provider) {
+        isProvider = provider;
     }
 }

@@ -50,8 +50,17 @@ export default {
         .login(this.user)
         .then(response => {
           if (response.status == 200) {
+            console.log("LoginResponseDTO:");
+            console.log(response.data);
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
+            if (response.data.provider) {
+              console.log("Type = Provider");
+              this.$store.commit("SET_USER_TYPE", "provider");
+            } else {
+              console.log("Type = Patient");
+              this.$store.commit("SET_USER_TYPE", "patient");
+            }
             this.$router.push("/");
           }
         })
