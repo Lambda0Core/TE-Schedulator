@@ -2,6 +2,9 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Details;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 public interface DetailsDao {
@@ -19,6 +22,8 @@ public interface DetailsDao {
 //    Details getFullNameByDetailsId(int detailsId);
 
     Details getProviderDetailsById(int detailsId);
+
+    boolean updateAvailability(Date availableFrom, Date availableTo, int detailsId);
 
     Details getDetailsIdByLastName(String lastName);
 
