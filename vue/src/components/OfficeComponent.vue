@@ -11,7 +11,7 @@
 </template>
 
 <script>
-// import OfficeService from "../services/OfficeService";
+import OfficeService from "../services/OfficeService";
 import OfficeCard from './OfficeCard.vue';
 
 
@@ -25,18 +25,18 @@ export default {
       offices: [],
     };
   },
-  // methods: {
-  //     getOfficeByDetails() {
-  //         OfficeService.getOfficeByDetailsId.then((response) => {
-  //             console.log(response.data);
-  //             this.offices = response.data;
-  //         });
-  //     }
-  // },
-  // created() {
-  //   this.getOfficeByDetails;
+  methods: {
+      getOfficeByDetails() {
+          OfficeService.getOfficeByDetailsId().then((response) => {
+              console.log(response.data);
+              this.offices = response.data;
+          });
+      }
+  },
+  created() {
+    this.getOfficeByDetails;
     
-  // },
+  },
 };
 </script>
 

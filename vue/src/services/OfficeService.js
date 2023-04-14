@@ -9,7 +9,7 @@ export default {
   get(id) {
     return axios.get(`/office/${id}`);
   },
-// add method on back-end
+
   getOfficeByDetailsId(detailsId) {
     return axios.get(`details/office/${detailsId}`);
   },
