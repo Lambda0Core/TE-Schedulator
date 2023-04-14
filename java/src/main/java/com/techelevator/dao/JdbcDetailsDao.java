@@ -56,13 +56,25 @@ public class JdbcDetailsDao implements DetailsDao {
 
 
     @Override
-    public int getDetailsByUserId(int userId) {
-        try {
-           userId = jdbcTemplate.queryForObject("SELECT * from details where user_id = ?;", int.class, userId);
-       } catch (EmptyResultDataAccessException e) {
-            throw new UsernameNotFoundException("That user could not be found");
+    public Details getDetailsByUserId(int userId) {
+        String sql = "SELECT * from details where user_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        if (results.next()) {
+            return mapRowToProvider(results);
+        } else {
+            return null;
         }
-            return userId;
+    }
+
+    @Override
+    public Details getProviderDetailsById(int detailsId) {
+        String sql = "SELECT * from details where is_provider = true AND details_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
+        if (results.next()) {
+            return mapRowToProvider(results);
+        } else {
+            return null;
+        }
     }
 
     @Override

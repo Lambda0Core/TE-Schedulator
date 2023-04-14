@@ -60,16 +60,27 @@ public class DetailsController {
         }
     }
 
+    @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
+    public Details getProviderDetailsById(@PathVariable int id) {
+        Details details = detailsDao.getDetailsById(id);
+        if (details == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
+        } else {
+
+            return detailsDao.getDetailsById(id);
+        }
+    }
+
     // TODO This path was ambiguous and needs to fixed
-//    @RequestMapping(path = "/details/{officeId}", method = RequestMethod.GET)
-//    public int getDetailsByOfficeId(@RequestParam int id) {
-//        int detailsId = detailsDao.getDetailsByOfficeId(id);
-//            if (detailsId <= 0) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Office not found");
-//        } else {
-//            return detailsDao.getDetailsByOfficeId(id);
-//        }
-//    }
+    @RequestMapping(path = "office/details/{officeId}", method = RequestMethod.GET)
+    public int getDetailsByOfficeId(@RequestParam int id) {
+        int detailsId = detailsDao.getDetailsByOfficeId(id);
+            if (detailsId <= 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Office not found");
+        } else {
+            return detailsDao.getDetailsByOfficeId(id);
+        }
+    }
 
 
 

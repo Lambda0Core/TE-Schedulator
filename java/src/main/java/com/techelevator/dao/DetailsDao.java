@@ -10,9 +10,17 @@ public interface DetailsDao {
 
     Details getDetailsById(int detailsId);
 
+
+    //Broken, will be fixed momentarily!
     int getDetailsByOfficeId(int officeId);
 
-    int getDetailsByUserId(int userId);
+    Details getDetailsByUserId(int userId);
+
+//    String getFullNameByUserId(int userId);
+//
+//    String getFullNameByDetailsId(int DetailsId);
+
+    Details getProviderDetailsById(int detailsId);
 
     Details getDetailsIdByLastName(String lastName);
 
