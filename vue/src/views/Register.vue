@@ -79,8 +79,8 @@ export default {
       user: {
         username: "",
         password: "",
-        firstname: "",
-        lastname: "",
+        firstName: "",
+        lastName: "",
         confirmPassword: "",
         role: "user",
         title: "",
@@ -127,10 +127,9 @@ export default {
         this.offices = response.data;
       });
     },
-
-    created() {
-      this.officeList();
-    },
+  },
+  created() {
+    this.officeList();
   },
 };
 </script>
