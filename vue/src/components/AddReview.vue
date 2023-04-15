@@ -1,7 +1,21 @@
 <template>
   <div class="container">
     <h2>Leave a Review for {{ $route.params.providerName }}</h2>
-
+    <div class="provder">
+      <h3>For:</h3>
+      <select v-model="newReview.officeId">
+        <label for="office">Select an office:</label>
+        <select
+          id="office"
+          v-model="newReview.officeId"
+          v-if="offices.length > 0"
+        >
+          <option v-for="office in offices" :key="office.id" :value="office.id">
+            {{ office.name }}
+          </option>
+        </select>
+      </select>
+    </div>
     <div class="form-element">
       <label for="title">Title:</label>
       <input id="title" type="text" v-model="newReview.title" />
@@ -29,7 +43,6 @@
 </template>
 
 <script>
-import ReviewService from "../services/ReviewService";
 
 export default {
   name: "add-review",
@@ -50,6 +63,9 @@ export default {
   methods: {
     addNewReview() {
       const detailsId = this.$route.params.id;
+      this.newReview.detailsId = detailsId;
+      this.$store.commit("ADD_REVIEW", this.newReview);
+
       this.$router.push({
         name: "provider-details",
         params: { id: detailsId },
@@ -60,23 +76,9 @@ export default {
       this.newReview.reviewTitle = "";
       this.newReview.reviewDesc = "";
     },
-    submitReview() {
-      const detailsId = this.$route.params.id;
-      this.newReview.detailsId = detailsId;
-
-      ReviewService.createReview(this.newReview)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push({
-            name: "provider-details",
-            params: { id: detailsId },
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+  
   },
+  
 };
 </script>
 

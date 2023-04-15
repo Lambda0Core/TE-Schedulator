@@ -2,21 +2,18 @@
   <div class="container">
     <div class="identity">
       <div class="img" />
-      <h3>
-        Dr. {{ provider.firstName }} {{ provider.lastName }} 
-        </h3>
-        <h2>
-          Office Location 
-          {{office.name}}          
-        </h2>
-        <p>
-         
-        </p>
-
+      <h3>Dr. {{ provider.firstName }} {{ provider.lastName }}</h3>
+      <h2>
+        Office Location
+        {{ office.name }}
+      </h2>
+      <p></p>
     </div>
     <div>
-      <router-link :to="{ name: 'leave-reviews', params: { providerId: provider.id } }">Leave a review</router-link>
-
+      <router-link
+        :to="{ name: 'leave-reviews', params: { providerId: provider.id, providerName: provider.firstName + ' ' + provider.lastName } }"
+        >Leave a review</router-link
+      >
     </div>
   </div>
 </template>
@@ -24,29 +21,31 @@
 <script>
 import officeService from "../services/OfficeService";
 
-
 export default {
   name: "provider-card",
   props: ["provider"],
- data() {
-    return {      
-      office:{},
-      };
+  data() {
+    return {
+      office: {},
+    };
   },
-created() {
-      this.getOffice();
-    },
-methods:{
-  
-      getOffice() {
+  created() {
+    this.getOffice();
+  },
+  methods: {
+    getOffice() {
       officeService.get(this.provider.officeId).then((response) => {
         console.log(response.data);
         this.office = response.data;
       });
     },
-
-    
-}
+    leaveReview() {
+      this.$router.push({
+        name: "leave-review",
+        params: { providerName: this.provider.name },
+      });
+    },
+  },
 };
 </script>
 
