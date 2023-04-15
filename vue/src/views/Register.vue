@@ -44,7 +44,7 @@
         </select>
         <div v-if="user.title === 'Provider'">
           <label for="office">Office</label>
-          <select id="office" v-model="user.office">
+          <select id="office" v-model="user.officeId">
             <option
               v-for="office in offices"
               :key="office.id"
@@ -84,7 +84,7 @@ export default {
         confirmPassword: "",
         role: "user",
         title: "",
-        officeId: 1000,
+        officeId: "",
       },
       offices: [],
       registrationErrors: false,
@@ -127,10 +127,9 @@ export default {
         this.offices = response.data;
       });
     },
-
-    created() {
-      this.officeList();
-    },
+  },
+  created() {
+    this.officeList();
   },
 };
 </script>

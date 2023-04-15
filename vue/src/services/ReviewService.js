@@ -17,4 +17,5 @@ export default {
   create(id) {
     return axios.put(`/review/${id}`);
   }
+  
 }

@@ -3,45 +3,40 @@
     <div class="identity">
       <div class="img" />
       <h3>
-        Dr. {{ provider.firstName }} {{ provider.lastName }} 
+         {{ review.title }}
         </h3>
         <h2>
           Office Location 
-          {{office.name}}          
+          {{review.desc}}          
         </h2>
         <p>
-         
+         Rating: {{provider.rating}}
         </p>
-
     </div>
-    <div>
-      <router-link :to="{ name: 'leave-reviews', params: { providerId: provider.id } }">Leave a review</router-link>
-
-    </div>
+    
   </div>
 </template>
 
 <script>
-import officeService from "../services/OfficeService";
-
+import reviewService from "../services/ReviewService";
 
 export default {
-  name: "provider-card",
-  props: ["provider"],
+  name: "review-card",
+  props: ["review"],
  data() {
     return {      
-      office:{},
+      reviews:[],
       };
   },
 created() {
-      this.getOffice();
+      this.getReviewsForProvider(this.providerId);
     },
 methods:{
   
-      getOffice() {
-      officeService.get(this.provider.officeId).then((response) => {
+      getReviewsForProvider() {
+      reviewService.getReviewsByProviderId(this.provider.id).then((response) => {
         console.log(response.data);
-        this.office = response.data;
+        this.reviews = response.data;
       });
     },
 

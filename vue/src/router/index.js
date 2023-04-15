@@ -9,6 +9,8 @@ import Office from '../views/Office.vue'
 import Provider from '../views/FindAProvider.vue'
 import Appointments from '../views/PatientAppointments.vue'
 import NotFoundComponent from '../components/NotFoundComponent.vue'
+import ReviewCard from '../components/ReviewCard.vue'
+import leaveReview from '../views/LeaveReview.vue'
 
 Vue.use(Router)
 
@@ -99,6 +101,24 @@ const router = new Router({
       path: "/provider/:providerid",
       name: "provider-details",
       component: Provider,
+      meta: {
+        requiresAuth: true,
+        showSidebar: true
+      }
+    },
+    {
+      path: "/provider-reviews",
+      name: "provider-reviews",
+      component: ReviewCard,
+      meta: {
+        requiresAuth: true,
+        showSidebar: true
+      }
+    },
+    {
+      path: "/leave-review",
+      name: "leave-reviews",
+      component: leaveReview,
       meta: {
         requiresAuth: true,
         showSidebar: true
