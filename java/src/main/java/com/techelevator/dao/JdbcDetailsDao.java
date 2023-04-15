@@ -160,8 +160,8 @@ public class JdbcDetailsDao implements DetailsDao {
         details.setIsProvider(rs.getBoolean("is_provider"));
         details.setTitleId(rs.getInt("title_id"));
         details.setOfficeId(rs.getInt("office_id"));
-        details.setAvailableFrom(rs.getDate("available_from"));
-        details.setAvailableTo(rs.getDate("available_to"));
+        details.setAvailableFrom(rs.getDate("available_from").toLocalDate());
+        details.setAvailableTo(rs.getDate("available_to").toLocalDate());
         return details;
     }
 }

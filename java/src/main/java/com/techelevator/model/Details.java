@@ -31,7 +31,7 @@ public class Details {
         return availableFrom;
     }
 
-    public void setAvailableFrom(Date availableFrom) {
+    public void setAvailableFrom(LocalDate availableFrom) {
         this.availableFrom = availableFrom;
     }
 
@@ -39,7 +39,7 @@ public class Details {
         return availableTo;
     }
 
-    public void setAvailableTo(Date availableTo) {
+    public void setAvailableTo(LocalDate availableTo) {
         this.availableTo = availableTo;
     }
 
