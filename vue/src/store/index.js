@@ -13,7 +13,7 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
-const currentUserType = localStorage.getItem('user-type');
+const currentUserType = JSON.parse(localStorage.getItem('user-type'));
 
 
 if(currentToken != null) {
