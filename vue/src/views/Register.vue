@@ -79,8 +79,8 @@ export default {
       user: {
         username: "",
         password: "",
-        firstname: "",
-        lastname: "",
+        firstName: "",
+        lastName: "",
         confirmPassword: "",
         role: "user",
         title: "",
