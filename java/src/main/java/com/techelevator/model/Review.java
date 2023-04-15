@@ -14,6 +14,8 @@ public class Review {
     private int userId;
     private int detailsId;
 
+
+
     public Review(int reviewId, String reviewTitle, String reviewDesc, int userId, int detailsId) {
         this.reviewId = reviewId;
         this.reviewTitle = reviewTitle;

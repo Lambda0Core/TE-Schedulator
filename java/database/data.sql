@@ -60,7 +60,12 @@ VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with
        (8001, 'Dr. Andy has another victim', 'Poor Lazlo... he was the finest mind of our generation!', 3004, 4001),
        (8002, 'Dr. Max should be condemned!', '-his skeleton was missing, and he was never heard from again!! ..Anyways, thats how I lost my medical license...', 3001, 4003),
        (8003, 'Dr. Bryce did a very good job... as a butcher!', 'I went in with a sprained ankle, and left without half my limbs!', 3001, 4003);
-       
+
+INSERT INTO response (response_id, review_id, response_title, response_desc, user_id, details_id)
+VALUES (9000, 8000, 'I rather liked Emily :L', 'Shes not so bad!', 3001, 2002),
+       (9001, 8001, 'andy wasnt so bad', 'he complimented my dog renardo, hes a basset hound and hes so cute c:', 3004, 2002);
+
+              
        
        
 

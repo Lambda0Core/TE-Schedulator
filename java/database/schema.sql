@@ -70,6 +70,21 @@ CREATE TABLE IF NOT EXISTS review (
     CONSTRAINT fk_user_details_id FOREIGN KEY (details_id) REFERENCES details(details_id)    
 );
 
+CREATE TABLE IF NOT EXISTS response (
+	 response_id SERIAL,
+	 review_id SERIAL,
+	 response_title varchar(50) NOT NULL, 
+	 response_desc varchar(200) NOT NULL, 
+     user_id SERIAL,
+	 details_id SERIAL,
+
+	CONSTRAINT PK_response PRIMARY KEY (response_id),
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_user_details_id FOREIGN KEY (details_id) REFERENCES details(details_id),
+    CONSTRAINT fk_review_id FOREIGN KEY (review_id) REFERENCES review(review_id)    
+);
+
+
 
 CREATE TABLE IF NOT EXISTS appointment (
 	 apt_id SERIAL,
