@@ -21,7 +21,7 @@ public class ResponseController {
     public List<Response> listAll() {
         return responsesDao.findAll();
     }
-    
+
     @PostMapping("/response")
     public boolean createReview(@RequestBody Response response, @RequestParam int reviewId, @RequestParam String responseTitle, @RequestParam String responseDesc, @RequestParam int userId, @RequestParam int detailsId) {
         if (response == null) {

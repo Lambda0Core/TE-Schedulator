@@ -7,9 +7,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -130,12 +128,6 @@ public class JdbcDetailsDao implements DetailsDao {
         return jdbcTemplate.update(insertCreateSql, userId, first_name, last_name, isProvider, titleId, officeId) == 1;
     }
 
-    @Override
-    public boolean updateAvailability(Date availableFrom, Date availableTo, int detailsId) {
-        String insertAviSql = "UPDATE details SET available_from = ?, available_to = ? WHERE details_id = ?;";
-        return jdbcTemplate.update(insertAviSql, availableFrom, availableTo, detailsId) == 1;
-    }
-
 
     @Override
     public List<Details> getDetailsByOfficeId(int id) {
@@ -160,8 +152,6 @@ public class JdbcDetailsDao implements DetailsDao {
         details.setIsProvider(rs.getBoolean("is_provider"));
         details.setTitleId(rs.getInt("title_id"));
         details.setOfficeId(rs.getInt("office_id"));
-        details.setAvailableFrom(rs.getDate("available_from").toLocalDate());
-        details.setAvailableTo(rs.getDate("available_to").toLocalDate());
         return details;
     }
 }

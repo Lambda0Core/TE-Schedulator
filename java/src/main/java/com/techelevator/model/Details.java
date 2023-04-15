@@ -1,6 +1,5 @@
 package com.techelevator.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Details {
@@ -12,10 +11,8 @@ public class Details {
     private int titleId;
     private boolean isProvider;
     private int officeId;
-    private LocalDate availableFrom;
-    private LocalDate availableTo;
 
-    public Details(int id, int userId, String firstName, String lastName, int titleId, boolean isProvider, int officeId, LocalDate availableFrom, LocalDate availableTo) {
+    public Details(int id, int userId, String firstName, String lastName, int titleId, boolean isProvider, int officeId) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -23,24 +20,6 @@ public class Details {
         this.titleId = titleId;
         this.isProvider = isProvider;
         this.officeId = officeId;
-        this.availableFrom = availableFrom;
-        this.availableTo = availableTo;
-    }
-
-    public LocalDate getAvailableFrom() {
-        return availableFrom;
-    }
-
-    public void setAvailableFrom(LocalDate availableFrom) {
-        this.availableFrom = availableFrom;
-    }
-
-    public LocalDate getAvailableTo() {
-        return availableTo;
-    }
-
-    public void setAvailableTo(LocalDate availableTo) {
-        this.availableTo = availableTo;
     }
 
     public boolean isProvider() {
