@@ -79,6 +79,6 @@ public class OfficeController {
     @DeleteMapping("/office/{id}")
     public void deleteOffice(@PathVariable int id) {
         officeDao.delete(id);
-        // TODO Connect to DAO
+
     }
 }

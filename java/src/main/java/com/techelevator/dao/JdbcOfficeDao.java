@@ -113,13 +113,18 @@ public class JdbcOfficeDao implements OfficeDao {
     public void updateOffice(String principleUsername, Office office) {
         try {
             String sql = "UPDATE office\n" +
-                    "SET office_id = ?\n" +
-                    "FROM office_users\n" +
-                    "INNER JOIN details ON office_users.details_id = details.details_id\n" +
-                    "INNER JOIN users ON details.user_id = users.user_id\n" +
-                    "WHERE username = ?\n" +
-                    "  AND office.office_id = office_users.office_id;\n";
-            jdbcTemplate.update(sql, office.getId(),principleUsername);
+                    "SET office_address = ?, \n" +
+                    "    office_city_name = ?, \n" +
+                    "    office_state_acronym = ?, \n" +
+                    "    office_phone_number = ?, \n" +
+                    "    office_open_time = ?, \n" +
+                    "    office_close_time = ? \n" +
+                    "FROM details\n" +
+                    "JOIN users ON details.user_id = users.user_id\n" +
+                    "WHERE office.office_id = details.office_id AND users.username = ?;";
+            jdbcTemplate.update(sql, office.getAddress(), office.getCityName(),
+                    office.getStateAcronym(), office.getPhoneNumber(), office.getOpenTime(),
+                    office.getCloseTime(),principleUsername);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
