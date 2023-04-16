@@ -11,6 +11,7 @@ import Appointments from '../views/PatientAppointments.vue'
 import NotFoundComponent from '../components/NotFoundComponent.vue'
 import ReviewCard from '../components/ReviewCard.vue'
 import leaveReview from '../views/LeaveReview.vue'
+import BookAppointment from '../views/BookAppointment.vue'
 
 Vue.use(Router)
 
@@ -75,7 +76,7 @@ const router = new Router({
       name: "appointments",
       component: Appointments,
       meta: {
-        requiresAuth: false,
+        requiresAuth: true,
         showSidebar: true
       }
     },
@@ -84,7 +85,16 @@ const router = new Router({
       name: "find-a-provider",
       component: Provider,
       meta: {
-        requiresAuth: false,
+        requiresAuth: true,
+        showSidebar: true
+      }
+    },
+    {
+      path: "/book-appointment",
+      name: "book-appointment",
+      component: BookAppointment,
+      meta: {
+        requiresAuth: true,
         showSidebar: true
       }
     },
@@ -93,7 +103,7 @@ const router = new Router({
       name: "office",
       component: Office,
       meta: {
-        requiresAuth: false,
+        requiresAuth: true,
         showSidebar: true
       }
     },

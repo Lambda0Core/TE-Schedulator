@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS appointment (
 	 apt_name varchar(50) NOT NULL, 
 	 apt_status varchar(50) NOT NULL, 
 	 apt_agenda varchar(200) NOT NULL, 
-	 apt_date date NOT NULL,
+	 apt_date timestamptz NOT NULL,
      user_id SERIAL,
 	 details_id SERIAL,
 
