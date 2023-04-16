@@ -9,6 +9,12 @@
     </div>
     <h4>Office Hours: {{ office.openTime }} to {{ office.closeTime }}</h4>
     <p class="phone">{{ office.phoneNumber }}</p>
+    <!-- <div class="edit">
+      <router-link
+        :to="{ name: 'edit-office', params: { officeId: office.id, officeName: office.name} }"
+        >Edit Office Info</router-link
+      >
+    </div> -->
   </div>
 </template>
 
@@ -22,8 +28,15 @@ export default {
       return {
        
       };
-    }
-
+    },
+    // methods: {
+    //   updateOffice() {
+    //   this.$router.push({
+    //     name: "edit-office",
+    //     params: { officeName: this.office.name },
+    //   });
+    // },
+    // }
 
 };
 </script>
@@ -55,6 +68,10 @@ h3 {
 .phone {
     color: var(--primary600);
     margin-top: 0;
+}
+.edit {
+  background-color: var(--primary400);
+  max-width: 50%;
 }
 
 </style>

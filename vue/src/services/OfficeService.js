@@ -17,10 +17,8 @@ export default {
     return axios.get(`details/office/${detailsId}`);
   },
   updateOfficeForProvider(office) {
+   
     return axios.put('/updateOffice', office)
   }
-// add method on back-end
-  // updateOfficeByDetailsId(detailsId) {
-  //   return axios.put(`details/office/${detailsId}`);
-  // }
+
 }
