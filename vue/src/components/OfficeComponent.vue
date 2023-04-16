@@ -1,14 +1,17 @@
 <template>
   <div>
-    <h1>List of Offices</h1>
+    <h1>Office Information</h1>
     <div class="office-container">
-     
-       <office-card :office="office" />
-    
-    
-       </div>
+      <office-card :office="office" />
+      <button v-on:click="updateOfficeInfo()">Submit Office Info</button>
+      <div v-for="office in offices" :key="office.id">
+        <input type="checkbox" v-model="officeId" :value="office.id" />
+        <div>{{ office.name }}</div>
+      </div>
+    </div>
   </div>
 </template>
+
 
 <script>
 import OfficeService from "../services/OfficeService";
@@ -22,7 +25,8 @@ export default {
 
   data() {
     return {
-      office: {},
+      office: [],
+      officeId: null,
     };
   },
   methods: {
@@ -30,12 +34,22 @@ export default {
         
           OfficeService.getOfficeByDetailsId(detailsId).then((response) => {
               console.log(response.data);
-              this.office = response.data;
+              this.offices = response.data;
           });
-      }
+      },
+      getOfficeByDoctor() {
+        OfficeService.getOfficeByProvider().then((response) => {
+          console.log(response.data);
+          this.office = response.data;
+        })
+      },
+      updateOfficeInfo() {
+        OfficeService.updateOfficeForProvider(this.office);
+      },
   },
   created() {
-    this.getOfficeByDetails();
+    this.getOfficeByDoctor();
+
     
   },
 };

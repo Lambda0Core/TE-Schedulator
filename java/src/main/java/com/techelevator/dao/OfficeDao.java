@@ -26,4 +26,7 @@ public interface OfficeDao {
 
     List<Office> getOfficesByLocation(int locationId);
 
+    Office getOfficeByUser(String principleUsername);
+
+    void updateOffice(String principleUsername, Office office);
 }

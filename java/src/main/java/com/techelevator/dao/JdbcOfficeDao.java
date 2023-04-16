@@ -109,6 +109,21 @@ public class JdbcOfficeDao implements OfficeDao {
         }
 
     }
+    @Override
+    public void updateOffice(String principleUsername, Office office) {
+        try {
+            String sql = "UPDATE office\n" +
+                    "SET office_id = ?\n" +
+                    "FROM office_users\n" +
+                    "INNER JOIN details ON office_users.details_id = details.details_id\n" +
+                    "INNER JOIN users ON details.user_id = users.user_id\n" +
+                    "WHERE username = ?\n" +
+                    "  AND office.office_id = office_users.office_id;\n";
+            jdbcTemplate.update(sql, office.getId(),principleUsername);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     @Override
     public void delete(int id) {
@@ -130,6 +145,21 @@ public class JdbcOfficeDao implements OfficeDao {
                 "JOIN details d ON ou.details_id = d.details_id\n" +
                 "WHERE d.details_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
+        if (results.next()) {
+            return mapRowToOffice(results);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Office getOfficeByUser(String principleUsername) {
+        String sql = "SELECT * FROM office\n" +
+                "INNER JOIN office_users ON office.office_id = office_users.office_id\n" +
+                "INNER JOIN details ON office_users.details_id = details.details_id\n" +
+                "INNER JOIN users ON details.user_id = users.user_id\n" +
+                "WHERE username = ?;\n";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, principleUsername);
         if (results.next()) {
             return mapRowToOffice(results);
         } else {
