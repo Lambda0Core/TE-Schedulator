@@ -73,8 +73,9 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean create(String username, String password, String role, String firstName, String lastName, boolean isProvider, int title_id, int officeId) {
-
+    public boolean create(String username, String password, String role, String firstName, String lastName, boolean isProvider, int title_id, Integer officeId) {
+        if (officeId == 0)
+            officeId = null;
         boolean result;
         String insertUserSql = "INSERT INTO users (username,password_hash,role)\n" +
                 "values (?,?,?);\n" +
