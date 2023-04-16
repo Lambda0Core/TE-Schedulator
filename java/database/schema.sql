@@ -39,8 +39,6 @@ CREATE TABLE details (
 	  is_provider boolean NOT NULL,
 	  title_id SERIAL, 
 	  office_id int,
-	  available_from DATE,
-	  available_to DATE,
 
 	  CONSTRAINT PK_details PRIMARY KEY (details_id),
 	  CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users(user_id),
@@ -49,6 +47,15 @@ CREATE TABLE details (
 );
 
 
+CREATE TABLE IF NOT EXISTS user_availability (
+    availability_id SERIAL,
+	details_id SERIAL,
+    available_from DATE,
+	available_to DATE,
+
+	CONSTRAINT pk_availability_id PRIMARY KEY (availability_id),
+    CONSTRAINT pk_details_id FOREIGN KEY (details_id) REFERENCES details(details_id)
+);
 
 CREATE TABLE office_users (
 	details_id SERIAL,
