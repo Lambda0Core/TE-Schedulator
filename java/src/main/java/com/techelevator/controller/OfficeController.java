@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -45,6 +46,12 @@ public class OfficeController {
             return officeDao.getOfficeByDetailsId(id);
         }
     }
+
+    @GetMapping("/myOffices")
+    public Office getOfficeByUser(Principal principal) {
+        return officeDao.getOfficeByUser(principal.getName());
+    }
+
     @GetMapping("/office/location/{locationId}")
     public List<Office> getOfficesByLocation(@PathVariable int locationId) {
         List<Office> offices = officeDao.getOfficesByLocation(locationId);
@@ -63,6 +70,10 @@ public class OfficeController {
     public void updateOffice(@RequestBody Office office) {
         officeDao.update(office);
 
+    }
+    @PutMapping("/updateOffice")
+    public void updateOfficeToProvider(Principal principal, @RequestBody Office office) {
+        officeDao.updateOffice(principal.getName(), office);
     }
 
     @DeleteMapping("/office/{id}")
