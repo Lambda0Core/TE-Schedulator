@@ -78,22 +78,14 @@ public class JdbcUserDao implements UserDao {
         boolean result;
         String insertUserSql = "INSERT INTO users (username,password_hash,role)\n" +
                 "values (?,?,?);\n" +
-                "INSERT INTO details ( user_id, first_name, last_name, is_provider, title_id ) VALUES\n" +
-                "((SELECT user_id FROM users WHERE username = ?), ?, ?, ?, ?)";
+                "INSERT INTO details ( user_id, first_name, last_name, is_provider, title_id, office_id ) VALUES\n" +
+                "((SELECT user_id FROM users WHERE username = ?), ?, ?, ?, ?, ?)";
 
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
-        result = jdbcTemplate.update(insertUserSql, username, password_hash, ssRole, username, firstName, lastName, isProvider, title_id ) == 1;
+        result = jdbcTemplate.update(insertUserSql, username, password_hash, ssRole, username, firstName, lastName, isProvider, title_id, officeId ) == 1;
 
-        if (isProvider) {
-            String insertUserOfficeSql = "INSERT INTO office_users (office_id, details_id) VALUES\n" +
-                    "(?, (SELECT details_id FROM details\n" +
-                    "JOIN users ON details.user_id = users.user_id\n" +
-                    "WHERE users.username = ?))";
-
-            result = result && jdbcTemplate.update(insertUserOfficeSql, officeId, username ) == 1;
-        }
 
         return result;
     }
