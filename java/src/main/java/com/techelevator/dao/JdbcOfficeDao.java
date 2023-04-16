@@ -155,10 +155,10 @@ public class JdbcOfficeDao implements OfficeDao {
     @Override
     public Office getOfficeByUser(String principleUsername) {
         String sql = "SELECT * FROM office\n" +
-                "INNER JOIN office_users ON office.office_id = office_users.office_id\n" +
-                "INNER JOIN details ON office_users.details_id = details.details_id\n" +
-                "INNER JOIN users ON details.user_id = users.user_id\n" +
-                "WHERE username = ?;\n";
+                "             \n" +
+                "                INNER JOIN details ON office.office_id = details.office_id\n" +
+                "                INNER JOIN users ON details.user_id = users.user_id\n" +
+                "                WHERE username = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, principleUsername);
         if (results.next()) {
             return mapRowToOffice(results);

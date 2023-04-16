@@ -3,11 +3,11 @@
     <h1>Office Information</h1>
     <div class="office-container">
       <office-card :office="office" />
-      <button v-on:click="updateOfficeInfo()">Submit Office Info</button>
+      <!-- <button v-on:click="updateOfficeInfo()">Submit Office Info</button>
       <div v-for="office in offices" :key="office.id">
         <input type="checkbox" v-model="officeId" :value="office.id" />
         <div>{{ office.name }}</div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       office: [],
-      officeId: null,
+      // officeId: null,
     };
   },
   methods: {
