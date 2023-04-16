@@ -1,6 +1,5 @@
 package com.techelevator.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Appointment {
@@ -9,7 +8,7 @@ public class Appointment {
     private String name;
     private String status;
     private String agenda;
-    private LocalDate date;
+    private LocalDateTime date;
     private int userId;
     private int detailsId;
     private String patientFirstName;
@@ -20,7 +19,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(int id, String name, String status, String agenda, LocalDate date, int userId, int detailsId,
+    public Appointment(int id, String name, String status, String agenda, LocalDateTime date, int userId, int detailsId,
                        String patientFirstName, String patientLastName, String providerFirstName, String providerLastName) {
         this.id = id;
         this.name = name;
@@ -67,11 +66,11 @@ public class Appointment {
         this.agenda = agenda;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

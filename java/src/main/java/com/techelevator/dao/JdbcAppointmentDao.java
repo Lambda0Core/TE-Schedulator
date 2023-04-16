@@ -1,5 +1,8 @@
 package com.techelevator.dao;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +116,21 @@ public class JdbcAppointmentDao implements AppointmentDao {
     }
 
     @Override
+    public List<Appointment> findAllAppointmentsByMonthAndYear(int month, int year) {
+        List<Appointment> appointments = new ArrayList<>();
+        LocalDate startDate = LocalDate.of(year, month, 1);
+        LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+        String sql = "select * from appointment\n" +
+                "WHERE appointment.apt_date  BETWEEN ? AND ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, startDate, endDate);
+        while (results.next()) {
+            Appointment appointment = mapRowToAppointment(results);
+            appointments.add(appointment);
+        }
+        return appointments;
+    }
+
+    @Override
     public List<Appointment> findAllAppointmentsByProviderDetailsId(int providerId) {
         List<Appointment> appointments = new ArrayList<>();
         String sql =
@@ -174,12 +192,11 @@ public class JdbcAppointmentDao implements AppointmentDao {
 
     @Override
     public void create(Appointment appointment) {
-
         try {
             String sql = "INSERT INTO public.appointment(\n" +
                     "\tapt_name, apt_status, apt_agenda, apt_date, user_id, details_id)\n" +
                     "\tVALUES ( ?, ?, ?, ?, ?, ?);";
-            jdbcTemplate.queryForObject(sql, Integer.class, appointment.getName(), appointment.getStatus(),
+            jdbcTemplate.update(sql, appointment.getName(), appointment.getStatus(),
                     appointment.getAgenda(), appointment.getDate(),
                     appointment.getUserId(), appointment.getDetailsId());
 
@@ -227,10 +244,10 @@ public class JdbcAppointmentDao implements AppointmentDao {
         appointment.setName(rs.getString("apt_name"));
         appointment.setStatus(rs.getString("apt_status"));
         appointment.setAgenda(rs.getString("apt_agenda"));
-        appointment.setDate(rs.getDate("apt_date").toLocalDate());
+        appointment.setDate(rs.getTimestamp("apt_date").toLocalDateTime());
         appointment.setUserId(rs.getInt("user_id"));
         appointment.setProviderId(rs.getInt("details_id"));
-        appointment.setProviderFirstName(rs.getString("full_name"));
+//        appointment.setProviderFirstName(rs.getString("full_name"));
         return appointment;
     }
 }

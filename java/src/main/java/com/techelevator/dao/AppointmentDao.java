@@ -12,6 +12,8 @@ public interface AppointmentDao {
 
     List<Appointment> findAllAppointmentsByPatientUserId(int userId);
 
+    List<Appointment> findAllAppointmentsByMonthAndYear(int month, int year);
+
     List<Appointment> findAllAppointmentsByProviderDetailsId(int providerId);
 
     List<Appointment> findAllAppointmentsBothIds(int userId,int providerId);

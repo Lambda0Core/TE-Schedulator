@@ -18,8 +18,8 @@ export default {
     return axios.get(`patient/appointment/${providerId}`);
   },
 
-  create(id) {
-    return axios.put(`/appointment/${id}`);
+  create(appointment) {
+    return axios.post("/appointment", appointment);
   }
 
 
