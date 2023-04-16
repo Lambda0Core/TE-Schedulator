@@ -4,10 +4,13 @@
       <div class="img" />
       <h3>Dr. {{ provider.firstName }} {{ provider.lastName }}</h3>
       <h2>
-        Office Location
         {{ office.name }}
+        
       </h2>
-      <p></p>
+      <p> Located at: {{ office.address }} {{ office.cityName }}
+        {{ office.stateAcronym }}</p>
+      <p>Office Hours: {{ office.openTime }} to {{ office.closeTime }}</p>
+      <p class="phone">Phone Number: {{ office.phoneNumber }}</p>
     </div>
     <div>
       <router-link
@@ -63,6 +66,7 @@ export default {
   display: flex;
   align-items: center;
   grid-gap: 0.5rem;
+  
 }
 .img {
   display: inline-block;

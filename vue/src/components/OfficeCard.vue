@@ -8,7 +8,7 @@
       </h3>
     </div>
     <h4>Office Hours: {{ office.openTime }} to {{ office.closeTime }}</h4>
-    <p class="phone">{{ office.phoneNumber }}</p>
+    <p class="phone">Phone Number: {{ office.phoneNumber }}</p>
     <!-- <div class="edit">
       <router-link
         :to="{ name: 'edit-office', params: { officeId: office.id, officeName: office.name} }"
