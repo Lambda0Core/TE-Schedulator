@@ -1,24 +1,31 @@
 <template>
   <div class="container">
     <div class="identity">
-      <div class="img" />
-      <h3>Dr. {{ provider.firstName }} {{ provider.lastName }}</h3>
-      <h2>
+     
+      <h2 class = "fullname">Dr. {{ provider.firstName }} {{ provider.lastName }}</h2>
+      </div>
+      <h3>
         {{ office.name }}
-        
-      </h2>
+         </h3>
       <p> Located at: {{ office.address }} {{ office.cityName }}
         {{ office.stateAcronym }}</p>
       <p>Office Hours: {{ office.openTime }} to {{ office.closeTime }}</p>
       <p class="phone">Phone Number: {{ office.phoneNumber }}</p>
 
       
-    </div>
-    <div>
+    <div class ="button-container">
+    <div class="button">
       <router-link
         :to="{ name: 'leave-reviews', params: { providerId: provider.id, providerName: provider.firstName + ' ' + provider.lastName } }"
         class="review-link">Leave a review</router-link
       >
+    </div>
+    <div class="button">
+      <router-link
+        :to="{ name: 'book-appointment', params: { providerId: provider.id, providerName: provider.firstName + ' ' + provider.lastName } }"
+        class="appointment">Book Appointment</router-link
+      >
+    </div>
     </div>
   </div>
 </template>
@@ -59,14 +66,20 @@ export default {
   color: var(--primary800);
   padding: 1rem 3rem;
   width: auto;
-  height: 225px;
+  height: fit-content;
+
   border: 3px var(--primary600) solid;
   border-radius: 1rem;
   box-shadow: 15px 15px var(--primary200);
 }
-.identity {
+.identity{
   display: flex;
   align-items: center;
+}
+
+.fullname {
+  flex: 1 1 auto;
+  
   grid-gap: 0.5rem;
   
 }
@@ -78,12 +91,12 @@ export default {
   border-radius: 3rem;
 }
 h2 {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   display: inline-block;
 }
 h3 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   display: inline-block;
 }
 .date {
@@ -96,13 +109,35 @@ h3 {
   margin-top: 0;
 }
 .review-link {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--primary200);
   background-color: var(--primary400);
   border-radius: 0.5rem;
-  padding: 10px 20px;  
+  padding: 5px 15px;  
 }
 .review-link:hover {
   background-color: var(--primary600);
 }
+.appointment {
+  font-size: 1rem;
+  color: var(--primary200);
+  background-color: var(--primary400);
+  border-radius: 0.5rem;
+  padding: 5px 15px;  
+  
+}
+.appointment:hover {
+  background-color: var(--primary600);
+}
+
+.button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.button {
+  display: flex;
+    margin: 0 10px;
+  }
 </style>

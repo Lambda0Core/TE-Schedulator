@@ -64,7 +64,7 @@ export default {
       const detailsId = this.$route.params.id;
       this.newReview.detailsId = detailsId;
 
-      ReviewService.createReview(this.newReview)
+      ReviewService.create(this.newReview)
         .then((response) => {
           console.log(response.data);
           this.$router.push({
