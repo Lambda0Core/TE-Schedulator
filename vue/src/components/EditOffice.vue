@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h1>Edit Office Information</h1>
+    <h1>My Office Information</h1>
     <div class="office-container">
       <div>
         <office-card :office="office" />
       </div>
-
+<!-- should we pull in the current office info or just text for Street Address etc? -->
       <button class="edit-button" v-on:click="startEditing()">
         Edit Office Info
       </button>
@@ -96,7 +96,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .office-container {
   display: flex;
   flex-direction: column;
@@ -111,7 +111,7 @@ h1 {
 
 .edit-button {
   background-color: var(--primary400);
-  color: white;
+  color: var(--primary200);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -119,6 +119,9 @@ h1 {
   cursor: pointer;
   margin-top: 40px;
   margin-bottom: 20px;
+}
+.edit-button:hover{
+  background-color: var(--primary600);  
 }
 
 .editing-container {
@@ -132,18 +135,21 @@ h1 {
   padding: 10px;
   margin-bottom: 10px;
   width: 300px;
-  border: 1px solid #ccc;
+  border: 2px solid var(--primary600);
   border-radius: 5px;
 }
 
 .editing-container button {
   background-color: var(--primary400);
-  color: white;
+  color: var(--primary200);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   margin-top: 20px;
+}
+.editing-container button:hover {
+    background-color: var(--primary600);
 }
 </style>

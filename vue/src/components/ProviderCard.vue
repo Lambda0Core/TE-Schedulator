@@ -4,15 +4,20 @@
       <div class="img" />
       <h3>Dr. {{ provider.firstName }} {{ provider.lastName }}</h3>
       <h2>
-        Office Location
         {{ office.name }}
+        
       </h2>
-      <p></p>
+      <p> Located at: {{ office.address }} {{ office.cityName }}
+        {{ office.stateAcronym }}</p>
+      <p>Office Hours: {{ office.openTime }} to {{ office.closeTime }}</p>
+      <p class="phone">Phone Number: {{ office.phoneNumber }}</p>
+
+      
     </div>
     <div>
       <router-link
         :to="{ name: 'leave-reviews', params: { providerId: provider.id, providerName: provider.firstName + ' ' + provider.lastName } }"
-        >Leave a review</router-link
+        class="review-link">Leave a review</router-link
       >
     </div>
   </div>
@@ -63,6 +68,7 @@ export default {
   display: flex;
   align-items: center;
   grid-gap: 0.5rem;
+  
 }
 .img {
   display: inline-block;
@@ -88,5 +94,15 @@ h3 {
 .office {
   color: var(--primary600);
   margin-top: 0;
+}
+.review-link {
+  font-size: 1.25rem;
+  color: var(--primary200);
+  background-color: var(--primary400);
+  border-radius: 0.5rem;
+  padding: 10px 20px;  
+}
+.review-link:hover {
+  background-color: var(--primary600);
 }
 </style>
