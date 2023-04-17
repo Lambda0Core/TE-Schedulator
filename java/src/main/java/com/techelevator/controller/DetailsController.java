@@ -25,30 +25,6 @@ public class DetailsController {
         return detailsDao.findAllDetails();
     }
 
-//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-//    public List<Provider> findAllProvidersById(@RequestParam int id) {
-//        List<Provider> providers = providerDao.findAllByProviderId(id);
-//
-//        if (providers == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
-//        } else {
-//
-//            return providerDao.findAllByProviderId(id);
-//        }
-//    }
-//
-//    @RequestMapping(path = "/provider/{id}", method = RequestMethod.GET)
-//    public List<Provider> findAllByUserId(@RequestParam int id) {
-//        List<Provider> providers = providerDao.findAllByUserId(id);
-//
-//        if (providers == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Providers not found");
-//        } else {
-//
-//            return providerDao.findAllByUserId(id);
-//        }
-//    }
-
     @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
     public Details getDetailsById(@PathVariable int id) {
         Details details = detailsDao.getDetailsById(id);
@@ -60,16 +36,6 @@ public class DetailsController {
         }
     }
 
-//    @RequestMapping(path = "fullname/details/{id}", method = RequestMethod.GET)
-//    public Details getFullNameByDetailsId(@PathVariable int id) {
-//        Details details = detailsDao.getFullNameByDetailsId(id);
-//        if (details == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
-//        } else {
-//
-//            return detailsDao.getFullNameByDetailsId(id);
-//        }
-//    }
 
     @RequestMapping(path = "provider/details/{id}", method = RequestMethod.GET)
     public Details getProviderDetailsById(@PathVariable int id) {
@@ -88,21 +54,6 @@ public class DetailsController {
         return detailsDao.getDetailsByOfficeId(id);
     }
 
-
-
-    // TODO This path was ambiguous and needs to fixed
-//    @RequestMapping(path = "/details/{lastName}", method = RequestMethod.GET)
-//    public Details getDetailsIdByLastName(@RequestParam String lastName) {
-//        Details details = detailsDao.getDetailsIdByLastName(lastName);
-//        if (details == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
-//        } else {
-//
-//            return detailsDao.getDetailsIdByLastName(lastName);
-//        }
-//
-//
-//    }
 
     @PostMapping("/details")
     public boolean create(@Valid @RequestBody Details details, @RequestParam int userId, @RequestParam String firstName, @RequestParam String lastName, @RequestParam boolean isProvider, @RequestParam int titleId) {
