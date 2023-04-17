@@ -4,7 +4,7 @@
 
     <div class="form-element">
       <label for="title">Title:</label>
-      <input id="title" type="text" v-model="newReview.title" />
+      <input id="title" type="text" v-model="newReview.reviewTitle" />
     </div>
     <label for="rating">Rating:</label>
     <select id="rating" v-model.number="newReview.rating">
@@ -49,19 +49,19 @@ export default {
   },
   methods: {
     addNewReview() {
-      const detailsId = this.$route.params.id;
+      this.newReview.detailsId = this.$route.params.id;
       this.$router.push({
         name: "provider-details",
-        params: { id: detailsId },
+        params: { id:this.newReview.detailsId },
       });
     },
     resetForm() {
       this.newReview.rating = 0;
-      this.newReview.title = "";
+      this.newReview.reviewTitle = "";
       this.newReview.reviewDesc = "";
     },
     submitReview() {
-      const detailsId = this.$route.params.id;
+      const detailsId = this.$route.params.providerId;
       this.newReview.detailsId = detailsId;
 
       ReviewService.create(this.newReview)
@@ -69,7 +69,7 @@ export default {
           console.log(response.data);
           this.$router.push({
             name: "provider-details",
-            params: { id: detailsId },
+            params: { providerid: detailsId },
           });
         })
         .catch((error) => {

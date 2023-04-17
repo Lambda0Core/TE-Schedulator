@@ -16,7 +16,7 @@ export default {
   },
   create(review) {
    
-    return axios.put('/review/', review)
+    return axios.post('/review', review)
   }
 
   

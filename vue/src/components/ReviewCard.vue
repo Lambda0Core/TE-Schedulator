@@ -2,46 +2,35 @@
   <div class="container">
     <div class="identity">
       <div class="img" />
-      <h3>
-         {{ review.title }}
-        </h3>
-        <h2>
-          Office Location 
-          {{review.desc}}          
-        </h2>
-        <p>
-         Rating: {{provider.rating}}
-        </p>
+      <h3 v-if="review">
+        {{ review.reviewTitle }}
+      </h3>
+      <h2 v-if="review">
+        Office Location
+        {{ review.desc }}
+      </h2>
+      <p>Rating: {{ provider.rating }}</p>
+      <p v-if="review.userId === currentUser.id">{{ review.reviewDesc }}</p>
+      <p v-else>No review left by this user.</p>
     </div>
-    
   </div>
 </template>
 
 <script>
-import reviewService from "../services/ReviewService";
+
 
 export default {
   name: "review-card",
   props: ["review"],
- data() {
-    return {      
-      reviews:[],
-      };
+  data() {
+    return {
+      reviews: [],
+    };
   },
-created() {
-      this.getReviewsForProvider(this.providerId);
-    },
-methods:{
-  
-      getReviewsForProvider() {
-      reviewService.getReviewsByProviderId(this.provider.id).then((response) => {
-        console.log(response.data);
-        this.reviews = response.data;
-      });
-    },
-
-    
-}
+  created() {
+    this.getReviewsForProvider();
+  },
+ 
 };
 </script>
 
