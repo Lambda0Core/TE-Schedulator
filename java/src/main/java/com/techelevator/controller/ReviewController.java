@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ReviewDao;
+import com.techelevator.model.Details;
 import com.techelevator.model.Office;
 import com.techelevator.model.Review;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,9 @@ public class ReviewController {
         return reviewDao.findAll();
     }
 
-    @GetMapping("/review/{id}")
-    public Review getReviewById(@RequestParam int id) {
+
+    @RequestMapping(path = "/review/{id}", method = RequestMethod.GET)
+    public Review getReviewById(@PathVariable int id) {
         Review review = reviewDao.getReviewById(id);
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
@@ -37,8 +39,8 @@ public class ReviewController {
     }
 
 
-    @GetMapping("/provider/review/{id}")
-    public Review[] getProviderReviews(@RequestParam int id) {
+    @RequestMapping(path = "/provider/review/{id}", method = RequestMethod.GET)
+    public Review[] getProviderReviews(@PathVariable int id) {
         List<Review> review = reviewDao.findAllByDetailsId(id);
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");

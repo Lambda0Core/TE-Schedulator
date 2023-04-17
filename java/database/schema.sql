@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS review (
 	 review_id SERIAL,
 	 review_title varchar(50) NOT NULL, 
 	 review_desc varchar(200) NOT NULL, 
+	 rating int, 
      user_id SERIAL,
 	 details_id SERIAL,
 
