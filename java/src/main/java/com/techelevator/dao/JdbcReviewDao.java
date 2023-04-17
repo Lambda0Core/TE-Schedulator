@@ -80,9 +80,9 @@ public class JdbcReviewDao implements ReviewDao {
 
 
     @Override
-    public Review getReviewByUserId(int userId) {
-        String sql = "SELECT * FROM review WHERE user_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+    public Review getReviewByUserId(int detailsId) {
+        String sql = "SELECT * FROM review WHERE details_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, detailsId);
         if (results.next()) {
             return mapRowToReview(results);
         } else {
