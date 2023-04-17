@@ -66,12 +66,10 @@ h3 {
     display: inline-block;   
 }
 .phone {
+    font-size: 1.25rem;
     color: var(--primary600);
     margin-top: 0;
 }
-.edit {
-  background-color: var(--primary400);
-  max-width: 50%;
-}
+
 
 </style>
