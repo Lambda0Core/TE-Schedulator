@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="identity">
-     
+      <profile-pic :providerId="provider.id"/>
       <h2 class = "fullname">Dr. {{ provider.firstName }} {{ provider.lastName }}</h2>
       </div>
       <h3>
@@ -32,6 +32,7 @@
 
 <script>
 import officeService from "../services/OfficeService";
+import ProfilePic from "../components/ProfilePic.vue"
 
 export default {
   name: "provider-card",
@@ -39,10 +40,14 @@ export default {
   data() {
     return {
       office: {},
+      providerId: 4001
     };
   },
   created() {
     this.getOffice();
+  },
+  components: {
+    ProfilePic,
   },
   methods: {
     getOffice() {
@@ -78,6 +83,7 @@ export default {
 }
 
 .fullname {
+  margin-left: 0.5em;
   flex: 1 1 auto;
   
   grid-gap: 0.5rem;
