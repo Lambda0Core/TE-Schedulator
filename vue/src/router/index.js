@@ -9,7 +9,7 @@ import Office from '../views/Office.vue'
 import Provider from '../views/FindAProvider.vue'
 import Appointments from '../views/PatientAppointments.vue'
 import NotFoundComponent from '../components/NotFoundComponent.vue'
-import ReviewCard from '../components/ReviewCard.vue'
+import ProviderReviews from '../views/ProviderReviews.vue'
 import leaveReview from '../views/LeaveReview.vue'
 import BookAppointment from '../views/BookAppointment.vue'
 import ProviderSchedule from '../views/ProviderSchedule.vue'
@@ -129,7 +129,7 @@ const router = new Router({
     {
       path: "/provider-reviews",
       name: "provider-reviews",
-      component: ReviewCard,
+      component: ProviderReviews,
       meta: {
         requiresAuth: true,
         showSidebar: true

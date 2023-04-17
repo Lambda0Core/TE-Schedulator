@@ -2,22 +2,24 @@
   <div class="container">
     <div class="identity">
       <div class="img" />
-      <h3 v-if="review">
+         <h2 v-if="review">
         {{ review.reviewTitle }}
-      </h3>
-      <h2 v-if="review">
-        Office Location
-        {{ review.desc }}
       </h2>
-      <p>Rating: {{ provider.rating }}</p>
-      <p v-if="review.userId === currentUser.id">{{ review.reviewDesc }}</p>
-      <p v-else>No review left by this user.</p>
+      <h3 v-if="review">
+        
+        {{ review.desc }}
+      </h3>
+      <p>Patient: {{ patientDetails.firstName }}{{ patientDetails.lastName }}</p>
+      <p>Rating: {{ review.rating }}</p>
+      <p >{{ review.reviewDesc }}</p>
+      
     </div>
   </div>
 </template>
 
 <script>
-
+import reviewService from "../services/ReviewService";
+import userService from "../services/UserDetailsService";
 
 export default {
   name: "review-card",
@@ -25,17 +27,34 @@ export default {
   data() {
     return {
       reviews: [],
+      patientDetails: {},
     };
   },
   created() {
-    this.getReviewsForProvider();
+    this.getReviews();
+    this.getUserNamebyReview();
   },
- 
+  methods: {
+    getReviews() {
+      reviewService.list().then((response) => {
+        console.log(response.data);
+        this.reviews = response.data;
+        
+      });
+    },
+    getUserNamebyReview(){
+      userService.getUserNamebyReview(this.review.userId).then((response)=>{
+        console.log(response.data);
+        this.patientDetails = response.data;
+      });
+    },
+  },
 };
 </script>
 
 <style scoped>
 .container {
+  
   color: var(--primary800);
   padding: 1rem 3rem;
   width: auto;

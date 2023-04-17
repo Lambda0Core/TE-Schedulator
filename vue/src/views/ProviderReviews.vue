@@ -1,5 +1,11 @@
 <template>
-  <review-card :providerId="providerId" />
+  <div>
+    <review-card
+      v-for="review in reviews"
+      :key="review.reviewId"
+      :review="review"
+    />
+  </div>
 </template>
 
 <script>
@@ -15,6 +21,7 @@ export default {
   data() {
     return {
       reviews: [],
+      provider: {},
     };
   },
   computed: {
@@ -23,19 +30,22 @@ export default {
     },
   },
 
-   methods: {
+  methods: {
     getReviewsForProvider() {
-      reviewService
-        .getReviewsByProviderId(this.provider.userId)
-        .then((response) => {
-          console.log(response.data);
-          this.reviews = response.data;
-        });
+     
+      reviewService.listProviderReviews(this.provider.id).then((response) => {
+        console.log(response.data);
+        this.reviews = response.data;
+      });
     },
   },
   created() {
-    this.providerId = UserDetailsService.getProviderId();
-    
+    UserDetailsService.getCurrent().then((response) => {
+      console.log(response.data);
+      this.provider = response.data;
+        this.getReviewsForProvider();
+    });
+  
   },
 };
 </script>

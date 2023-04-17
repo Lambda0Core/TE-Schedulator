@@ -14,8 +14,9 @@ export default {
   },
   getCurrent() {
     return axios.get('details/current');
+  },
+  getUserNamebyReview(id){
+    return axios.get(`user/details/${id}`)
   }
-
-
 
 }

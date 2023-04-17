@@ -3,16 +3,16 @@ import axios from 'axios';
 export default {
 
   list() {
-    return axios.post(`/review`)
+    return axios.get(`/review`)
   },
   get(id) {
-    return axios.post(`/review/${id}`)
+    return axios.get(`/review/${id}`)
   },
   listProviderReviews(id) {
-    return axios.get(`/provider/review/${id}`);
+    return axios.get(`/details/listreview/${id}`);
   },
   getReviewById(id) {
-    return axios.get(`/provider/review/${id}`);
+    return axios.get(`/review/${id}`);
   },
   create(review) {
    
