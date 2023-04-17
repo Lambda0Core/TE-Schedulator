@@ -1,53 +1,40 @@
 <template>
   <div class="container">
     <div class="identity">
-      <h2 class="fullname">
-        Dr. {{ provider.firstName }} {{ provider.lastName }}
-      </h2>
-    </div>
-    <h3>
-      {{ office.name }}
-    </h3>
-    <p>
-      Located at: {{ office.address }} {{ office.cityName }}
-      {{ office.stateAcronym }}
-    </p>
-    <p>Office Hours: {{ office.openTime }} to {{ office.closeTime }}</p>
-    <p class="phone">Phone Number: {{ office.phoneNumber }}</p>
+      <profile-pic :providerId="provider.id"/>
+      <h2 class = "fullname">Dr. {{ provider.firstName }} {{ provider.lastName }}</h2>
+      </div>
+      <h3>
+        {{ office.name }}
+         </h3>
+      <p> Located at: {{ office.address }} {{ office.cityName }}
+        {{ office.stateAcronym }}</p>
+      <p>Office Hours: {{ office.openTime }} to {{ office.closeTime }}</p>
+      <p class="phone">Phone Number: {{ office.phoneNumber }}</p>
 
-    <div class="button-container">
-      <div class="button">
-        <router-link
-          :to="{
-            name: 'leave-reviews',
-            params: {
-              providerId: provider.id,
-              providerName: provider.firstName + ' ' + provider.lastName,
-            },
-          }"
-          class="review-link"
-          >Leave a review</router-link
-        >
-      </div>
-      <div class="button">
-        <router-link
-          :to="{
-            name: 'book-appointment',
-            params: {
-              providerId: provider.id,
-              providerName: provider.firstName + ' ' + provider.lastName,
-            },
-          }"
-          class="appointment"
-          >Book Appointment</router-link
-        >
-      </div>
+      
+    <div class ="button-container">
+    <div class="button">
+      <router-link
+        :to="{ name: 'leave-reviews', params: { providerId: provider.id, providerName: provider.firstName + ' ' + provider.lastName } }"
+        class="review-link">Leave a review</router-link
+      >
     </div>
-  </div>
+    <div class="button">
+      <router-link
+        :to="{ name: 'book-appointment', params: { providerId: provider.id, providerName: provider.firstName + ' ' + provider.lastName } }"
+        class="appointment">Book Appointment</router-link
+      >
+    </div>
+   
+    </div>
+    </div>
+ 
 </template>
 
 <script>
 import officeService from "../services/OfficeService";
+import ProfilePic from "../components/ProfilePic.vue";
 
 export default {
   name: "provider-card",
@@ -55,10 +42,14 @@ export default {
   data() {
     return {
       office: {},
+      providerId: 4001,
     };
   },
   created() {
     this.getOffice();
+  },
+  components: {
+    ProfilePic,
   },
   methods: {
     getOffice() {
@@ -94,6 +85,7 @@ export default {
 }
 
 .fullname {
+  margin-left: 0.5em;
   flex: 1 1 auto;
 
   grid-gap: 0.5rem;
