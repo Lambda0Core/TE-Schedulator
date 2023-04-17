@@ -39,8 +39,8 @@ public class ReviewController {
     }
 
 
-    @RequestMapping(path = "/provider/review/{id}", method = RequestMethod.GET)
-    public Review[] getProviderReviews(@PathVariable int id) {
+    @RequestMapping(path = "/details/review/{id}", method = RequestMethod.GET)
+    public Review[] getDetailsReviews(@PathVariable int id) {
         List<Review> review = reviewDao.findAllByDetailsId(id);
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
