@@ -2,51 +2,59 @@
   <div class="container">
     <div class="identity">
       <div class="img" />
-      <h3>
-         {{ review.title }}
-        </h3>
-        <h2>
-          Office Location 
-          {{review.desc}}          
-        </h2>
-        <p>
-         Rating: {{provider.rating}}
-        </p>
+         <h2 v-if="review">
+        {{ review.reviewTitle }}
+      </h2>
+      <h3 v-if="review">
+        
+        {{ review.desc }}
+      </h3>
+      <p>Patient: {{ patientDetails.firstName }}{{ patientDetails.lastName }}</p>
+      <p>Rating: {{ review.rating }}</p>
+      <p >{{ review.reviewDesc }}</p>
+      
     </div>
-    
   </div>
 </template>
 
 <script>
 import reviewService from "../services/ReviewService";
+import userService from "../services/UserDetailsService";
 
 export default {
   name: "review-card",
   props: ["review"],
- data() {
-    return {      
-      reviews:[],
-      };
+  data() {
+    return {
+      reviews: [],
+      patientDetails: {},
+    };
   },
-created() {
-      this.getReviewsForProvider(this.providerId);
-    },
-methods:{
-  
-      getReviewsForProvider() {
-      reviewService.getReviewsByProviderId(this.provider.id).then((response) => {
+  created() {
+    this.getReviews();
+    this.getUserNamebyReview();
+  },
+  methods: {
+    getReviews() {
+      reviewService.list().then((response) => {
         console.log(response.data);
         this.reviews = response.data;
+        
       });
     },
-
-    
-}
+    getUserNamebyReview(){
+      userService.getUserNamebyReview(this.review.userId).then((response)=>{
+        console.log(response.data);
+        this.patientDetails = response.data;
+      });
+    },
+  },
 };
 </script>
 
 <style scoped>
 .container {
+  
   color: var(--primary800);
   padding: 1rem 3rem;
   width: auto;

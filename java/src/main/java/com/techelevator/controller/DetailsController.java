@@ -41,6 +41,17 @@ public class DetailsController {
         }
     }
 
+    @RequestMapping(path = "/user/details/{id}", method = RequestMethod.GET)
+    public Details getDetailsByUserId(@PathVariable int id) {
+        Details details = detailsDao.getDetailsByUserId(id);
+        if (details == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User details not found");
+        } else {
+
+            return detailsDao.getDetailsByUserId(id);
+        }
+    }
+
     @RequestMapping(path = "/details/current", method = RequestMethod.GET)
     public Details getDetailsById(Principal principal) {
         int currentId = userDao.findIdByUsername(principal.getName());
