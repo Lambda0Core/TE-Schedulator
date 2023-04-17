@@ -117,7 +117,7 @@ public class JdbcReviewDao implements ReviewDao {
     }
 
     @Override
-    public boolean create(String reviewTitle, String reviewContents, int detailsId) {
+    public boolean create(String reviewTitle, String reviewDesc, int detailsId, int rating, int userId) {
         /* How to create a review!
         You might notice it'll prompt you for four different properties in your create, what do I need you might ask!
         (1). You'll need to parse the subject and contents of the review into SEPARATE strings
@@ -127,9 +127,9 @@ public class JdbcReviewDao implements ReviewDao {
         (5). Now that you've got your properties, input them into your create and BAM!!! You've got a brand-new review!!!!!
         v--------------------------------------------v
         Remove once principal is setup and working*/
-     int temporary = 9001;
-     String sql = "insert into review (review_title, review_desc, user_id, details_id) values (?, ?, ?, ?)";
-     return jdbcTemplate.update(sql, reviewTitle, reviewContents, temporary, detailsId) == 1;
+
+     String sql = "NSERT INTO review (review_title, review_desc, rating, user_id, details_id) VALUES (?, ?, ?, ?, ?);";
+     return jdbcTemplate.update(sql, reviewTitle, reviewDesc, rating, userId, detailsId ) == 1;
     }
 
 
@@ -139,6 +139,7 @@ public class JdbcReviewDao implements ReviewDao {
         Review review = new Review();
         review.setReviewId(rs.getInt("review_id"));
         review.setReviewTitle(rs.getString("review_title"));
+        review.setReviewId(rs.getInt("rating"));
         review.setReviewDesc(rs.getString("review_desc"));
         review.setUserId(rs.getInt("user_id"));
         review.setDetailsId(rs.getInt("details_id"));

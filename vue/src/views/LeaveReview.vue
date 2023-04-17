@@ -57,7 +57,7 @@ export default {
     },
     resetForm() {
       this.newReview.rating = 0;
-      this.newReview.reviewTitle = "";
+      this.newReview.title = "";
       this.newReview.reviewDesc = "";
     },
     submitReview() {

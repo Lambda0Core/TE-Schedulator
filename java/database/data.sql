@@ -77,11 +77,11 @@ VALUES (4000, 1000),
        (4003, 1002),
        (2001, 1002);
 
-INSERT INTO review (review_id, review_title, review_desc, user_id, details_id)
-VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with broken ankles!', 3001, 4000),
-       (8001, 'Dr. Andy has another victim', 'Poor Lazlo... he was the finest mind of our generation!', 3004, 4001),
-       (8002, 'Dr. Max should be condemned!', '-his skeleton was missing, and he was never heard from again!! ..Anyways, thats how I lost my medical license...', 3001, 4003),
-       (8003, 'Dr. Bryce did a very good job... as a butcher!', 'I went in with a sprained ankle, and left without half my limbs!', 3001, 4003);
+INSERT INTO review (review_id, review_title, review_desc, rating, user_id, details_id)
+VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with broken ankles!', 1, 3001, 4000),
+       (8001, 'Dr. Andy has another victim', 'Poor Lazlo... he was the finest mind of our generation!', 2, 3004, 4001),
+       (8002, 'Dr. Max should be condemned!', '-his skeleton was missing, and he was never heard from again!! ..Anyways, thats how I lost my medical license...', 3, 3001, 4003),
+       (8003, 'Dr. Bryce did a very good job... as a butcher!', 'I went in with a sprained ankle, and left without half my limbs!', 5, 3001, 4003);
 
 INSERT INTO response (response_id, review_id, response_title, response_desc, user_id, details_id)
 VALUES (9000, 8000, 'I rather liked Emily :L', 'Shes not so bad!', 3001, 2002),

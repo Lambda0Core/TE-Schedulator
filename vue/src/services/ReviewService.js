@@ -14,8 +14,10 @@ export default {
   getReviewById(id) {
     return axios.get(`/provider/review/${id}`);
   },
-  create(id) {
-    return axios.put(`/review/${id}`);
+  create(review) {
+   
+    return axios.put('/review/', review)
   }
+
   
 }
