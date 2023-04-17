@@ -114,6 +114,7 @@ h3 {
   background-color: var(--primary400);
   border-radius: 0.5rem;
   padding: 5px 15px;  
+  cursor: pointer;
 }
 .review-link:hover {
   background-color: var(--primary600);
@@ -124,6 +125,7 @@ h3 {
   background-color: var(--primary400);
   border-radius: 0.5rem;
   padding: 5px 15px;  
+  cursor: pointer;
   
 }
 .appointment:hover {

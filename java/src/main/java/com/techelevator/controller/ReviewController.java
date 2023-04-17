@@ -51,12 +51,12 @@ public class ReviewController {
     }
 
     @PostMapping("/review")
-    public boolean createReview(@Valid @RequestBody Review review, @RequestParam String reviewTitle, @RequestParam String reviewDesc, @RequestParam int detailsId) {
+    public boolean createReview(@Valid @RequestBody Review review) {
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
         }
 
-        return reviewDao.create(reviewTitle, reviewDesc, detailsId);
+        return reviewDao.create(review.getReviewTitle(), review.getReviewDesc(), review.getRating(), review.getUserId(), review.getDetailsId());
     }
 
 }
