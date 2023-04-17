@@ -20,5 +20,5 @@ public interface ReviewDao {
 
     int findIdByReviewName(String reviewName);
 
-    boolean create(String reviewTitle, String reviewContents, int detailsId);
+    boolean create(String reviewTitle, String reviewDesc, int detailsId, int rating, int userId);
 }
