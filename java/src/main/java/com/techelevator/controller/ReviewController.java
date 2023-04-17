@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ReviewDao;
+import com.techelevator.model.Details;
 import com.techelevator.model.Office;
 import com.techelevator.model.Review;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,19 @@ public class ReviewController {
         return reviewDao.findAll();
     }
 
-    @GetMapping("/review/{id}")
-    public Review getReviewById(@RequestParam int id) {
+    @RequestMapping(path = "/details/listreview/{id}", method = RequestMethod.GET)
+    public List<Review> listAllByDetails(@PathVariable int id) {
+        return reviewDao.findAllByDetailsId(id);
+    }
+
+    @RequestMapping(path = "/users/listreview/{id}", method = RequestMethod.GET)
+    public List<Review> listAllByUsers(@PathVariable int id) {
+        return reviewDao.findAllByUserId(id);
+    }
+
+
+    @RequestMapping(path = "/review/{id}", method = RequestMethod.GET)
+    public Review getReviewById(@PathVariable int id) {
         Review review = reviewDao.getReviewById(id);
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
@@ -37,8 +49,8 @@ public class ReviewController {
     }
 
 
-    @GetMapping("/provider/review/{id}")
-    public Review[] getProviderReviews(@RequestParam int id) {
+    @RequestMapping(path = "/details/review/{id}", method = RequestMethod.GET)
+    public Review[] getDetailsReviews(@PathVariable int id) {
         List<Review> review = reviewDao.findAllByDetailsId(id);
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
@@ -49,12 +61,12 @@ public class ReviewController {
     }
 
     @PostMapping("/review")
-    public boolean createReview(@Valid @RequestBody Review review, @RequestParam String reviewTitle, @RequestParam String reviewDesc, @RequestParam int detailsId) {
+    public boolean createReview(@Valid @RequestBody Review review) {
         if (review == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
         }
 
-        return reviewDao.create(reviewTitle, reviewDesc, detailsId);
+        return reviewDao.create(review.getReviewTitle(), review.getReviewDesc(), review.getRating(), review.getUserId(), review.getDetailsId());
     }
 
 }
