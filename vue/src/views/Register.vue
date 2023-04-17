@@ -1,4 +1,5 @@
 <template>
+  <div class="container">
   <div id="register" class="text-center">
     <form @submit.prevent="register">
       <h1>Create Account</h1>
@@ -65,6 +66,7 @@
         >
       </p>
     </form>
+  </div>
   </div>
 </template>
 
@@ -135,45 +137,68 @@ export default {
 </script>
 
 <style scoped>
+
 h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
   color: var(--primary800);
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 .form-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 1rem;
+  
 }
-input {
-  justify-content: center;
-  width: 200px;
-  height: 20px;
+input[type="text"],
+input[type="password"],
+select {
+  width: 100%;
+  height: 1rem;
+  padding: 0.5rem;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--primary800);
+  box-shadow: none;
+  transition-duration: 0.2s;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary400);
+  box-shadow: 0 0 0 0.125rem rgba(33, 150, 243, 0.25);
 }
 label {
-  margin-right: 0.5rem;
-  display: block;
+  margin-bottom: 0.5rem;
   text-align: center;
   color: var(--primary800);
   font: bold;
 }
-form {
-  height: fit-content;
-}
-
 button {
-  justify-content: center;
-  width: 150px;
-  height: 30px;
-  border-radius: 6px;
-  font-size: 16px;
+  width: 100%;
+  height: 2rem;
+  margin-top: 1rem;
+  border-radius: 0.25rem;
+  font-size: 1.2rem;
   background-color: var(--primary400);
   color: var(--primary800);
-  border: 3px solid var(--primary800);
-  transition-duration: 0.4s;
+  border: none;
+  box-shadow: none;
+  transition-duration: 0.2s;
 }
 button:hover {
   background-color: var(--primary800);
-  border: 3px solid var(--primary400);
   color: white;
+}
+
+form {
+  height: fit-content;
+  
 }
 #register {
   display: flex;
@@ -186,16 +211,28 @@ button:hover {
   width: 100%;
   align-items: center;
 }
-.selectBox {
+
+#selectBox {
   display: flex;
-  justify-content: center;
-}
-select {
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  font-size: 16px;
-  width: 150px;
-  height: 25px;
-  margin-bottom: 1rem;
+  
+  
+}
+#selectBox select {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  padding-top: 0%;
+  
+}
+#selectBox label {
+  display: block;
+  text-align: center;
+  color: var(--primary800);
+  
+  
 }
 </style>
