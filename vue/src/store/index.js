@@ -49,7 +49,7 @@ export default new Vuex.Store({
       {
         title: "Schedule",
         icon: "calendar-regular.svg",
-        link: "provider-calendar"
+        link: "provider-schedule"
       },
       {
         title: "Reviews",

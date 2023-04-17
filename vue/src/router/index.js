@@ -12,6 +12,7 @@ import NotFoundComponent from '../components/NotFoundComponent.vue'
 import ReviewCard from '../components/ReviewCard.vue'
 import leaveReview from '../views/LeaveReview.vue'
 import BookAppointment from '../views/BookAppointment.vue'
+import ProviderSchedule from '../views/ProviderSchedule.vue'
 
 Vue.use(Router)
 
@@ -98,6 +99,15 @@ const router = new Router({
         showSidebar: true
       }
     },
+    {
+      path: "/provider-schedule",
+      name: "provider-schedule",
+      component: ProviderSchedule,
+      meta: {
+        requiresAuth: true,
+        showSidebar: true
+      }
+    },  
     {
       path: "/provider-office",
       name: "office",

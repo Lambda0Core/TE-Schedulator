@@ -10,6 +10,9 @@ export default {
     return axios.get(`/appointment/${id}`);
   },
 
+  listByMonth(month, year) {
+    return axios.get(`appointment/search?month=${month}&year=${year}`);
+  },
   getAppointmentsByPatientId(userId) {
     return axios.get(`patient/appointment/${userId}`);
   },

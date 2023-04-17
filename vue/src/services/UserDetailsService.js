@@ -11,6 +11,9 @@ export default {
   },
   getDetailsByOfficeId(id){
       return axios.get(`/office/details/${id}`);
+  },
+  getCurrent() {
+    return axios.get('details/current');
   }
 
 

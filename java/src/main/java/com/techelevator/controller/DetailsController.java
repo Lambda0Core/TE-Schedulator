@@ -1,13 +1,16 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.DetailsDao;
+import com.techelevator.dao.UserDao;
 import com.techelevator.model.Details;
 import com.techelevator.model.Office;
+import com.techelevator.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -15,9 +18,11 @@ import java.util.List;
 public class DetailsController {
 
     DetailsDao detailsDao;
+    UserDao userDao;
 
-    public DetailsController(DetailsDao detailsDao) {
+    public DetailsController(DetailsDao detailsDao, UserDao userDao) {
         this.detailsDao = detailsDao;
+        this.userDao =userDao;
     }
 
     @RequestMapping(path = "/details", method = RequestMethod.GET)
@@ -34,6 +39,13 @@ public class DetailsController {
 
             return detailsDao.getDetailsById(id);
         }
+    }
+
+    @RequestMapping(path = "/details/current", method = RequestMethod.GET)
+    public Details getDetailsById(Principal principal) {
+        int currentId = userDao.findIdByUsername(principal.getName());
+        Details details = detailsDao.getDetailsByUserId(currentId);
+        return details;
     }
 
 
