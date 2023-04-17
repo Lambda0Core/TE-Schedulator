@@ -26,6 +26,12 @@
         class="appointment">Book Appointment</router-link
       >
     </div>
+    <div class="button">
+      <router-link
+        :to="{ name: 'patient-reviews', params: { providerId: provider.id, providerName: provider.firstName + ' ' + provider.lastName } }"
+        class="view-reviews">View Reviews</router-link
+      >
+    </div>
     </div>
   </div>
 </template>

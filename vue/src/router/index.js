@@ -144,6 +144,15 @@ const router = new Router({
         showSidebar: true
       }
     },
+    {
+      path: "/patient-reviews",
+      name: "provider-reviews",
+      component: ReviewCard,
+      meta: {
+        requiresAuth: true,
+        showSidebar: true
+      }
+    },
   ]  
 })
 
