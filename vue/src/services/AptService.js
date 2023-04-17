@@ -14,7 +14,7 @@ export default {
     return axios.get(`appointment/search?month=${month}&year=${year}`);
   },
   getAppointmentsByPatientId(userId) {
-    return axios.get(`patient/appointment/${userId}`);
+    return axios.get(`users/appointment/${userId}`);
   },
 
   getAppointmentsByProviderId(providerId) {
