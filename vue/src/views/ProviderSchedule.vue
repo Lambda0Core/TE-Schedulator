@@ -16,7 +16,10 @@
           {{ row.time }}
         </div>
         <div class="cell" v-for="cell in row.cells" v-bind:key="cell">
-          <div class="apt" v-show="cell.appointment">Appointment</div>
+          <div class="apt" v-if="cell.appointment">
+            <div class="type">{{ cell.appointment.name }}</div>
+            <div class="name">{{ cell.appointment.patientFirstName}} {{ cell.appointment.patientLastName }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -27,8 +30,14 @@
 import OfficeService from "../services/OfficeService";
 import UserDetailsService from "../services/UserDetailsService";
 
-import { startOfWeek, addDays, getDayOfYear, getHours, getMinutes } from "date-fns";
-import AptService from '../services/AptService';
+import {
+  startOfWeek,
+  addDays,
+  getDayOfYear,
+  getHours,
+  getMinutes,
+} from "date-fns";
+import AptService from "../services/AptService";
 
 export default {
   name: "calendar",
@@ -36,12 +45,16 @@ export default {
     return {
       provider: {},
       office: {},
-      appointments: {},
-      rows: {}
-    }
+      appointments: {
+        
+      },
+      rows: {},
+    };
   },
   methods: {
     buildCalendarByDate(dateInput) {
+      console.log("Appointment Object:")
+      console.log(this.appointment);
       let date = startOfWeek(new Date(dateInput));
       console.log("----");
       console.log(this.provider);
@@ -55,20 +68,28 @@ export default {
         newRow.time = this.getSlotAsString(i);
         newRow.cells = [];
         for (let j = 0; j < 7; j++) {
-          const thisDate = addDays(date,i);
+          const thisDate = addDays(date, j);
           const newCell = {};
-          this.appointments.forEach( (appointment) => {
-            if (getDayOfYear(appointment.date) == getDayOfYear(thisDate)
-            && getHours(appointment.date) == this.parseTimeSlotHours(thisDate) &&
-            getMinutes(appointment.date) == this.parseTimeSlotMinutes(thisDate)) {
-              newCell.appointment = appointment;
+          this.appointments.forEach((appointment) => {
+            console.log("this.provider.id = " + this.provider.id)
+            console.log("appointment.providerId = " + appointment.providerId)
+
+            if (this.provider.id == appointment.detailsId) {
+              const appointmentDate = new Date(appointment.date);
+
+              if (
+                getDayOfYear(appointmentDate) == getDayOfYear(thisDate) &&
+                getHours(appointmentDate) == this.parseTimeSlotHours(i) &&
+                getMinutes(appointmentDate) == this.parseTimeSlotMinutes(i)
+              ) {
+                newCell.appointment = appointment;
+              }
             }
           });
           newRow.cells.push(newCell);
         }
         rows.push(newRow);
       }
-      
       this.rows = rows;
     },
     convertTimeToInt(timeString) {
@@ -83,18 +104,15 @@ export default {
     },
     parseTimeSlotHours(timeSlot) {
       timeSlot = timeSlot / 2;
-      if (timeSlot % 1 == 0.5)
-        timeSlot = timeSlot - 0.5;
+      if (timeSlot % 1 == 0.5) timeSlot = timeSlot - 0.5;
       return timeSlot;
     },
     parseTimeSlotMinutes(timeSlot) {
       timeSlot = timeSlot / 2;
-      if (timeSlot % 1 == 0.5)
-        return 30;
-      else
-        return 0;
+      if (timeSlot % 1 == 0.5) return 30;
+      else return 0;
     },
-    setup() {
+    async setup() {
       UserDetailsService.getCurrent().then((response) => {
         console.log("ProviderService call data: ");
         console.log(response);
@@ -102,9 +120,10 @@ export default {
         this.provider = response.data;
         OfficeService.get(this.provider.officeId).then((response) => {
           this.office = response.data;
-          AptService.listByMonth(4, 2023).then((response) => {
+          AptService.listByMonth(4, 2023).then((response, self) => {
+            console.log("****")
+            console.log(self);
             this.appointments = response.data;
-
             this.buildCalendarByDate(new Date(2023, 3, 16));
           });
         });
@@ -145,6 +164,9 @@ export default {
 .row:nth-child(odd) {
   border-bottom: 2px solid var(--neutral400);
 }
+.row:nth-child(odd):has(.header) {
+  border-bottom: none;
+}
 .sticky {
   position: sticky;
   top: 0px;
@@ -154,6 +176,7 @@ export default {
   color: var(--neutral600);
 }
 .cell {
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,7 +199,7 @@ export default {
   border: none;
   border-left: 1px solid var(--neutral400);
   border-right: 1px solid var(--neutral400);
-  border-bottom: 2px solid var(--neutral400);
+  border-bottom: 4px solid var(--primary500);
 }
 .header:nth-child(even) {
   background: white;
@@ -219,18 +242,30 @@ td {
   border: 2px solid var(--primary400);
 }
 .content {
+  overflow: hidden;
   padding: 0;
 }
 .apt {
+  position: relative;
+  overflow: hidden;
   height: 100%;
   padding: 0.5rem;
   margin: 0;
-  background-color: var(--primary600);
+  background-color: var(--primary200);
   color: var(--primary200);
-  border-radius: 0.5rem;
+  border: 2px solid var(--primary600);
   box-sizing: border-box;
 }
+.apt .type {
+  font-weight: bold;
+  color: var(--primary800);
+}
+.apt .name {
+  font-size: 0.9rem;
+  color: var(--neutral800);
+}
 .label {
-  border-right-width: 3px;
+  border-right: 3px solid var(--primary500);
+  border-left: none;
 }
 </style>
