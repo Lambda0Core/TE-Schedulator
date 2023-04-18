@@ -1,12 +1,15 @@
 <template>
   <div class="container">
-      <p class="date">{{ appointment.date }}</p>
-      <div class="identity">
-        <div class="img"/>
-        <h3>Dr. {{ appointment.providerFirstName }} {{ appointment.providerLastName }}</h3>
-      </div>
-      <h2>{{ appointment.name }}</h2>
-      <p class="agenda">{{ appointment.agenda }}</p>
+    <p class="date">{{ appointment.date }}</p>
+    <div class="identity">
+      <profile-pic :providerId="provider.id" />
+      <h3>
+        Dr. {{ appointment.providerFirstName }}
+        {{ appointment.providerLastName }}
+      </h3>
+    </div>
+    <h2>{{ appointment.name }}</h2>
+    <p class="agenda">{{ appointment.agenda }}</p>
   </div>
 </template>
 

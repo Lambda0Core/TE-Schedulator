@@ -6,6 +6,10 @@
         Dr. {{ provider.firstName }} {{ provider.lastName }}
       </h2>
     </div>
+<<<<<<< HEAD
+=======
+    <div class="availability">Available {{ this.availableFrom }} - {{ this.availableTo }}</div>
+>>>>>>> 72846a263b0f6f15a4903718927df258967fa642
     <section class="office">
       <h3>
         {{ office.name }}
@@ -47,9 +51,8 @@
 
       <div class="button">
         <router-link
-          :to="'patient-reviews/' + this.provider.id"
-          class="view-reviews"
-          >View Reviews</router-link
+        :to="'patient-reviews/' + this.provider.id"
+        class="view-reviews">View Reviews</router-link
         >
       </div>
     </div>
@@ -58,7 +61,9 @@
 
 <script>
 import officeService from "../services/OfficeService";
+import availabilityService from "../services/AvailabilityService";
 import ProfilePic from "../components/ProfilePic.vue";
+import { format } from "date-fns";
 
 export default {
   name: "provider-card",
@@ -66,11 +71,22 @@ export default {
   data() {
     return {
       office: {},
-      providerId: 4001,
+      providerId: -1,
+      availableFrom: "",
+      availableTo: "",
     };
+  },
+  computed: {
+    availFrom() {
+      return format(this.availability.availableFrom, "MMMM dd");
+    },
+    availTo() {
+      return format(this.availability.availableTo, "MMMM dd");
+    },
   },
   created() {
     this.getOffice();
+    this.getAvailability();
   },
   components: {
     ProfilePic,
@@ -93,6 +109,16 @@ export default {
         name: "patient-reviews",
         params: { providerName: this.provider.name },
       });
+    },
+    getAvailability() {
+      availabilityService.getByDetails(this.provider.id).then( function(response) {
+        debugger;
+        const availability = response.data;
+        const fromDate = new Date(availability.availableFrom);
+        const toDate = new Date(availability.availableTo);
+        this.availableFrom = format(fromDate, "MMMM dd");
+        this.availableTo = format(toDate, "MMMM dd");
+      }.bind(this));
     },
   },
 };
@@ -207,5 +233,13 @@ label {
 }
 .value {
   color: var(--primary600);
+}
+.availability {
+  display: block;
+  color: var(--neutral400);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-left: 2px solid var(--primary400);;
+  padding: 4px 6px;
 }
 </style>
