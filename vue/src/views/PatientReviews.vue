@@ -12,6 +12,7 @@
 import reviewCard from "../components/ReviewCard.vue";
 
 import reviewService from "../services/ReviewService.js";
+import UserDetailsService from '../services/UserDetailsService';
 
 export default {
   components: {
@@ -21,23 +22,34 @@ export default {
   data() {
     return {
       reviews: [],
-      
+      provider: {},
     };
+  },
+  computed: {
+      get() {
+          return this.$store.state.providers;
+      },
   },
   
 
   methods: {
-    getReviews() {
+    
+    getReviewsForProvider() {
      
-      reviewService.list().then((response) => {
+      reviewService.listProviderReviews(this.provider.id).then((response) => {
         console.log(response.data);
         this.reviews = response.data;
       });
     },
   },
   created() {
-   this.getReviews();
+      UserDetailsService.get(this.$route.params.providerId).then((response) => {
+          console.log(response.data);
+          this.provider = response.data;
+          this.getReviewsForProvider();
+      });
   
+    
   },
 };
 </script>

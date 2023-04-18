@@ -145,7 +145,7 @@ const router = new Router({
       }
     },
     {
-      path: "/patient-review",
+      path: "/patient-reviews/:providerId",
       name: "patient-reviews",
       component: PatientReviews,
       meta: {
