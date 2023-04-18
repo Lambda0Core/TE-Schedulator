@@ -109,7 +109,6 @@ export default {
     },
     getAvailability() {
       availabilityService.getByDetails(this.provider.id).then( function(response) {
-        debugger;
         const availability = response.data;
         const fromDate = new Date(availability.availableFrom);
         const toDate = new Date(availability.availableTo);

@@ -30,11 +30,6 @@ export default new Vuex.Store({
     
     patientSidebarOptions: [
       {
-        title: "Home",
-        icon: "heart-pulse-solid.svg",
-        link: "/"
-      },
-      {
         title: "Appointments",
         icon: "calendar-regular.svg",
         link: "../appointments"

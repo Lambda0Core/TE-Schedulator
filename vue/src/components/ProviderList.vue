@@ -4,8 +4,8 @@
 
     <!-- v-for that lists ProviderListElements -->
     <div>
-      <label for="office">Select Office Location</label>
-      <select
+      <label class="inline-block" for="office">Select Office Location:</label>
+      <select class="inline-block"
         id="office"
         v-model.number="officeid"
         v-on:change="getProviders()"
@@ -106,6 +106,7 @@ h1 {
 }
 .list {
   margin: 3rem;
+  margin-top: 2rem;
   margin-right: 15rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -115,17 +116,19 @@ h1 {
 }
 label {
   margin-left: 3rem;
-  margin-bottom: 1rem;
   display: block;
   font-size: 20px;
   color: var(--primary800);
   font: bold;
 }
 select {
-  margin-left: 3rem;
+  margin-left: 1rem;
   justify-content: center;
   width: 10rem;
   height: 2rem;
   font-size: 16px;
+}
+.inline-block {
+  display: inline-block;
 }
 </style>
