@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     submitAppointment() {
+      this.newAppointment.providerId = this.provider.id;
       this.newAppointment.date = this.appointmentDateTime;
       AptService.create(this.newAppointment)
         .then(() => {
