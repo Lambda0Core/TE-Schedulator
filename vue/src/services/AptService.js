@@ -26,7 +26,7 @@ export default {
   },
 
   getNewAppointments(providerDetailsId) {
-    return axios.post(`details/${providerDetailsId}/appointment/new`);
+    return axios.get(`details/${providerDetailsId}/appointment/new`);
   },
   markAppointmentAsSeen(appointmentId) {
     return axios.post(`appointment/${appointmentId}/read`);
