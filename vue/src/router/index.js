@@ -13,7 +13,7 @@ import ProviderReviews from '../views/ProviderReviews.vue'
 import leaveReview from '../views/LeaveReview.vue'
 import BookAppointment from '../views/BookAppointment.vue'
 import ProviderSchedule from '../views/ProviderSchedule.vue'
-
+import PatientReviews from '../views/PatientReviews.vue'
 Vue.use(Router)
 
 /**
@@ -145,9 +145,9 @@ const router = new Router({
       }
     },
     {
-      path: "/patient-reviews",
-      name: "provider-reviews",
-      component: ReviewCard,
+      path: "/patient-review",
+      name: "patient-reviews",
+      component: PatientReviews,
       meta: {
         requiresAuth: true,
         showSidebar: true

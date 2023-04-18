@@ -63,6 +63,12 @@ export default {
         params: { providerName: this.provider.name },
       });
     },
+    viewReview() {
+      this.$router.push({
+        name: "patient-review",
+        params: { providerName: this.provider.name },
+      });
+    },
   },
 };
 </script>
