@@ -1,4 +1,7 @@
 package com.techelevator.controller;
+import com.techelevator.dao.DetailsDao;
+import com.techelevator.dao.ReviewDao;
+import com.techelevator.model.Details;
 import com.techelevator.model.Response;
 import com.techelevator.dao.ResponsesDao;
 import com.techelevator.model.Review;
@@ -13,9 +16,11 @@ import java.util.List;
 public class ResponseController {
 
     ResponsesDao responsesDao;
+    ReviewDao reviewDao;
 
-    public ResponseController(ResponsesDao responsesDao) {
+    public ResponseController(ResponsesDao responsesDao, ReviewDao reviewDao) {
         this.responsesDao = responsesDao;
+        this.reviewDao = reviewDao;
     }
 
     @GetMapping("/response")
@@ -52,6 +57,9 @@ public class ResponseController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Response not found");
         }
 
+        Review review = reviewDao.getReviewById(response.getReviewId());
+        response.setDetailsId( review.getDetailsId());
+        response.setUserId(review.getUserId());
         return responsesDao.create(response);
     }
 
