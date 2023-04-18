@@ -91,7 +91,7 @@ const router = new Router({
       }
     },
     {
-      path: "/book-appointment",
+      path: "/book-appointment/:providerid",
       name: "book-appointment",
       component: BookAppointment,
       meta: {
