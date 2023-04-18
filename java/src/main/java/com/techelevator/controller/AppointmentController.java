@@ -45,6 +45,7 @@ public class AppointmentController {
         }
     }
 
+
     @GetMapping("details/appointment/{id}")
     public Appointment[] findAllProviderAppointments(@PathVariable int id) {
         Appointment appointment = (Appointment) appointmentDao.findAllAppointmentsByProviderDetailsId(id);
@@ -54,6 +55,17 @@ public class AppointmentController {
 
             return new Appointment[]{(Appointment) appointmentDao.findAllAppointmentsByProviderDetailsId(id)};
         }
+    }
+
+    @GetMapping("details/{id}/appointment/new")
+    public Appointment[] getUnreadAppointmentsByProviderId(@PathVariable int id) {
+        List<Appointment> appointments = appointmentDao.findAllNewAppointmentsByProviderDetailsId(id);
+        return appointments.toArray(new Appointment[] {});
+    }
+
+    @PostMapping("appointment/{id}/read")
+    public void markAppointmentAsRead(@PathVariable int id) {
+        appointmentDao.setAptAsRead(id);
     }
 
     @PostMapping("/appointment")

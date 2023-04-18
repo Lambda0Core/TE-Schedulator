@@ -18,6 +18,10 @@ public interface AppointmentDao {
 
     List<Appointment> findAllAppointmentsBothIds(int userId,int providerId);
 
+    List<Appointment> findAllNewAppointmentsByProviderDetailsId(int providerId);
+
+    void setAptAsRead(int aptId);
+
     int findIdByAptName(String aptName);
 
     void create(Appointment appointment);

@@ -158,6 +158,40 @@ public class JdbcAppointmentDao implements AppointmentDao {
     }
 
     @Override
+    public List<Appointment> findAllNewAppointmentsByProviderDetailsId(int providerId) {
+        List<Appointment> appointments = new ArrayList<>();
+        String sql =
+                "select \n" +
+                        "apt.apt_id, \n" +
+                        "apt.apt_name, \n" +
+                        "apt.apt_status, \n" +
+                        "apt.apt_agenda, \n" +
+                        "apt.apt_date, \n" +
+                        "apt.user_id, \n" +
+                        "apt.details_id\n" +
+                        "from appointment apt\n" +
+                        "JOIN details pat on pat.details_id = apt.details_id\n" +
+                        "WHERE apt.details_id = ? AND\n" +
+                        "apt.apt_status != 'Ongoing';";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, providerId);
+        while (results.next()) {
+            Appointment appointment = mapRowToAppointment(results);
+            appointments.add(appointment);
+        }
+        return appointments;
+    }
+
+    @Override
+    public void setAptAsRead(int aptId) {
+        List<Appointment> appointments = new ArrayList<>();
+        String sql =
+                "update appointment \n" +
+                        "set apt_status = 'Ongoing'\n" +
+                        "WHERE apt_id = ?;";
+        jdbcTemplate.update(sql, aptId);
+    }
+
+    @Override
     public List<Appointment> findAllAppointmentsBothIds(int userId,int providerId) {
         List<Appointment> appointments = new ArrayList<>();
         String sql =
@@ -199,8 +233,8 @@ public class JdbcAppointmentDao implements AppointmentDao {
         try {
             String sql = "INSERT INTO public.appointment(\n" +
                     "\tapt_name, apt_status, apt_agenda, apt_date, user_id, details_id)\n" +
-                    "\tVALUES ( ?, ?, ?, ?, ?, ?);";
-            jdbcTemplate.update(sql, appointment.getName(), appointment.getStatus(),
+                    "\tVALUES ( ?, 'New', ?, ?, ?, ?);";
+            jdbcTemplate.update(sql, appointment.getName(),
                     appointment.getAgenda(), appointment.getDate(),
                     appointment.getUserId(), appointment.getDetailsId());
 
