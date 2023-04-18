@@ -81,30 +81,41 @@ export default {
 </script>
 
 <style scoped>
+
+
+
+
+
 .container {
-  display: flex;
+  margin-top: 4rem;
+   display: flex;
   flex-direction: column;
   background-color: #fff;
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
   max-width: 600px;
   margin: auto;
-  padding: 20px;
-}
+  padding: 20px; 
+    color: var(--primary800);
+  padding: 1rem 3rem;
+  width: auto;
+  height: fit-content;
 
+  border: 3px var(--primary600) solid;
+  border-radius: 1rem;
+  box-shadow: 15px 15px var(--primary200);
+}
 h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  display: inline-block;
+  width: fit-content;
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary500);
 }
 
-.form-element {
-  margin-bottom: 20px;
-}
 
 label {
+  margin-top: 1rem;
   font-size: 16px;
   font-weight: bold;
   margin-right: 20px;
@@ -134,32 +145,41 @@ button {
   cursor: pointer;
 }
 .button-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
   padding: 0 10px;
+  grid-gap: 1rem;
+  margin-bottom: 1rem;
 }
 .submit-button {
-  background-color: #268598;
-  color: #111;
+  background-color: var(--primary600);
+  color: white;
   font-weight: bold;
   margin-left: 10px;
-  width: 20%;
+  width: 100%;
   justify-content: center;
 }
 
 .submit-button:hover {
-  background-color: #daffe9;
+  background-color: var(--primary500);
 }
 
 .cancel-button {
   background-color: #ddd;
   color: #333;
-  width: 20%;
+  margin-right: 1rem;
 }
 .cancel-button:hover {
-  background-color: #daffe9;
-  margin-left: 10px;
+  background-color: var(--primary500);
+}
+label {
+  display: block;
+  margin-top: 1rem;
+}
+.data {
+  font-size: 1.2rem;
 }
 </style>

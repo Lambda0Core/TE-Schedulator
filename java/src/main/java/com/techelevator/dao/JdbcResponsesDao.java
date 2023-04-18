@@ -123,16 +123,10 @@ public class JdbcResponsesDao implements ResponsesDao {
     }
 
     @Override
-    public boolean create(int reviewId, String responseTitle, String responseContents, int userId, int detailsId) {
-        /* How to create a rev- uh... I mean-response.
-        You might notice it'll prompt you for four different properties in your create, what do I need you might ask!
-        (1). You'll need to parse the subject and contents of the response into SEPARATE strings
-        (2). Get your own DetailsId from your userId
-        (3). use the Review to get the userId
-        (4). Now that you've got your properties, input them into your create and BAM!!! You've got a brand-new review!!!!!
-        ---------------------------------------------*/
-        String sql = "insert into response (review_id, response_title, response_desc, user_id, details_id) values (?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, reviewId, responseTitle, responseContents, userId, detailsId) == 1;
+    public boolean create(Response response) {
+
+        String sql = "insert into response (review_id, response_desc, response_title, user_id, details_id) values (?, ?, '', ?, ?)";
+        return jdbcTemplate.update(sql, response.getReviewId(), response.getResponseDesc(), response.getUserId(), response.getDetailsId()) == 1;
     }
 
 

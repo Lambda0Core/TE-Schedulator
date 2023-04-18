@@ -1,16 +1,35 @@
 <template>
   <div class="container">
-    <h1>Book an Appointment: Choose a Date and Time</h1>
+    <h1 class="aligned-row">
+        <profile-pic class="picture" :providerId="providerId" :shape="'square'"/>Dr. {{provider.firstName}} {{provider.lastName}}: Book an Appointment</h1>
+      <h3>Choose a Date and Time:</h3>
+      <div class="aligned-row">
+            
+      </div>
     <div class="component-layout">
       <div class="day-picker">
         <div class="row">
-          <div class="header-container"><div class="cell header">Sunday</div></div>
-          <div class="header-container"><div class="cell header">Monday</div></div>
-          <div class="header-container"><div class="cell header">Tuesday</div></div>
-          <div class="header-container"><div class="cell header">Wednesday</div></div>
-          <div class="header-container"><div class="cell header">Thursday</div></div>
-          <div class="header-container"><div class="cell header">Friday</div></div>
-          <div class="header-container"><div class="cell header">Saturday</div></div>
+          <div class="header-container">
+            <div class="cell header">Sunday</div>
+          </div>
+          <div class="header-container">
+            <div class="cell header">Monday</div>
+          </div>
+          <div class="header-container">
+            <div class="cell header">Tuesday</div>
+          </div>
+          <div class="header-container">
+            <div class="cell header">Wednesday</div>
+          </div>
+          <div class="header-container">
+            <div class="cell header">Thursday</div>
+          </div>
+          <div class="header-container">
+            <div class="cell header">Friday</div>
+          </div>
+          <div class="header-container">
+            <div class="cell header">Saturday</div>
+          </div>
         </div>
         <div v-for="week in weeks" class="row" v-bind:key="week.id">
           <div v-for="day in week.days" v-bind:key="day.id">
@@ -43,17 +62,30 @@
           </div>
         </div>
       </div>
-    </div><div class="button-container">
-      
-        <button v-if="selectedTime" @click="handleConfirm()">Confirm</button>
+    </div>
+    <div class="button-container">
+      <button v-if="selectedTime" @click="handleConfirm()">Confirm</button>
     </div>
   </div>
 </template>
 
 <script>
-import { setDate, getDay, setHours, setMinutes, getDaysInMonth } from "date-fns";
-// import UserDetailsService from "../services/UserDetailsService";
-// import OfficeService from "../services/OfficeService";
+import {
+  setDate,
+  getDay,
+  setHours,
+  setMinutes,
+  getDaysInMonth,
+  getDayOfYear,
+  getHours,
+  getMinutes,
+  isBefore,
+} from "date-fns";
+import UserDetailsService from "../services/UserDetailsService";
+import OfficeService from "../services/OfficeService";
+import AptService from "../services/AptService";
+import ProfilePic from "../components/ProfilePic.vue";
+
 export default {
   name: "date-time-picker",
   props: ["providerId"],
@@ -68,13 +100,19 @@ export default {
       baseDate: {},
     };
   },
+  components: {
+    ProfilePic
+  },
   computed: {
     timePickerVisible() {
       return this.selectedDay && this.selectedDay.slots;
     },
+    profileId() {
+      return this.provider.id;
+    }
   },
   methods: {
-    buildCalendarByDate(dateInput) {
+    buildCalendarByDate(dateInput, currentAppointments, provider, office) {
       let date = new Date(dateInput);
       this.baseDate = date;
       date = setDate(date, 1);
@@ -95,11 +133,18 @@ export default {
             newDay.dayOfTheMonth = dayCount;
             dayCount++;
             newDay.date = setDate(new Date(dateInput), dayCount);
-            if (Math.random() > 0.3 || j == 0 || j == 6) {
-              newDay.grey = "grey";
-              newDay.slots = [];
+            if (!isBefore(newDay.date, new Date()) && j != 0 && j != 6) {
+              newDay.slots = this.getAvailableSlotsForDate(
+                newDay.date,
+                currentAppointments,
+                provider,
+                office
+              );
             } else {
-              newDay.slots = this.getAvailableSlotsForDate(newDay.date);
+              newDay.slots = [];
+            }
+            if (newDay.slots.length == 0) {
+              newDay.grey = "grey";
             }
           }
           cellCount++;
@@ -109,24 +154,36 @@ export default {
       }
       this.weeks = weeks;
     },
-    getAvailableSlotsForDate() {
-      // If date is saturday or sunday, return empty array.
-      // If date is not in Dr's availability, return empty array.
-      // Loop through times from 12:00AM to 11:30PM in 30min intervals
-      // If time is NOT within office hours, skip to next iteration
-      // Loop through appointmentsInMonth
-      // If an appointment matches the time of the current loop, skip to the next iteration
-      // Add current time as a open slot
-
+    getAvailableSlotsForDate(thisDate, currentAppointments, provider, office) {
       const timeSlots = [];
+
+      let openTime = this.convertTimeToInt(office.openTime);
+      let closeTime = this.convertTimeToInt(office.closeTime);
       for (let i = 0; i < 48; i++) {
-        if (i >= 18 && i <= 34) {
-          if (Math.random() > 0.3) {
-            timeSlots.push(i);
+        let slotAvailable = true;
+        for (let j = 0; j < currentAppointments.length; j++) {
+          let appointment = currentAppointments[j];
+          if (provider.id == appointment.detailsId) {
+            const appointmentDate = new Date(appointment.date);
+            if (i < openTime || i > closeTime) {
+              slotAvailable = false;
+              break;
+            }
+
+            if (
+              getDayOfYear(appointmentDate) == getDayOfYear(thisDate) &&
+              getHours(appointmentDate) == this.parseTimeSlotHours(i) &&
+              getMinutes(appointmentDate) == this.parseTimeSlotMinutes(i)
+            ) {
+              slotAvailable = false;
+              break;
+            }
           }
         }
+        if (slotAvailable) timeSlots.push(i);
       }
-      return timeSlots; // <-- placeholder
+
+      return timeSlots;
     },
     getSlotAsString(slot) {
       slot = slot / 2;
@@ -145,24 +202,34 @@ export default {
         return slot + ":00 " + abbreviation;
       }
     },
+    convertTimeToInt(timeString) {
+      const splitString = timeString.split(":");
+      let time = Number(splitString[0]);
+      if (timeString.includes("PM") && !splitString[0] != "12") {
+        time = time + 12;
+      }
+      time = time * 2;
+      if (!splitString[1].includes("00")) time = time + 1;
+      return time;
+    },
     parseTimeSlotHours(timeSlot) {
       timeSlot = timeSlot / 2;
-      if (timeSlot % 1 == 0.5)
-        timeSlot = timeSlot - 0.5;
+      if (timeSlot % 1 == 0.5) timeSlot = timeSlot - 0.5;
       return timeSlot;
     },
     parseTimeSlotMinutes(timeSlot) {
       timeSlot = timeSlot / 2;
-      if (timeSlot % 1 == 0.5)
-        return 30;
-      else
-        return 0;
+      if (timeSlot % 1 == 0.5) return 30;
+      else return 0;
     },
     getDateTime() {
       let dateTime = this.baseDate;
       dateTime = setDate(dateTime, this.selectedDay.dayOfTheMonth);
       dateTime = setHours(dateTime, this.parseTimeSlotHours(this.selectedTime));
-      dateTime = setMinutes(dateTime, this.parseTimeSlotMinutes(this.selectedTime));
+      dateTime = setMinutes(
+        dateTime,
+        this.parseTimeSlotMinutes(this.selectedTime)
+      );
       return dateTime;
     },
     handleDateClick(day) {
@@ -177,25 +244,38 @@ export default {
       this.selectedTime = time;
     },
     handleConfirm() {
-      this.$emit('submitDateTime',{ message: this.getDateTime()});
-    }
+      this.$emit("submitDateTime", { message: this.getDateTime() });
+    },
+    setup() {
+      UserDetailsService.get(this.providerId).then((response) => {
+        this.provider = response.data;
+        const provider = response.data;
+
+        OfficeService.get(this.provider.officeId).then((response) => {
+          this.office = response.data;
+          const office = response.data;
+
+          AptService.listByMonth(4, 2023).then((response) => {
+            this.buildCalendarByDate(
+              new Date(2023, 3, 14),
+              response.data,
+              provider,
+              office
+            );
+          });
+        });
+      });
+    },
   },
   created() {
-    // UserDetailsService.get(this.providerId).then(
-    //   (response) => (this.provider = response.data)
-    // );
-    // OfficeService.get(this.provider.officeId).then(
-    //   (response) => (this.office = response.data)
-    // );
-    // Call AptService to get all appointments by month
-    this.buildCalendarByDate(new Date(2023, 3, 14));
+    this.setup();
   },
 };
 </script>
 
 <style scoped>
 .container {
-  transition:all 0.5s;
+  transition: all 0.5s;
   margin-top: 3rem;
   margin-right: 2rem;
   position: relative;
@@ -206,7 +286,7 @@ export default {
   height: 550px;
 }
 .container:has(button) {
-  height: 600px;
+  height: 630px;
 }
 .component-layout {
   display: grid;
@@ -216,11 +296,19 @@ h1 {
   display: inline-block;
   padding: 0 1rem;
   position: relative;
-  top: -1.4rem;
+  top: -1.9rem;
   background: white;
+  width: fit-content;
   margin: 0;
   font-size: 2rem;
   color: var(--primary500);
+}
+.dr-name {
+  display: inline-block;
+  padding: 0 1rem;
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--primary800);
 }
 .day-picker {
   padding-top: 0.5rem;
@@ -342,5 +430,19 @@ button {
   color: white;
   border-radius: 1rem;
   background-color: var(--primary600);
+}
+.picture {
+  margin-right: 1rem;
+}
+.aligned-row {
+  display: flex;
+  align-items: center;
+}
+h3 {
+  margin: 0;
+  margin-left: 0.5rem;
+  position: relative;
+  top: -0.5rem;
+  color: var(--neutral600);
 }
 </style>
