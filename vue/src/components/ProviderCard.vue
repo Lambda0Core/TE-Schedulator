@@ -49,7 +49,7 @@
       
     <div class="button">
         <router-link
-          :to="{ name: 'patient-reviews', params: { providerId: provider.id, providerName: provider.firstName + ' ' + provider.lastName } }"
+          :to="'patient-reviews/' + this.provider.id"
           class="view-reviews">View Reviews</router-link
         >
       </div>
@@ -92,7 +92,7 @@ export default {
     },
     viewReview() {
       this.$router.push({
-        name: "patient-review",
+        name: "patient-reviews",
         params: { providerName: this.provider.name },
       });
     },

@@ -7,6 +7,7 @@ export default {
   },
 
   get(id) {
+   
     return axios.get(`/details/${id}`);
   },
   getDetailsByOfficeId(id){
