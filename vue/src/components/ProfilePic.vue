@@ -1,6 +1,6 @@
 <template>
   <div class="photo">
-    <img :src="require(`../../img/profile/${filename}`)" alt="Doctor Photo" />
+    <img :class="{ square : this.shape=='square'}" :src="require(`../../img/profile/${filename}`)" alt="Doctor Photo" />
   </div>
 </template>
 
@@ -12,10 +12,12 @@ export default {
       filename: "",
     };
   },
-  props: ["providerId"],
+  props: ["providerId","shape"],
   created() {
-    switch (this.providerId) {
+    console.log("PROVIDER ID = " + this.providerId)
+    switch (Number(this.providerId)) {
       case 4000:
+        
         this.filename = "Profile (16).png";
         break;
       case 4001:
@@ -31,7 +33,8 @@ export default {
         this.filename = "Profile (10).png";
         break;
       default:
-        this.filename = "Profile (15).png"
+        console.log(this);
+        this.filename = "Profile (15).png";
         break;
     }
   },
@@ -39,9 +42,15 @@ export default {
 </script>
 
 <style scoped>
+.photo {
+  display: inline-block;
+}
 img {
   height: 3.5rem;
   width: 3.5rem;
   border-radius: 5rem;
+}
+.square {
+  border-radius: 1rem;
 }
 </style>

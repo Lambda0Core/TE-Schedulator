@@ -1,7 +1,7 @@
 <template>
   <div>
-    <appointment-form v-if="mode == 'form'" :appointmentDateTime="dateTime"/>
-    <date-time-picker v-show="mode == 'datetime'" @submitDateTime="handleSubmitDateTime"/>
+    <appointment-form v-if="mode == 'form'" :providerId="id" :appointmentDateTime="dateTime"/>
+    <date-time-picker v-show="mode == 'datetime'" :providerId="id" @submitDateTime="handleSubmitDateTime"/>
   </div>
 </template>
 
@@ -20,6 +20,11 @@ export default {
       this.dateTime = data.message;
       this.mode = "form";
     }
+  },
+  computed: {
+    id() {
+      return this.$route.params.providerid;
+    },
   },
   components: {
     DateTimePicker,

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.techelevator.model.Appointment;
+import com.techelevator.model.Details;
+import com.techelevator.model.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -17,9 +19,11 @@ import org.springframework.stereotype.Component;
 public class JdbcAppointmentDao implements AppointmentDao {
 
     private final JdbcTemplate jdbcTemplate;
+    DetailsDao detailsDao;
 
-    public JdbcAppointmentDao(JdbcTemplate jdbcTemplate) {
+    public JdbcAppointmentDao(JdbcTemplate jdbcTemplate, DetailsDao detailsDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.detailsDao = detailsDao;
     }
 
 
@@ -101,12 +105,12 @@ public class JdbcAppointmentDao implements AppointmentDao {
                         "apt.apt_status, \n" +
                         "apt.apt_agenda, \n" +
                         "apt.apt_date, \n" +
-                        "apt.user_id as patient_user_id, \n" +
-                        "apt.details_id as provider_details_id\n" +
+                        "apt.user_id, \n" +
+                        "apt.details_id\n" +
                         "from appointment apt\n" +
                         "JOIN details pat on pat.details_id = apt.details_id\n" +
                         "WHERE is_provider = true\n" +
-                        "AND apt.details_id = ?";
+                        "AND apt.user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
             Appointment appointment = mapRowToAppointment(results);
@@ -247,7 +251,12 @@ public class JdbcAppointmentDao implements AppointmentDao {
         appointment.setDate(rs.getTimestamp("apt_date").toLocalDateTime());
         appointment.setUserId(rs.getInt("user_id"));
         appointment.setProviderId(rs.getInt("details_id"));
-//        appointment.setProviderFirstName(rs.getString("full_name"));
+        Details patient = detailsDao.getDetailsByUserId(appointment.getUserId());
+        appointment.setPatientFirstName(patient.getFirstName());
+        appointment.setPatientLastName(patient.getLastName());
+        Details provider = detailsDao.getDetailsById(appointment.getDetailsId());
+        appointment.setProviderFirstName(provider.getFirstName());
+        appointment.setProviderLastName(provider.getLastName());
         return appointment;
     }
 }

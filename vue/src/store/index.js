@@ -37,29 +37,29 @@ export default new Vuex.Store({
       {
         title: "Appointments",
         icon: "calendar-regular.svg",
-        link: "appointments"
+        link: "../appointments"
       },
       {
         title: "Find a Provider",
         icon: "briefcase-medical-solid.svg",
-        link: "find-a-provider"
+        link: "../find-a-provider"
       }
     ],
     providerSidebarOptions: [
       {
         title: "Schedule",
         icon: "calendar-regular.svg",
-        link: "provider-schedule"
+        link: "../provider-schedule"
       },
       {
         title: "Reviews",
         icon: "star-solid.svg",
-        link: "provider-reviews"
+        link: "../provider-reviews"
       },
       {
         title: "Office",
         icon: "hospital-solid.svg",
-        link: "provider-office"
+        link: "../provider-office"
       }
     ],
     content: ""
