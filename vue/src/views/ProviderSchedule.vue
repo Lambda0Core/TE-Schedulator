@@ -68,7 +68,7 @@ export default {
         }
         rows.push(newRow);
       }
-      debugger;
+      
       this.rows = rows;
     },
     convertTimeToInt(timeString) {

@@ -3,11 +3,12 @@
     <h2>Book an Appointment</h2>
     <div class="form-element">
         <label>Provider:</label>
-        <!-- <div>{{ $route.params.providerName }}</div> -->
-        <div>Dr. Johanna</div>
+        <div>{{ $route.params.providerName }}</div>
+        
         <label>Date:</label>
         <div>{{ appointmentDateTime }}</div>
-        <!-- <div>{{ $route.params.date }}</div> -->
+        <div>{{ $route.params.date }}</div>
+
       <label for="name">Appointment Type:</label>
             <select id="name" v-model="newAppointment.name">
           <option value="check-up">Wellness Check-Up</option>
