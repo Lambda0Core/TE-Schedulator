@@ -23,7 +23,13 @@ export default {
 
   create(appointment) {
     return axios.post("/appointment", appointment);
-  }
+  },
 
+  getNewAppointments(providerDetailsId) {
+    return axios.post(`details/${providerDetailsId}/appointment/new`);
+  },
+  markAppointmentAsSeen(appointmentId) {
+    return axios.post(`appointment/${appointmentId}/read`);
+  }
 
 }
