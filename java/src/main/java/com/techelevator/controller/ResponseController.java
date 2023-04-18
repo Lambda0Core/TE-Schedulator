@@ -47,12 +47,12 @@ public class ResponseController {
 
 
     @PostMapping("/response")
-    public boolean createReview(@RequestBody Response response, @RequestParam int reviewId, @RequestParam String responseTitle, @RequestParam String responseDesc, @RequestParam int userId, @RequestParam int detailsId) {
+    public boolean createReview(@RequestBody Response response) {
         if (response == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Response not found");
         }
 
-        return responsesDao.create(reviewId, responseTitle, responseDesc, userId, detailsId);
+        return responsesDao.create(response);
     }
 
 }

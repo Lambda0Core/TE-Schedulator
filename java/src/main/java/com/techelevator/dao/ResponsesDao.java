@@ -22,5 +22,5 @@ public interface ResponsesDao {
 
     int findIdByResponseName(String reviewName);
 
-    boolean create(int reviewId, String responseTitle, String responseContents, int userId, int detailsId);
+    boolean create(Response response);
 }
