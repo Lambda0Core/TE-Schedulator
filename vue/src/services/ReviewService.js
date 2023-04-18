@@ -17,6 +17,9 @@ export default {
   create(review) {
    
     return axios.post('/review', review)
+  },
+  getDetailsReviews(id) {
+    return axios.get(`/details/review/${id}`);
   }
 
   
