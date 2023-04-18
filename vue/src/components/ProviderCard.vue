@@ -6,10 +6,7 @@
         Dr. {{ provider.firstName }} {{ provider.lastName }}
       </h2>
     </div>
-<<<<<<< HEAD
-=======
     <div class="availability">Available {{ this.availableFrom }} - {{ this.availableTo }}</div>
->>>>>>> 72846a263b0f6f15a4903718927df258967fa642
     <section class="office">
       <h3>
         {{ office.name }}
