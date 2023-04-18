@@ -1,29 +1,28 @@
 <template>
   <div class="container">
     <div class="identity">
-      <profile-pic :providerId="provider.id"/>
-      <h2 class = "fullname">Dr. {{ provider.firstName }} {{ provider.lastName }}</h2>
-      </div>
-      <section class="office">
+      <profile-pic :providerId="provider.id" />
+      <h2 class="fullname">
+        Dr. {{ provider.firstName }} {{ provider.lastName }}
+      </h2>
+    </div>
+    <div class="availability">Available {{ this.availableFrom }} - {{ this.availableTo }}</div>
+    <section class="office">
       <h3>
         {{ office.name }}
       </h3>
-      
-        <div class="office-details">
-          <label>
-            Located at: </label
-          >
-          <div class="value">{{ office.address }} {{ office.cityName }},
-            {{ office.stateAcronym }}</div>
-          <label
-            >Office Hours: </label
-          >
-          <div class="value">{{ office.openTime }}-{{ office.closeTime }}</div>
-          <label class="phone">Phone Number: </label>
-          <div class="value">{{ office.phoneNumber }}</div>
+
+      <div class="office-details">
+        <label> Located at: </label>
+        <div class="value">
+          {{ office.address }} {{ office.cityName }}, {{ office.stateAcronym }}
         </div>
+        <label>Office Hours: </label>
+        <div class="value">{{ office.openTime }}-{{ office.closeTime }}</div>
+        <label class="phone">Phone Number: </label>
+        <div class="value">{{ office.phoneNumber }}</div>
+      </div>
     </section>
-    
 
     <div class="button-container">
       <div class="button">
@@ -46,21 +45,22 @@
           >Book Appointment</router-link
         >
       </div>
-      
-    <div class="button">
+
+      <div class="button">
         <router-link
-          :to="'patient-reviews/' + this.provider.id"
-          class="view-reviews">View Reviews</router-link
+        :to="'patient-reviews/' + this.provider.id"
+        class="view-reviews">View Reviews</router-link
         >
       </div>
     </div>
-    </div>
- 
+  </div>
 </template>
 
 <script>
 import officeService from "../services/OfficeService";
+import availabilityService from "../services/AvailabilityService";
 import ProfilePic from "../components/ProfilePic.vue";
+import { format } from "date-fns";
 
 export default {
   name: "provider-card",
@@ -68,11 +68,22 @@ export default {
   data() {
     return {
       office: {},
-      providerId: 4001,
+      providerId: -1,
+      availableFrom: "",
+      availableTo: "",
     };
+  },
+  computed: {
+    availFrom() {
+      return format(this.availability.availableFrom, "MMMM dd");
+    },
+    availTo() {
+      return format(this.availability.availableTo, "MMMM dd");
+    },
   },
   created() {
     this.getOffice();
+    this.getAvailability();
   },
   components: {
     ProfilePic,
@@ -95,6 +106,16 @@ export default {
         name: "patient-reviews",
         params: { providerName: this.provider.name },
       });
+    },
+    getAvailability() {
+      availabilityService.getByDetails(this.provider.id).then( function(response) {
+        debugger;
+        const availability = response.data;
+        const fromDate = new Date(availability.availableFrom);
+        const toDate = new Date(availability.availableTo);
+        this.availableFrom = format(fromDate, "MMMM dd");
+        this.availableTo = format(toDate, "MMMM dd");
+      }.bind(this));
     },
   },
 };
@@ -181,7 +202,6 @@ h3 {
   margin: 0 10px;
 }
 
-
 section.office {
   padding: 1rem;
   background-color: var(--neutral200);
@@ -206,5 +226,13 @@ label {
 }
 .value {
   color: var(--primary600);
+}
+.availability {
+  display: block;
+  color: var(--neutral400);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-left: 2px solid var(--primary400);;
+  padding: 4px 6px;
 }
 </style>
