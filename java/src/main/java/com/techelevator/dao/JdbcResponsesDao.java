@@ -125,8 +125,8 @@ public class JdbcResponsesDao implements ResponsesDao {
     @Override
     public boolean create(Response response) {
 
-        String sql = "insert into response (review_id, response_desc) values (?, ?)";
-        return jdbcTemplate.update(sql, response.getReviewId(), response.getResponseDesc()) == 1;
+        String sql = "insert into response (review_id, response_desc, response_title, user_id, details_id) values (?, ?, '', ?, ?)";
+        return jdbcTemplate.update(sql, response.getReviewId(), response.getResponseDesc(), response.getUserId(), response.getDetailsId()) == 1;
     }
 
 
