@@ -30,6 +30,9 @@ export default {
       case 2001:
         this.filename = "Profile (10).png";
         break;
+      default:
+        this.filename = "Profile (15).png"
+        break;
     }
   },
 };
@@ -37,8 +40,8 @@ export default {
 
 <style scoped>
 img {
-  height: 3rem;
-  width: 3rem;
+  height: 3.5rem;
+  width: 3.5rem;
   border-radius: 5rem;
 }
 </style>
