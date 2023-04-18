@@ -26,6 +26,7 @@ export default {
     border: 3px var(--primary600) solid;
     border-radius: 1rem;
     box-shadow: 15px 15px var(--primary200);
+    height: fit-content;
 }
 .identity {
     display: flex;

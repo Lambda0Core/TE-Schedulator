@@ -1,10 +1,12 @@
 <template>
   <div class="container">
     <div class="identity">
-      
       <div class="review-details">
         <div class="patient-details">
-          <p class="patient-name">Patient: {{ patientDetails.firstName }} {{ patientDetails.lastName }}</p>
+          <p class="patient-name">
+            Patient: {{ patientDetails.firstName }}
+            {{ patientDetails.lastName }}
+          </p>
         </div>
         <h2 class="review-title" v-if="review">{{ review.reviewTitle }}</h2>
         <div class="review-rating">
@@ -13,7 +15,25 @@
         <div class="review-desc">
           <p>{{ review.reviewDesc }}</p>
         </div>
-        
+
+        <div class="reply-desc">
+          <p>Reply from doctor: {{ reply.responseDesc }}</p>
+        </div>
+        <div v-if="userType == 'provider'">
+          <button v-if="!showReplyForm" @click="toggleReplyForm">
+            Reply to review
+          </button>
+          <button v-else @click="toggleReplyForm">Cancel</button>
+        </div>
+        <div v-if="showReplyForm">
+          <form>
+            <br />
+            <label> Your reply: </label>
+            <textarea v-model="reply.responseDesc"></textarea>
+            <br />
+            <button type="submit" @click="submitReply">Submit reply</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -22,6 +42,7 @@
 <script>
 import reviewService from "../services/ReviewService";
 import userService from "../services/UserDetailsService";
+import responseService from "../services/ResponseService";
 
 export default {
   name: "review-card",
@@ -29,12 +50,25 @@ export default {
   data() {
     return {
       reviews: [],
+      replies:[],
+      reply: {
+        detailsId: 0,
+        reviewId: 0,
+        responseDesc: "",
+      },
       patientDetails: {},
+      showReplyForm: false,
     };
+  },
+  computed: {
+    userType() {
+      return this.$store.state.userType;
+    },
   },
   created() {
     this.getReviews();
     this.getUserNamebyReview();
+    this.getResponse();
   },
   methods: {
     getReviews() {
@@ -43,11 +77,35 @@ export default {
         this.reviews = response.data;
       });
     },
+    getResponse() {
+      responseService.get(this.review.reviewId).then((response) => {
+        console.log(response.data);
+        this.reply = response.data;
+      });
+    },
     getUserNamebyReview() {
       userService.getUserNamebyReview(this.review.userId).then((response) => {
         console.log(response.data);
         this.patientDetails = response.data;
       });
+    },
+    toggleReplyForm() {
+      this.showReplyForm = !this.showReplyForm;
+    },
+    submitReply() {
+      const detailsId = this.$route.params.providerId;
+      this.reply.detailsId = detailsId;
+      this.reply.reviewId = this.review.reviewId;
+      this.reply.userId = this.$store.state.userId;
+      responseService
+        .create(this.reply)
+        .then((response) => {
+          console.log(response.data);
+          
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
@@ -56,7 +114,7 @@ export default {
 <style scoped>
 .container {
   color: var(--primary800);
-  padding: 1rem 3rem;
+  padding: 1rem 1rem;
   width: auto;
   height: fit-content;
 
@@ -64,14 +122,27 @@ export default {
   border-radius: 1rem;
   box-shadow: 15px 15px var(--primary200);
 }
+button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  color: var(--primary200);
+  background-color: var(--primary400);
+}
 
 .identity {
   display: flex;
   align-items: center;
   grid-gap: 1rem;
 }
-h2{
+h2 {
   font-weight: bold;
+}
+br {
+  display: flex;
+  flex-direction: column;
 }
 
 .review-details {
@@ -79,12 +150,11 @@ h2{
   flex-direction: column;
   justify-content: space-between;
   margin-right: 1rem;
-  margin-bottom: .1rem;
+  margin-bottom: 0.1rem;
 }
 
 .review-rating {
-  margin-top: .1rem;
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
