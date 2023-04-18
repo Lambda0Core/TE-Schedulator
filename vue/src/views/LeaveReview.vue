@@ -3,8 +3,9 @@
     <h2>Leave a Review for {{ $route.params.providerName }}</h2>
 
     <div class="form-element">
-      <label for="title">Title:</label>
-      <input id="title" type="text" v-model="newReview.reviewTitle" />
+   <label for="title">Title:</label>
+   <input id="title" type="text" v-model="newReview.reviewTitle" :maxlength="50" placeholder="Title" />
+   <span>{{ newReview.reviewTitle.length }}/50 characters</span>
     </div>
     <label for="rating">Rating:</label>
     <select id="rating" v-model.number="newReview.rating">
@@ -17,7 +18,8 @@
 
     <div class="form-element">
       <label for="review">Review</label>
-      <textarea id="review" v-model="newReview.reviewDesc"></textarea>
+      <textarea id="review" v-model="newReview.reviewDesc" :maxlength="500" placeholder="Enter review here"></textarea>
+  <span>{{ newReview.reviewDesc.length }}/500 characters</span>
     </div>
     <div class="button-container">
       <button class="submit-button" @click="submitReview">Submit</button>
@@ -60,23 +62,30 @@ export default {
       this.newReview.reviewTitle = "";
       this.newReview.reviewDesc = "";
     },
-    submitReview() {
-      const detailsId = this.$route.params.providerId;
-      this.newReview.detailsId = detailsId;
+submitReview() {
+  const detailsId = this.$route.params.providerId;
+  this.newReview.detailsId = detailsId;
 
-      ReviewService.create(this.newReview)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push({
-            name: "provider-details",
-            params: { providerid: detailsId },
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  },
+  // Validate form fields
+  if (!this.newReview.reviewDesc || !this.newReview.reviewTitle) {
+    alert("Please fill out all form fields.");
+    return;
+  }
+
+  ReviewService.create(this.newReview)
+    .then((response) => {
+      console.log(response.data);
+      this.$router.push({
+        name: "provider-details",
+        params: { providerid: detailsId },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      this.$router.push({ name: 'PatientHome' });
+    });
+},
+  }
 };
 </script>
 

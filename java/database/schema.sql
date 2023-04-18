@@ -68,7 +68,7 @@ CREATE TABLE office_users (
 CREATE TABLE IF NOT EXISTS review (
 	 review_id SERIAL,
 	 review_title varchar(50) NOT NULL, 
-	 review_desc varchar(200) NOT NULL, 
+	 review_desc varchar(500) NOT NULL, 
 	 rating int, 
      user_id SERIAL,
 	 details_id SERIAL,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS response (
 	 response_id SERIAL,
 	 review_id SERIAL,
 	 response_title varchar(50) NOT NULL, 
-	 response_desc varchar(200) NOT NULL, 
+	 response_desc varchar(500) NOT NULL, 
      user_id SERIAL,
 	 details_id SERIAL,
 

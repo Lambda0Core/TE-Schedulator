@@ -17,8 +17,9 @@
       </select>
     </div>
     <div class="form-element">
-      <label for="title">Title:</label>
-      <input id="title" type="text" v-model="newReview.title" />
+  <label for="title">Title:</label>
+  <input id="title" type="text" v-model="newReview.title" :maxlength="50" />
+  <span>{{ newReview.title.length }}/50 characters</span>
     </div>
     <label for="rating">Rating:</label>
     <select id="rating" v-model.number="newReview.rating">
@@ -29,10 +30,11 @@
       <option value="5">5 Stars</option>
     </select>
 
-    <div class="form-element">
-      <label for="review">Review</label>
-      <textarea id="review" v-model="newReview.reviewDesc"></textarea>
-    </div>
+<div class="form-element">
+  <label for="review">Review:</label>
+  <textarea id="review" v-model="newReview.reviewDesc" :maxlength="500"></textarea>
+  <span>{{ newReview.reviewDesc.length }}/500 characters</span>
+</div>
     <div class="button-container">
       <button class="submit-button" @click="submitReview">Submit</button>
       <button class="cancel-button" v-on:click="resetForm" type="button">
