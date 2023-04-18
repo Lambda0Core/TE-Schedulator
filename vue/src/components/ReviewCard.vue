@@ -1,18 +1,20 @@
 <template>
   <div class="container">
     <div class="identity">
-      <div class="img" />
-         <h2 v-if="review">
-        {{ review.reviewTitle }}
-      </h2>
-      <h3 v-if="review">
-        
-        {{ review.desc }}
-      </h3>
-      <p>Patient: {{ patientDetails.firstName }}{{ patientDetails.lastName }}</p>
-      <p>Rating: {{ review.rating }}</p>
-      <p >{{ review.reviewDesc }}</p>
       
+      <div class="review-details">
+        <div class="patient-details">
+          <p class="patient-name">Patient: {{ patientDetails.firstName }} {{ patientDetails.lastName }}</p>
+        </div>
+        <h2 class="review-title" v-if="review">{{ review.reviewTitle }}</h2>
+        <div class="review-rating">
+          <p>Rating: {{ review.rating }}</p>
+        </div>
+        <div class="review-desc">
+          <p>{{ review.reviewDesc }}</p>
+        </div>
+        
+      </div>
     </div>
   </div>
 </template>
@@ -39,11 +41,10 @@ export default {
       reviewService.list().then((response) => {
         console.log(response.data);
         this.reviews = response.data;
-        
       });
     },
-    getUserNamebyReview(){
-      userService.getUserNamebyReview(this.review.userId).then((response)=>{
+    getUserNamebyReview() {
+      userService.getUserNamebyReview(this.review.userId).then((response) => {
         console.log(response.data);
         this.patientDetails = response.data;
       });
@@ -54,43 +55,57 @@ export default {
 
 <style scoped>
 .container {
-  
   color: var(--primary800);
   padding: 1rem 3rem;
   width: auto;
-  height: 225px;
+  height: fit-content;
+
   border: 3px var(--primary600) solid;
   border-radius: 1rem;
   box-shadow: 15px 15px var(--primary200);
 }
+
 .identity {
   display: flex;
   align-items: center;
-  grid-gap: 0.5rem;
+  grid-gap: 1rem;
 }
-.img {
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  border: 1px var(--primary600) solid;
-  border-radius: 3rem;
+h2{
+  font-weight: bold;
 }
+
+.review-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 1rem;
+  margin-bottom: .1rem;
+}
+
+.review-rating {
+  margin-top: .1rem;
+  font-size: .8rem;
+  font-weight: bold;
+}
+
+.review-desc {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.patient-name {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
 h2 {
   font-size: 1.25rem;
-  display: inline-block;
+  margin-top: 0;
 }
-h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  display: inline-block;
-}
+
 .date {
   font-size: 1.5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-.office {
-  color: var(--primary600);
-  margin-top: 0;
 }
 </style>

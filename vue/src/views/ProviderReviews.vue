@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list">
     <review-card
       v-for="review in reviews"
       :key="review.reviewId"
@@ -52,4 +52,13 @@ export default {
 
 
 <style scoped>
+.list {
+  margin: 3rem;
+  margin-right: 15rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  height: fit-content;
+  grid-gap: 3rem;
+}
 </style>
