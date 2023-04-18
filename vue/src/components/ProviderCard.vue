@@ -1,29 +1,27 @@
 <template>
   <div class="container">
     <div class="identity">
-      <profile-pic :providerId="provider.id"/>
-      <h2 class = "fullname">Dr. {{ provider.firstName }} {{ provider.lastName }}</h2>
-      </div>
-      <section class="office">
+      <profile-pic :providerId="provider.id" />
+      <h2 class="fullname">
+        Dr. {{ provider.firstName }} {{ provider.lastName }}
+      </h2>
+    </div>
+    <section class="office">
       <h3>
         {{ office.name }}
       </h3>
-      
-        <div class="office-details">
-          <label>
-            Located at: </label
-          >
-          <div class="value">{{ office.address }} {{ office.cityName }},
-            {{ office.stateAcronym }}</div>
-          <label
-            >Office Hours: </label
-          >
-          <div class="value">{{ office.openTime }}-{{ office.closeTime }}</div>
-          <label class="phone">Phone Number: </label>
-          <div class="value">{{ office.phoneNumber }}</div>
+
+      <div class="office-details">
+        <label> Located at: </label>
+        <div class="value">
+          {{ office.address }} {{ office.cityName }}, {{ office.stateAcronym }}
         </div>
+        <label>Office Hours: </label>
+        <div class="value">{{ office.openTime }}-{{ office.closeTime }}</div>
+        <label class="phone">Phone Number: </label>
+        <div class="value">{{ office.phoneNumber }}</div>
+      </div>
     </section>
-    
 
     <div class="button-container">
       <div class="button">
@@ -46,16 +44,16 @@
           >Book Appointment</router-link
         >
       </div>
-      
-    <div class="button">
+
+      <div class="button">
         <router-link
           :to="'patient-reviews/' + this.provider.id"
-          class="view-reviews">View Reviews</router-link
+          class="view-reviews"
+          >View Reviews</router-link
         >
       </div>
     </div>
-    </div>
- 
+  </div>
 </template>
 
 <script>
@@ -159,6 +157,10 @@ h3 {
 .review-link:hover {
   background-color: var(--primary600);
 }
+.view-reviews:hover {
+  background-color: var(--primary600);
+}
+
 .appointment {
   font-size: 1rem;
   color: var(--primary200);
@@ -180,7 +182,6 @@ h3 {
   display: flex;
   margin: 0 10px;
 }
-
 
 section.office {
   padding: 1rem;
