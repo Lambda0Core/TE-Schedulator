@@ -3,7 +3,7 @@
     <h1>Upcoming Appointments</h1>
     <div class="list">
       <template v-if="appointments.length > 0">
-        <apt-card v-for="appointment in appointments" :key="appointment.id" :appointment="appointment" />
+        <apt-card :display="'patient'" v-for="appointment in appointments" :key="appointment.id" :appointment="appointment" />
       </template>
       <template v-else>
         <div class="none">
