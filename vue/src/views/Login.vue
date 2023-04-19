@@ -85,6 +85,7 @@ export default {
                     this.$notify({
                       title: "New Appointment!",
                       text: appointment.name,
+                      duration: 10000,
                     });
                     AptService.markAppointmentAsSeen(appointment.id);
                   });
