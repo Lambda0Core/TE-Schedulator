@@ -96,7 +96,7 @@ export default {
 <style scoped>
 h1 {
   margin-left: 3rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
   color: var(--primary600);
 }
 .box {
