@@ -3,8 +3,9 @@
     <h2>Leave a Review for {{ $route.params.providerName }}</h2>
 
     <div class="form-element">
-      <label for="title">Title:</label>
-      <input id="title" type="text" v-model="newReview.reviewTitle" />
+    <label for="title">Title:</label>
+    <input id="title" type="text" v-model="newReview.reviewTitle" :maxlength="50" placeholder="Enter title here" />
+    <span>{{ newReview.reviewTitle.length }}/50 characters</span>
     </div>
     <label for="rating">Rating:</label>
     <select id="rating" v-model.number="newReview.rating">
@@ -16,8 +17,9 @@
     </select>
 
     <div class="form-element">
-      <label for="review">Review</label>
-      <textarea id="review" v-model="newReview.reviewDesc"></textarea>
+    <label for="review">Review:</label>
+    <textarea id="review" v-model="newReview.reviewDesc" :maxlength="500" placeholder="Enter review here"></textarea>
+    <span>{{ newReview.reviewDesc.length }}/500 characters</span>
     </div>
     <div class="button-container">
       <button class="submit-button" @click="submitReview">Submit</button>

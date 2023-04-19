@@ -19,7 +19,8 @@
           <option value="other">Other</option>
         </select>
         <label for="agenda">Appointment Agenda:</label>
-        <textarea id="agenda" v-model="newAppointment.agenda"></textarea>
+        <textarea id="agenda" v-model="newAppointment.agenda" :maxlength="200" placeholder="Enter agenda"></textarea>
+    <span>{{ newReview.reviewDesc.length }}/200 characters</span>
       </div>
       <div class="button-container">
         <button

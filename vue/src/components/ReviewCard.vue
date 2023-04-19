@@ -22,8 +22,8 @@
           <p>{{ review.reviewDesc }}</p>
         </div>
 
-        <div class="reply-desc">
-          <p>Reply from doctor:</p>
+        <div class="reply-desc"  v-if="reply.responseDesc">
+          <p>Reply from your doctor:</p>
           <p>{{ reply.responseDesc }}</p>
         </div>
         <div v-if="userType == 'provider'">
@@ -56,6 +56,7 @@ import responseService from "../services/ResponseService";
 export default {
   name: "review-card",
   props: ["review"],
+  
   data() {
     return {
       reviews: [],

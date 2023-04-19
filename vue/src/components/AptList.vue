@@ -2,10 +2,18 @@
   <div>
     <h1>Upcoming Appointments</h1>
     <div class="list">
-      <apt-card v-for="appointment in appointments" :key="appointment.id" :appointment="appointment" />
+      <template v-if="appointments.length > 0">
+        <apt-card v-for="appointment in appointments" :key="appointment.id" :appointment="appointment" />
+      </template>
+      <template v-else>
+        <div class="none">
+          <p>No upcoming appointments found.</p>
+        </div>
+      </template>
     </div>
   </div>
 </template>
+
 
 <script>
 import AptService from "../services/AptService.js";
@@ -48,11 +56,13 @@ h1 {
   margin-top: 3rem;
   color: var(--primary600);
 }
-.box {
-  width: fit-content;
-  padding: 1rem 2rem;
-  border: 1px black solid;
+.none {
+  margin-top: -40px;
+  margin-left: 5px;
+  font-style: italic;
+  color: var(--primary600);
 }
+
 .list {
   margin: 3rem;
   margin-right: 15rem;
