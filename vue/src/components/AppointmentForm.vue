@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     formattedDateTime() {
-      return format(this.appointmentDateTime,'MMMM dd, yyyy' );
+      return format(this.appointmentDateTime,'MMMM dd, yyyyy h:mm a' );
     }
   },
   methods: {

@@ -17,13 +17,14 @@
 
 <script>
 import ProfilePic from "../components/ProfilePic.vue";
-import { format } from "date-fns";
+import { format, addHours } from "date-fns";
 export default {
   name: "apt-card",
   props: ["appointment"],
   computed: {
     formattedDate() {
-      const aptDate = new Date(this.appointment.date)
+      let aptDate = new Date(this.appointment.date)
+      aptDate = addHours(aptDate,-4);
       return format(aptDate,'MMMM dd, yyyy h:mm a' );
     }
   },

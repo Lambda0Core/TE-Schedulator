@@ -27,6 +27,14 @@
     <div class="button-container">
       <div class="button">
         <router-link
+          :to="'book-appointment/' + this.provider.id"
+          class="appointment"
+          >Book Appointment</router-link
+        >
+      </div>
+
+      <div class="button">
+        <router-link
           :to="{
             name: 'leave-reviews',
             params: {
@@ -35,17 +43,9 @@
             },
           }"
           class="review-link"
-          >Leave a review</router-link
+          >Leave Review</router-link
         >
       </div>
-      <div class="button">
-        <router-link
-          :to="'book-appointment/' + this.provider.id"
-          class="appointment"
-          >Book Appointment</router-link
-        >
-      </div>
-
       <div class="button">
         <router-link
         :to="'patient-reviews/' + this.provider.id"
@@ -237,5 +237,10 @@ label {
   margin-bottom: 0.5rem;
   border-left: 2px solid var(--primary400);;
   padding: 4px 6px;
+}
+.button, a {
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none !important;
 }
 </style>

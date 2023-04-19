@@ -29,7 +29,6 @@ export default {
       UserDetailsService.getCurrent().then( function(response) {
         this.patientId = response.data.userId;
         AptService.getAppointmentsByPatientId(this.patientId).then( function(response) {
-          debugger;
           console.log(response.data);
           this.appointments = response.data;
         }.bind(this));

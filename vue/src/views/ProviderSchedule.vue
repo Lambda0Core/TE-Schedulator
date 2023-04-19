@@ -79,7 +79,7 @@ export default {
 
               if (
                 getDayOfYear(appointmentDate) == getDayOfYear(thisDate) &&
-                getHours(appointmentDate) == this.parseTimeSlotHours(i) &&
+                getHours(appointmentDate)-4 == this.parseTimeSlotHours(i) &&
                 getMinutes(appointmentDate) == this.parseTimeSlotMinutes(i)
               ) {
                 newCell.appointment = appointment;

@@ -1,11 +1,15 @@
 <template>
   <div class="container">
     <h1 class="aligned-row">
-        <profile-pic class="picture" :providerId="providerId" :shape="'square'"/>Dr. {{provider.firstName}} {{provider.lastName}}: Book an Appointment</h1>
-      <h3>Choose a Date and Time:</h3>
-      <div class="aligned-row">
-            
-      </div>
+      <profile-pic
+        class="picture"
+        :providerId="providerId"
+        :shape="'square'"
+      />Dr. {{ provider.firstName }} {{ provider.lastName }}: Book an
+      Appointment
+    </h1>
+    <h3>Choose a Date and Time:</h3>
+    <div class="aligned-row"></div>
     <div class="component-layout">
       <div class="day-picker">
         <div class="row">
@@ -101,7 +105,7 @@ export default {
     };
   },
   components: {
-    ProfilePic
+    ProfilePic,
   },
   computed: {
     timePickerVisible() {
@@ -109,7 +113,7 @@ export default {
     },
     profileId() {
       return this.provider.id;
-    }
+    },
   },
   methods: {
     buildCalendarByDate(dateInput, currentAppointments, provider, office) {
@@ -156,31 +160,31 @@ export default {
     },
     getAvailableSlotsForDate(thisDate, currentAppointments, provider, office) {
       const timeSlots = [];
-
-      let openTime = this.convertTimeToInt(office.openTime);
-      let closeTime = this.convertTimeToInt(office.closeTime);
+      console.log(office);
+      let openTime = 18; //this.convertTimeToInt(office.openTime);
+      let closeTime = 34; //this.convertTimeToInt(office.closeTime);
       for (let i = 0; i < 48; i++) {
-        let slotAvailable = true;
-        for (let j = 0; j < currentAppointments.length; j++) {
-          let appointment = currentAppointments[j];
-          if (provider.id == appointment.detailsId) {
-            const appointmentDate = new Date(appointment.date);
-            if (i < openTime || i > closeTime) {
-              slotAvailable = false;
-              break;
-            }
+        debugger;
+        if (i >= openTime && i <= closeTime) {
+          let slotAvailable = true;
 
-            if (
-              getDayOfYear(appointmentDate) == getDayOfYear(thisDate) &&
-              getHours(appointmentDate) == this.parseTimeSlotHours(i) &&
-              getMinutes(appointmentDate) == this.parseTimeSlotMinutes(i)
-            ) {
-              slotAvailable = false;
-              break;
+          for (let j = 0; j < currentAppointments.length; j++) {
+            let appointment = currentAppointments[j];
+            if (provider.id == appointment.detailsId) {
+              const appointmentDate = new Date(appointment.date);
+
+              if (
+                getDayOfYear(appointmentDate) == getDayOfYear(thisDate) &&
+                getHours(appointmentDate) - 4 == this.parseTimeSlotHours(i) &&
+                getMinutes(appointmentDate) == this.parseTimeSlotMinutes(i)
+              ) {
+                slotAvailable = false;
+                break;
+              }
             }
           }
+          if (slotAvailable) timeSlots.push(i);
         }
-        if (slotAvailable) timeSlots.push(i);
       }
 
       return timeSlots;
