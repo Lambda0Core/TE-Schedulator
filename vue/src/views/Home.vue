@@ -7,7 +7,7 @@
 
 <script>
 import PatientPage from "./PatientLandingPage.vue";
-import ProviderPage from "./ProviderLandingPage.vue";
+import ProviderPage from "./ProviderSchedule.vue";
 
 export default {
   name: "home",

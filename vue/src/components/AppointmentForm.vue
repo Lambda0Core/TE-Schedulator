@@ -3,24 +3,34 @@
     <div class="card">
       <h2>Book an Appointment</h2>
       <div class="form-element">
-          <label>Provider:</label>
-          <div class="data" >Dr. {{ provider.firstName }} {{ provider.lastName }}</div>
-      
-          <label>Date:</label>
-          <div class="data">{{ formattedDateTime }}</div>
+        <label>Provider:</label>
+        <div class="data">
+          Dr. {{ provider.firstName }} {{ provider.lastName }}
+        </div>
+
+        <label>Date:</label>
+        <div class="data">{{ formattedDateTime }}</div>
         <label for="name">Appointment Type:</label>
-              <select id="name" v-model="newAppointment.name">
-            <option value="check-up">Wellness Check-Up</option>
-            <option value="follow-up">Follow-Up</option>
-            <option value="symptoms">Specific Symptoms</option>
-            <option value="vaccination">Vaccination</option>
-            <option value="other">Other</option>
+        <select id="name" v-model="newAppointment.name">
+          <option value="check-up">Wellness Check-Up</option>
+          <option value="follow-up">Follow-Up</option>
+          <option value="symptoms">Specific Symptoms</option>
+          <option value="vaccination">Vaccination</option>
+          <option value="other">Other</option>
         </select>
         <label for="agenda">Appointment Agenda:</label>
         <textarea id="agenda" v-model="newAppointment.agenda"></textarea>
       </div>
       <div class="button-container">
-        <button class="submit-button" @click="submitAppointment(); showNotification()">Book</button>
+        <button
+          class="submit-button"
+          @click="
+            submitAppointment();
+            showNotification();
+          "
+        >
+          Book
+        </button>
         <button class="cancel-button" v-on:click="onCancel()" type="button">
           Cancel
         </button>
@@ -30,9 +40,9 @@
 </template>
 
 <script>
-import AptService from '../services/AptService';
+import AptService from "../services/AptService";
 import { format } from "date-fns";
-import UserDetailsService from '../services/UserDetailsService';
+import UserDetailsService from "../services/UserDetailsService";
 
 export default {
   name: "appointmentForm",
@@ -44,15 +54,15 @@ export default {
         name: "",
         agenda: "",
         providerId: -1,
-        date: ""
+        date: "",
       },
-      provider: {}
+      provider: {},
     };
   },
   computed: {
     formattedDateTime() {
-      return format(this.appointmentDateTime,'MMMM dd, yyyyy h:mm a' );
-    }
+      return format(this.appointmentDateTime, "MMMM dd, yyyyy h:mm a");
+    },
   },
   methods: {
     submitAppointment() {
@@ -60,26 +70,28 @@ export default {
       this.newAppointment.date = this.appointmentDateTime;
       AptService.create(this.newAppointment)
         .then(() => {
-            this.$router.push("/");
+          this.$router.push("/");
         })
         .catch((error) => {
-            // TODO: Add error message
+          // TODO: Add error message
           console.log(error);
         });
-    
+    },
+    onCancel() {
+      this.$router.push("../find-a-provider");
     },
     showNotification() {
       this.$notify({
-      title: "Booked!", 
+        title: "Booked!",
         text: "Your Appointment has been scheduled!",
       });
     },
   },
   created() {
-    UserDetailsService.get(this.providerId).then( (response) => {
+    UserDetailsService.get(this.providerId).then((response) => {
       this.provider = response.data;
     });
-  }
+  },
 };
 </script>
 
@@ -93,15 +105,15 @@ export default {
 }
 .card {
   margin-top: 4rem;
-   display: flex;
+  display: flex;
   flex-direction: column;
   background-color: #fff;
   padding: 20px;
   border-radius: 4px;
   max-width: 600px;
   margin: auto;
-  padding: 20px; 
-    color: var(--primary800);
+  padding: 20px;
+  color: var(--primary800);
   padding: 1rem 3rem;
   width: auto;
   height: fit-content;

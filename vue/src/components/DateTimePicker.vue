@@ -8,10 +8,15 @@
       />Dr. {{ provider.firstName }} {{ provider.lastName }}: Book an
       Appointment
     </h1>
-    <h3>Choose a Date and Time:</h3>
-    <div class="aligned-row"></div>
     <div class="component-layout">
       <div class="day-picker">
+        <h3>
+          <div class="month-controls">
+            <button class="cal-button" @click="handleCalPrev()">&lt;</button>
+            <div class="month-text">{{ getMonthLabel() }}</div>
+            <button class="cal-button" @click="handleCalNext()">&gt;</button>
+          </div>
+        </h3>
         <div class="row">
           <div class="header-container">
             <div class="cell header">Sunday</div>
@@ -40,7 +45,11 @@
             <div class="cell" @click="handleDateClick(day)">
               <div class="border">
                 <div
-                  :class="{ grey: day.grey, selected: day == selectedDay }"
+                  :class="{
+                    grey: day.grey,
+                    closed: day.closed,
+                    selected: day == selectedDay,
+                  }"
                   class="content"
                 >
                   <div class="text" :class="{ inactive: !day.dayOfTheMonth }">
@@ -75,6 +84,7 @@
 
 <script>
 import {
+  format,
   setDate,
   getDay,
   setHours,
@@ -83,12 +93,18 @@ import {
   getDayOfYear,
   getHours,
   getMinutes,
-  isBefore,
+  isAfter,
+  addHours,
+  addDays,
+  addMonths,
+  getMonth,
+  getYear,
 } from "date-fns";
 import UserDetailsService from "../services/UserDetailsService";
 import OfficeService from "../services/OfficeService";
 import AptService from "../services/AptService";
 import ProfilePic from "../components/ProfilePic.vue";
+import CalendarService from "../services/CalendarService";
 
 export default {
   name: "date-time-picker",
@@ -102,6 +118,8 @@ export default {
       selectedDay: undefined,
       selectedTime: undefined,
       baseDate: {},
+      calDate: {},
+      nationalHolidays: "none",
     };
   },
   components: {
@@ -116,8 +134,14 @@ export default {
     },
   },
   methods: {
-    buildCalendarByDate(dateInput, currentAppointments, provider, office) {
-      let date = new Date(dateInput);
+    getMonthLabel() {
+      if (this.calDate) {
+        return format(this.calDate, "MMMM y");
+      }
+      return "";
+    },
+    buildCalendarByDate(currentAppointments, provider, office) {
+      let date = this.calDate;
       this.baseDate = date;
       date = setDate(date, 1);
       const weeks = [];
@@ -135,9 +159,28 @@ export default {
             dayCount <= lastDayOfTheMonth
           ) {
             newDay.dayOfTheMonth = dayCount;
+            newDay.date = setDate(new Date(this.calDate), dayCount);
             dayCount++;
-            newDay.date = setDate(new Date(dateInput), dayCount);
-            if (!isBefore(newDay.date, new Date()) && j != 0 && j != 6) {
+            let closed = false;
+            console.log(
+              "this.nationalHolidays.length = " + this.nationalHolidays.length
+            );
+            for (let k = 0; k < this.nationalHolidays.length; k++) {
+              let holidayDate = new Date(this.nationalHolidays[k].date);
+              holidayDate = addHours(holidayDate, 12);
+              console.log(holidayDate);
+              if (getDayOfYear(holidayDate) == getDayOfYear(newDay.date)) {
+                closed = true;
+                newDay.closed = true;
+              }
+            }
+
+            if (j == 0 || j == 6) {
+              closed == true;
+              newDay.closed = true;
+            }
+
+            if (isAfter(newDay.date, addDays(new Date(), -1)) && !closed) {
               newDay.slots = this.getAvailableSlotsForDate(
                 newDay.date,
                 currentAppointments,
@@ -160,11 +203,12 @@ export default {
     },
     getAvailableSlotsForDate(thisDate, currentAppointments, provider, office) {
       const timeSlots = [];
-      console.log(office);
-      let openTime = 18; //this.convertTimeToInt(office.openTime);
-      let closeTime = 34; //this.convertTimeToInt(office.closeTime);
+      if (office == undefined) {
+        console.log("ERROR!!!!!!!!!!!!!!");
+      }
+      let openTime = this.convertTimeToInt(this.office.openTime);
+      let closeTime = this.convertTimeToInt(this.office.closeTime);
       for (let i = 0; i < 48; i++) {
-        debugger;
         if (i >= openTime && i <= closeTime) {
           let slotAvailable = true;
 
@@ -238,7 +282,7 @@ export default {
     },
     handleDateClick(day) {
       this.selectedTime = undefined;
-      if (day.dayOfTheMonth && !day.grey) {
+      if (day.dayOfTheMonth && !day.grey && !day.closed) {
         this.selectedDay = day;
       } else {
         this.selectedDay = undefined;
@@ -250,25 +294,56 @@ export default {
     handleConfirm() {
       this.$emit("submitDateTime", { message: this.getDateTime() });
     },
+
+    handleCalPrev() {
+      this.calDate = addMonths(this.calDate, -1);
+      this.reloadCalendar();
+    },
+    handleCalNext() {
+      this.calDate = addMonths(this.calDate, 1);
+      this.reloadCalendar();
+    },
+    reloadCalendar() {
+      let month = getMonth(this.calDate);
+      let year = getYear(this.calDate);
+      this.weeks = [];
+      AptService.listByMonth(month + 1, year).then(
+        function (response) {
+          this.buildCalendarByDate(
+            new Date(new Date()),
+            response.data,
+            this.provider,
+            this.office
+          );
+        }.bind(this)
+      );
+    },
     setup() {
-      UserDetailsService.get(this.providerId).then((response) => {
-        this.provider = response.data;
-        const provider = response.data;
+      CalendarService.getNationalHolidays().then(
+        function (response) {
+          this.nationalHolidays = response.data;
+          UserDetailsService.get(this.providerId).then((response) => {
+            this.provider = response.data;
+            const provider = response.data;
 
-        OfficeService.get(this.provider.officeId).then((response) => {
-          this.office = response.data;
-          const office = response.data;
+            OfficeService.get(this.provider.officeId).then((response) => {
+              this.office = response.data;
+              const office = response.data;
 
-          AptService.listByMonth(4, 2023).then((response) => {
-            this.buildCalendarByDate(
-              new Date(2023, 3, 14),
-              response.data,
-              provider,
-              office
-            );
+              this.calDate = new Date();
+
+              let month = getMonth(this.calDate);
+              let year = getYear(this.calDate);
+
+              AptService.listByMonth(month + 1, year).then(
+                function (response) {
+                  this.buildCalendarByDate(response.data, provider, office);
+                }.bind(this)
+              );
+            });
           });
-        });
-      });
+        }.bind(this)
+      );
     },
   },
   created() {
@@ -315,6 +390,7 @@ h1 {
   color: var(--primary800);
 }
 .day-picker {
+  position: relative;
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -373,6 +449,10 @@ div:last-child > .header {
   box-shadow: none;
   border: 3px solid var(--neutral200);
 }
+.border:has(.closed) {
+  box-shadow: none;
+  border: 3px solid #f3b7ce;
+}
 .border:has(.inactive) {
   box-shadow: none;
 
@@ -391,6 +471,11 @@ div:last-child > .header {
 .grey {
   font-size: 1.5rem;
   color: var(--neutral400);
+  font-weight: 400;
+}
+.closed {
+  font-size: 1.5rem;
+  color:  #b48195;
   font-weight: 400;
 }
 .content.selected {
@@ -421,11 +506,14 @@ h2 {
   color: white;
 }
 .button-container {
+  position: relative;
   display: flex;
   justify-content: flex-end;
 }
 button {
   display: block;
+  position: relative;
+  top: -2rem;
   margin-right: 2rem;
   width: 20rem;
   padding: 0.5rem 1.5rem;
@@ -442,11 +530,42 @@ button {
   display: flex;
   align-items: center;
 }
+
+.month-text {
+  display: inline-block;
+  margin: 0 1rem;
+  width: 14ch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.month-controls {
+  background: var(--neutral200);
+  width: fit-content;
+  display: flex;
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+}
 h3 {
   margin: 0;
-  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
   position: relative;
-  top: -0.5rem;
-  color: var(--neutral600);
+  font-size: 2rem;
+  color: var(--primary600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cal-button {
+  position: static;
+  margin: 0;
+  width: fit-content;
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: 0.25rem;
+  color: var(--neutral500);
+  border-radius: 3px;
+  background: white;
+  border: var(--neutral500) 1px solid;
 }
 </style>
