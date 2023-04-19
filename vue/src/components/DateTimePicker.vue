@@ -93,6 +93,7 @@ import {
   getDayOfYear,
   getHours,
   getMinutes,
+  isBefore,
   isAfter,
   addHours,
   addDays,
@@ -100,6 +101,7 @@ import {
   getMonth,
   getYear,
 } from "date-fns";
+import AvailabilityService from "../services/AvailabilityService";
 import UserDetailsService from "../services/UserDetailsService";
 import OfficeService from "../services/OfficeService";
 import AptService from "../services/AptService";
@@ -140,7 +142,9 @@ export default {
       }
       return "";
     },
-    buildCalendarByDate(currentAppointments, provider, office) {
+    buildCalendarByDate(currentAppointments, provider, office, availability) {
+      let availableFromDate = new Date(availability.availableFrom);
+      let availableToDate = new Date(availability.availableTo);
       let date = this.calDate;
       this.baseDate = date;
       date = setDate(date, 1);
@@ -162,17 +166,23 @@ export default {
             newDay.date = setDate(new Date(this.calDate), dayCount);
             dayCount++;
             let closed = false;
-            console.log(
-              "this.nationalHolidays.length = " + this.nationalHolidays.length
-            );
+            let unavailable = false;
+
             for (let k = 0; k < this.nationalHolidays.length; k++) {
               let holidayDate = new Date(this.nationalHolidays[k].date);
               holidayDate = addHours(holidayDate, 12);
-              console.log(holidayDate);
               if (getDayOfYear(holidayDate) == getDayOfYear(newDay.date)) {
                 closed = true;
                 newDay.closed = true;
               }
+            }
+
+
+            if (
+              isBefore(newDay.date, availableFromDate) ||
+              isAfter(newDay.date, availableToDate)
+            ) {
+              unavailable = true;
             }
 
             if (j == 0 || j == 6) {
@@ -180,7 +190,11 @@ export default {
               newDay.closed = true;
             }
 
-            if (isAfter(newDay.date, addDays(new Date(), -1)) && !closed) {
+            if (
+              isAfter(newDay.date, addDays(new Date(), -1)) &&
+              !closed &&
+              !unavailable
+            ) {
               newDay.slots = this.getAvailableSlotsForDate(
                 newDay.date,
                 currentAppointments,
@@ -190,9 +204,11 @@ export default {
             } else {
               newDay.slots = [];
             }
-            if (newDay.slots.length == 0) {
+            if (newDay.slots.length == 0 || unavailable) {
               newDay.grey = "grey";
             }
+
+            console.log("newDay.grey = " + newDay.grey);
           }
           cellCount++;
           newWeek.days.push(newDay);
@@ -201,11 +217,9 @@ export default {
       }
       this.weeks = weeks;
     },
-    getAvailableSlotsForDate(thisDate, currentAppointments, provider, office) {
+    getAvailableSlotsForDate(thisDate, currentAppointments, provider) {
       const timeSlots = [];
-      if (office == undefined) {
-        console.log("ERROR!!!!!!!!!!!!!!");
-      }
+
       let openTime = this.convertTimeToInt(this.office.openTime);
       let closeTime = this.convertTimeToInt(this.office.closeTime);
       for (let i = 0; i < 48; i++) {
@@ -307,13 +321,19 @@ export default {
       let month = getMonth(this.calDate);
       let year = getYear(this.calDate);
       this.weeks = [];
-      AptService.listByMonth(month + 1, year).then(
+
+      AvailabilityService.getByDetails(this.provider.id).then(
         function (response) {
-          this.buildCalendarByDate(
-            new Date(new Date()),
-            response.data,
-            this.provider,
-            this.office
+          let availability = response.data;
+          AptService.listByMonth(month + 1, year).then(
+            function (response) {
+              this.buildCalendarByDate(
+                response.data,
+                this.provider,
+                this.office,
+                availability
+              );
+            }.bind(this)
           );
         }.bind(this)
       );
@@ -334,10 +354,19 @@ export default {
 
               let month = getMonth(this.calDate);
               let year = getYear(this.calDate);
-
-              AptService.listByMonth(month + 1, year).then(
+              AvailabilityService.getByDetails(provider.id).then(
                 function (response) {
-                  this.buildCalendarByDate(response.data, provider, office);
+                  let availability = response.data;
+                  AptService.listByMonth(month + 1, year).then(
+                    function (response) {
+                      this.buildCalendarByDate(
+                        response.data,
+                        provider,
+                        office,
+                        availability
+                      );
+                    }.bind(this)
+                  );
                 }.bind(this)
               );
             });
@@ -475,7 +504,7 @@ div:last-child > .header {
 }
 .closed {
   font-size: 1.5rem;
-  color:  #b48195;
+  color: #b48195;
   font-weight: 400;
 }
 .content.selected {
