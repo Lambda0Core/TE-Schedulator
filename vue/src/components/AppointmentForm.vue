@@ -20,7 +20,7 @@
         <textarea id="agenda" v-model="newAppointment.agenda"></textarea>
       </div>
       <div class="button-container">
-        <button class="submit-button" @click="submitAppointment; showNotification">Book</button>
+        <button class="submit-button" @click="submitAppointment(); showNotification()">Book</button>
         <button class="cancel-button" v-on:click="onCancel()" type="button">
           Cancel
         </button>
@@ -60,12 +60,13 @@ export default {
       this.newAppointment.date = this.appointmentDateTime;
       AptService.create(this.newAppointment)
         .then(() => {
-            
+            this.$router.push("/");
         })
         .catch((error) => {
             // TODO: Add error message
           console.log(error);
         });
+    
     },
     showNotification() {
       this.$notify({
