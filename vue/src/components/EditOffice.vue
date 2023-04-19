@@ -10,17 +10,17 @@
         Edit Office Info
       </button>
       <div v-if="editing" class="editing-container">
-        <div>{{ office.address }}</div>
+        <div>Address</div>
         <input type="text" v-model="office.address" />
-        <div>{{ office.cityName }}</div>
+        <div>City</div>
         <input type="text" v-model="office.cityName" />
-        <div>{{ office.stateAcronym }}</div>
+        <div>State</div>
         <input type="text" v-model="office.stateAcronym" />
-        <div>{{ office.phoneNumber }}</div>
+        <div>Phone Number</div>
         <input type="text" v-model="office.phoneNumber" />
-        <div>{{ office.openTime }}</div>
+        <div>Open Time</div>
         <input type="text" v-model="office.openTime" />
-        <div>{{ office.closeTime }}</div>
+        <div>Close Time</div>
         <input type="text" v-model="office.closeTime" />
         <button v-on:click="submitChanges()">Submit</button>
         <button v-on:click="cancelEditing()">Cancel</button>
