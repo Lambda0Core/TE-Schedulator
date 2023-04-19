@@ -36,7 +36,7 @@ VALUES (0, 'Patient'), (1, 'Doctor'), (2, 'Nurse');
 INSERT INTO office (office_id, office_name, office_address, office_city_name, office_state_acronym, office_phone_number, office_open_time, office_close_time)
 VALUES (1000, 'West Medical','1234 HELPSTREET', 'Burrito', 'OH', '440-469-1337', '9:00 AM', '6:00 PM'),
        (1001, 'North Medical','1337 STREET', 'Vermon', 'PA', '340-400-4269', '9:00 AM', '7:00 PM'),
-       (1002, 'South Medical','14m3 STREET', 'Vermon', 'PA', '340-500-4269', '8:00 PM', '5:00 AM');
+       (1002, 'South Medical','14m3 STREET', 'Vermon', 'PA', '340-500-4269', '8:00 PA', '5:00 PM');
 
 -- For Providers with Offices!
 INSERT INTO details (details_id, user_id, first_name, last_name, is_provider, title_id, office_id)
@@ -50,7 +50,7 @@ INSERT INTO details (details_id, user_id, first_name, last_name, is_provider, ti
 VALUES (2000, 3008, 'Oliver', 'Westendorf', FALSE, 0),
        (2002, 3009, 'Ella', 'Westendorf', FALSE, 0),
        (4005, 3010, 'Isaac', 'Johnson', FALSE, 0),
-       (4006, 3012, 'Ava', 'Williams', FALSE, 0),
+       (4006, 3011, 'Ava', 'Williams', FALSE, 0),
        (4007, 3012, 'Finn', 'Jones', FALSE, 0),
        (4008, 3013, 'Hazel', 'Brown', FALSE, 0),
        (4009, 3014, 'Eli', 'Garcia', FALSE, 0),
