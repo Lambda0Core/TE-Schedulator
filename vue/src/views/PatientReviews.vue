@@ -56,6 +56,11 @@ export default {
 
 
 <style scoped>
+    h1 {
+  margin-left: 3rem;
+  margin-top: 3rem;
+  color: var(--primary600);
+}
 .list {
   margin: 3rem;
   margin-right: 15rem;

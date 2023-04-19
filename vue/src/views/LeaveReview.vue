@@ -68,7 +68,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.$router.push({
-            name: "provider-details",
+            name: "find-a-provider",
             params: { providerid: detailsId },
           });
         })
