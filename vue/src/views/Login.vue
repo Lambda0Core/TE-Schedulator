@@ -1,36 +1,50 @@
-<template> 
+<template>
   <div id="login">
-   <div>
-    <form @submit.prevent="login">
-      <h1 >Please Sign In</h1>
-      <div role="alert" v-if="invalidCredentials">
-        Invalid username and password!
-      </div>
-      <div role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <div id="signInButton">
-      <button type="submit">Sign in</button>
-      </div>
-      <p>
-      <router-link :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
-    </form>
+    <div>
+      <form @submit.prevent="login">
+        <h1>Please Sign In</h1>
+        <div role="alert" v-if="invalidCredentials">
+          Invalid username and password!
+        </div>
+        <div role="alert" v-if="this.$route.query.registration">
+          Thank you for registering, please sign in.
+        </div>
+        <div class="form-input-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            v-model="user.username"
+            required
+            autofocus
+          />
+        </div>
+        <div class="form-input-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            v-model="user.password"
+            required
+          />
+        </div>
+        <div id="signInButton">
+          <button type="submit">Sign in</button>
+        </div>
+        <p>
+          <router-link :to="{ name: 'register' }"
+            >Need an account? Sign up.</router-link
+          >
+        </p>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-
 import authService from "../services/AuthService";
-
+import AptService from "../services/AptService";
+import UserDetailsService from "../services/UserDetailsService";
 
 export default {
   name: "login",
@@ -39,16 +53,16 @@ export default {
     return {
       user: {
         username: "",
-        password: ""
+        password: "",
       },
-      invalidCredentials: false
+      invalidCredentials: false,
     };
   },
   methods: {
     login() {
       authService
         .login(this.user)
-        .then(response => {
+        .then((response) => {
           if (response.status == 200) {
             console.log("LoginResponseDTO:");
             console.log(response.data);
@@ -61,32 +75,48 @@ export default {
               console.log("Type = Patient");
               this.$store.commit("SET_USER_TYPE", "patient");
             }
+            UserDetailsService.getCurrent().then((response) => {
+              let provider = response.data;
+              AptService.getNewAppointments(provider.id).then(
+                function (response) {
+                  console.log(response.data);
+                  let appointments = response.data;
+                  appointments.forEach((appointment) => {
+                    this.$notify({
+                      title: "New Appointment!",
+                      text: appointment.name,
+                    });
+                    AptService.markAppointmentAsSeen(appointment.id);
+                  });
+                }.bind(this)
+              );
+            });
+
             this.$router.push("/");
           }
         })
-        .catch(error => {
+        .catch((error) => {
           const response = error.response;
 
           if (response.status === 401) {
             this.invalidCredentials = true;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 .form-input-group {
   justify-content: center;
   margin-bottom: 1rem;
 }
-input{
- justify-content: center; 
-   width: 200px;
+input {
+  justify-content: center;
+  width: 200px;
   height: 20px;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 label {
   margin-right: 0.5rem;
@@ -94,29 +124,26 @@ label {
   text-align: center;
   color: var(--primary800);
   font: bold;
- 
 }
-h1{
+h1 {
   color: var(--primary800);
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
-#login{
+#login {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
   height: 100vh;
-  
 }
-form{
+form {
   height: fit-content;
-   
 }
-button{
+button {
   justify-content: center;
   width: 100px;
   height: 30px;
   border-radius: 6px;
   font-size: 16px;
-  background-color:  var(--primary400);
+  background-color: var(--primary400);
   color: var(--primary800);
   border: 3px solid var(--primary800);
   transition-duration: 0.4s;
@@ -126,16 +153,14 @@ button:hover {
   border: 3px solid var(--primary400);
   color: white;
 }
-#signInButton{
+#signInButton {
   display: flex;
   justify-content: center;
   width: 100%;
   align-items: center;
-  
 }
 
-p{
+p {
   justify-content: center;
-  
 }
 </style>
