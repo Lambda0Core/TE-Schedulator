@@ -70,6 +70,9 @@ main.sidebarHidden {
   --neutral800: hsl(218, 23%, 27%);
   font-family: 'Montserrat', sans-serif;
 }
+* {
+  font-family: 'Montserrat', sans-serif;
+}
 
 
 </style>

@@ -226,6 +226,7 @@ form {
   width: 100%;
   height: 2rem;
   padding-top: 0%;
+  padding-top: 4px;
   
 }
 #selectBox label {
@@ -234,5 +235,8 @@ form {
   color: var(--primary800);
   
   
+}
+* {
+  font-family: 'Montserrat', sans-serif;
 }
 </style>
