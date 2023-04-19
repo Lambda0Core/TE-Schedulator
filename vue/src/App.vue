@@ -5,6 +5,7 @@
       <sidebar v-if="this.$route.meta.showSidebar" :sidebarOptions="options" />
       <div class="contentLayout">
         <router-view />
+        <notifications/>
       </div>
     </main>
   </div>

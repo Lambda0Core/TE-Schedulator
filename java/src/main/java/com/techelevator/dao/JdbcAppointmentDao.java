@@ -109,8 +109,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
                         "apt.details_id\n" +
                         "from appointment apt\n" +
                         "JOIN details pat on pat.details_id = apt.details_id\n" +
-                        "WHERE is_provider = true\n" +
-                        "AND apt.user_id = ?";
+                        "WHERE apt.user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while (results.next()) {
             Appointment appointment = mapRowToAppointment(results);

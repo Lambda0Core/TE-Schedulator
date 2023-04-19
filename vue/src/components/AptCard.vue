@@ -8,8 +8,10 @@
         {{ appointment.providerLastName }}
       </h3>
     </div>
-    <h2>{{ appointment.name }}</h2>
-    <p class="agenda">{{ appointment.agenda }}</p>
+    <div class="details">
+      <h2>{{ appointment.name }}</h2>
+      <p class="agenda">{{ appointment.agenda }}</p>
+    </div>
   </div>
 </template>
 
@@ -36,11 +38,10 @@ export default {
   color: var(--primary800);
   padding: 1rem 3rem;
   width: auto;
-  height: 225px;
+  height: auto;
   border: 3px var(--primary600) solid;
   border-radius: 1rem;
   box-shadow: 15px 15px var(--primary200);
-  height: 275px;
 }
 .identity {
   display: flex;
@@ -56,17 +57,22 @@ export default {
 }
 h2 {
   margin: 0;
-  margin-top: 0.75rem;
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
-  color: var(--primary800);
+  color: var(--primary600);
   display: inline-block;
 }
 h3 {
   margin: 0;
-  color: var(--primary600);
+  color: var(--primary800);
   font-size: 1.25rem;
   display: inline-block;
+}
+.details {
+  background-color: var(--neutral200);
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 .date {
   position: relative;
@@ -80,13 +86,13 @@ h3 {
   z-index: -1;
   content: " ";
   display: block;
-  height: 90%;
+  height: 20%;
   width: 100%;
   margin-left: -3px;
   margin-right: -3px;
   position: absolute;
   background: var(--primary200);
-  top: -1px;
+  top: 1rem;
   left: -1px;
   padding: 10px 3px 3px 10px;
 }
