@@ -85,6 +85,8 @@ export default {
       this.$notify({
         title: "Booked!",
         text: "Your Appointment has been scheduled!",
+        duration: 10000,
+        
       });
     },
   },
