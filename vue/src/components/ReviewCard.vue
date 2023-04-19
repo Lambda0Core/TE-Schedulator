@@ -124,7 +124,7 @@ export default {
 .container {
   color: var(--primary800);
   padding: 1rem 1rem;
-  width: auto;
+  min-width: 225px;
   height: fit-content;
 
   border: 3px var(--primary600) solid;

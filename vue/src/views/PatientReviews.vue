@@ -1,9 +1,12 @@
 <template>
+<div>
+  <h1>Provider Reviews</h1>
 <div class="list">
     <review-card v-for="review in reviews"
       :key="review.reviewId"
       :review="review"/>
     
+</div>
 </div>
     </template>
 
