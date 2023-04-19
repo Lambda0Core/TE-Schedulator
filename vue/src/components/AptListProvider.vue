@@ -1,24 +1,17 @@
 <template>
   <div>
-    <h1>Upcoming Appointments</h1>
+     <h1>Appointments Today</h1>
     <div class="list">
-      <template v-if="appointments.length > 0">
-        <apt-card v-for="appointment in appointments" :key="appointment.id" :appointment="appointment" />
-      </template>
-      <template v-else>
-        <div class="none">
-          <p>No upcoming appointments found.</p>
-        </div>
-      </template>
+      <apt-card v-for="appointment in appointments" :key="appointment.id" :appointment="appointment" :display="'provider'" />
     </div>
   </div>
 </template>
-
 
 <script>
 import AptService from "../services/AptService.js";
 import UserDetailsService from "../services/UserDetailsService.js";
 import AptCard from "./AptCard.vue";
+import {isToday} from 'date-fns';
 
 export default {
   name: "apt-list",
@@ -28,17 +21,21 @@ export default {
   
   data() {
     return {
-      patientId: 0,
+      providerId: 0,
       appointments: [],
     };
   },
   methods: {
     getAppointments() {
       UserDetailsService.getCurrent().then( function(response) {
-        this.patientId = response.data.userId;
-        AptService.getAppointmentsByPatientId(this.patientId).then( function(response) {
+        this.providerId = response.data.id;
+        AptService.getAppointmentsByProviderId(this.providerId).then( function(response) {
           console.log(response.data);
-          this.appointments = response.data;
+          this.appointments = response.data.filter( (appointment) => {
+            const aptDate = new Date (appointment.date);
+            if (isToday(aptDate)) return true;
+            else return false;
+          });
         }.bind(this));
       }.bind(this));
     },
@@ -56,13 +53,11 @@ h1 {
   margin-top: 1rem;
   color: var(--primary600);
 }
-.none {
-  margin-top: -40px;
-  margin-left: 5px;
-  font-style: italic;
-  color: var(--primary600);
+.box {
+  width: fit-content;
+  padding: 1rem 2rem;
+  border: 1px black solid;
 }
-
 .list {
   margin: 3rem;
   margin-right: 15rem;

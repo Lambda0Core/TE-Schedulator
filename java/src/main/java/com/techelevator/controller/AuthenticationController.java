@@ -66,6 +66,9 @@ public class AuthenticationController {
             userDao.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole(),
                     newUser.getFirstName(), newUser.getLastName(), newUser.getTitle().equals("Provider"),
                     newUser.getTitleId(), newUser.getOfficeId() );
+            User user = userDao.findByUsername(newUser.getUsername());
+            Details details = userDetailsDao.getDetailsByUserId(user.getId());
+            userDao.createAvailability(details.getId());
         }
     }
 

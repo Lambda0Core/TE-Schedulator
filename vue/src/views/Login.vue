@@ -6,7 +6,7 @@
         <div role="alert" v-if="invalidCredentials">
           Invalid username and password!
         </div>
-        <div role="alert" v-if="this.$route.query.registration">
+        <div class="thanks" role="alert" v-if="this.$route.query.registration">
           Thank you for registering, please sign in.
         </div>
         <div class="form-input-group">
@@ -163,5 +163,15 @@ button:hover {
 
 p {
   justify-content: center;
+}
+
+.thanks {
+  width: 26ch;
+}
+input {
+  width: 100%;
+}
+h1 {
+  text-align: center;
 }
 </style>

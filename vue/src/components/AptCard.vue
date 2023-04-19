@@ -2,15 +2,25 @@
   <div class="container">
     <p class="date">{{ formattedDate }}</p>
     <div class="identity">
-      <profile-pic :providerId="this.appointment.detailsId" />
-      <h3>
+      <profile-pic
+        v-if="display == 'patient'"
+        :providerId="this.appointment.detailsId"
+      />
+      <h3 v-if="display == 'patient'">
         Dr. {{ appointment.providerFirstName }}
         {{ appointment.providerLastName }}
       </h3>
+      <div v-if="display == 'provider'">
+        <div class="patient">Patient: </div>
+        <h3 >
+          {{ appointment.patientFirstName }}
+          {{ appointment.patientLastName }}
+        </h3>
+      </div>
     </div>
     <div class="details">
       <h2>{{ appointment.name }}</h2>
-      <p class="agenda">{{ appointment.agenda }}</p>
+      <p class="agenda"><span class="agenda-label">Agenda:</span> {{ appointment.agenda }}</p>
     </div>
   </div>
 </template>
@@ -20,13 +30,13 @@ import ProfilePic from "../components/ProfilePic.vue";
 import { format, addHours } from "date-fns";
 export default {
   name: "apt-card",
-  props: ["appointment"],
+  props: ["appointment", "display"],
   computed: {
     formattedDate() {
-      let aptDate = new Date(this.appointment.date)
-      aptDate = addHours(aptDate,-4);
-      return format(aptDate,'MMMM dd, yyyy h:mm a' );
-    }
+      let aptDate = new Date(this.appointment.date);
+      aptDate = addHours(aptDate, -4);
+      return format(aptDate, "MMMM dd, yyyy h:mm a");
+    },
   },
   components: {
     ProfilePic,
@@ -81,7 +91,6 @@ h3 {
   font-size: 1.5rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
-
 }
 .date:before {
   z-index: -1;
@@ -101,5 +110,12 @@ h3 {
   color: var(--neutral800);
   margin-top: 0;
   text-overflow: ellipsis;
+}
+.agenda-label {
+  font-weight: bold;
+  color: var(--neutral500);
+}
+.patient {
+  color: var(--neutral400);
 }
 </style>

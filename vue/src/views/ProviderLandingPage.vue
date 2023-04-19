@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AptList from '../components/AptList.vue';
+import AptList from '../components/AptListProvider.vue';
 
 
 export default {

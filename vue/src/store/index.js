@@ -42,6 +42,11 @@ export default new Vuex.Store({
     ],
     providerSidebarOptions: [
       {
+        title: "Home",
+        icon: "heart-pulse-solid.svg",
+        link: "../provider-appointments"
+      },
+      {
         title: "Schedule",
         icon: "calendar-regular.svg",
         link: "../provider-schedule"

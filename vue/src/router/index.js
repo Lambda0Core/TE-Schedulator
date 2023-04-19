@@ -14,6 +14,7 @@ import leaveReview from '../views/LeaveReview.vue'
 import BookAppointment from '../views/BookAppointment.vue'
 import ProviderSchedule from '../views/ProviderSchedule.vue'
 import PatientReviews from '../views/PatientReviews.vue'
+import ProviderAppointments from '../views/ProviderLandingPage.vue'
 Vue.use(Router)
 
 /**
@@ -94,6 +95,15 @@ const router = new Router({
       path: "/book-appointment/:providerid",
       name: "book-appointment",
       component: BookAppointment,
+      meta: {
+        requiresAuth: true,
+        showSidebar: true
+      }
+    },
+    {
+      path: '/provider-appointments',
+      name: 'provider-appointments',
+      component: ProviderAppointments,
       meta: {
         requiresAuth: true,
         showSidebar: true

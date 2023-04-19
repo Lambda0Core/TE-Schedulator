@@ -143,10 +143,9 @@ public class JdbcAppointmentDao implements AppointmentDao {
                         "apt.apt_status, \n" +
                         "apt.apt_agenda, \n" +
                         "apt.apt_date, \n" +
-                        "apt.user_id as patient_user_id, \n" +
-                        "apt.details_id as provider_details_id\n" +
+                        "apt.user_id, \n" +
+                        "apt.details_id \n" +
                         "from appointment apt\n" +
-                        "JOIN details pat on pat.details_id = apt.details_id\n" +
                         "WHERE apt.details_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, providerId);
         while (results.next()) {

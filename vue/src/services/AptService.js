@@ -18,7 +18,7 @@ export default {
   },
 
   getAppointmentsByProviderId(providerId) {
-    return axios.get(`patient/appointment/${providerId}`);
+    return axios.get(`details/appointment/${providerId}`);
   },
 
   create(appointment) {

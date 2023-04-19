@@ -48,13 +48,8 @@ public class AppointmentController {
 
     @GetMapping("details/appointment/{id}")
     public Appointment[] findAllProviderAppointments(@PathVariable int id) {
-        Appointment appointment = (Appointment) appointmentDao.findAllAppointmentsByProviderDetailsId(id);
-        if (appointment == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found");
-        } else {
-
-            return new Appointment[]{(Appointment) appointmentDao.findAllAppointmentsByProviderDetailsId(id)};
-        }
+        List<Appointment> appointments = appointmentDao.findAllAppointmentsByProviderDetailsId(id);
+        return appointments.toArray(new Appointment[] {});
     }
 
     @GetMapping("details/{id}/appointment/new")

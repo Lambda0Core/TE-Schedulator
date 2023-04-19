@@ -1,6 +1,8 @@
 package com.techelevator.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,7 +82,7 @@ public class JdbcUserDao implements UserDao {
         String insertUserSql = "INSERT INTO users (username,password_hash,role)\n" +
                 "values (?,?,?);\n" +
                 "INSERT INTO details ( user_id, first_name, last_name, is_provider, title_id, office_id ) VALUES\n" +
-                "((SELECT user_id FROM users WHERE username = ?), ?, ?, ?, ?, ?)";
+                "((SELECT user_id FROM users WHERE username = ?), ?, ?, ?, ?, ?);";
 
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
@@ -90,6 +92,19 @@ public class JdbcUserDao implements UserDao {
 
         return result;
     }
+
+    @Override
+    public boolean createAvailability(int detailsId) {
+
+        String insertUserSql = "INSERT INTO user_availability (details_id, available_from, available_to)\n" +
+                "values (?,'4/14/2023','5/14/2023');";
+
+        jdbcTemplate.update(insertUserSql, detailsId);
+
+        return true;
+    }
+
+
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();

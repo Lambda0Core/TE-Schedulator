@@ -63,11 +63,11 @@ VALUES (2000, 3008, 'Oliver', 'Westendorf', FALSE, 0),
        (4015, 3020, 'Henry', 'Anderson', FALSE, 0);
 
 INSERT INTO user_availability (details_id, available_from, available_to)
-VALUES (4000, '4/14/2023', '5/14/2023'),
-       (4001, '4/14/2023', '5/14/2023'),
-       (4002, '4/14/2023', '5/14/2023'),
-       (4003, '4/14/2023', '5/14/2023'),
-       (2001, '4/14/2023', '5/14/2023');
+VALUES (4000, '4/10/2023', '5/10/2023'),
+       (4001, '4/14/2023', '6/25/2023'),
+       (4002, '4/14/2023', '4/25/2023'),
+       (4003, '4/12/2023', '5/24/2023'),
+       (2001, '4/10/2023', '6/14/2023');
 
 
 INSERT INTO office_users (details_id, office_id) 
@@ -81,7 +81,7 @@ INSERT INTO review (review_id, review_title, review_desc, rating, user_id, detai
 VALUES (8000, 'Dr. Emily Strikes Out!', 'Dr. Emily is horrible, and left me with broken ankles!', 1, 3001, 4000),
        (8001, 'Dr. Andy has another victim', 'Poor Lazlo... he was the finest mind of our generation!', 2, 3004, 4001),
        (8002, 'Dr. Max should be condemned!', '-his skeleton was missing, and he was never heard from again!! ..Anyways, thats how I lost my medical license...', 3, 3001, 4003),
-       (8003, 'Dr. Bryce did a very good job... as a butcher!', 'I went in with a sprained ankle, and left without half my limbs!', 5, 3001, 4003);
+       (8003, 'Dr. Bryce did a very good job... as a butcher!', 'I went in with a sprained ankle, and left without half my limbs!', 5, 3001, 4002);
 
 INSERT INTO response (response_id, review_id, response_title, response_desc, user_id, details_id)
 VALUES (9000, 8000, 'I rather liked Emily :L', 'Shes not so bad!', 3001, 2002),
