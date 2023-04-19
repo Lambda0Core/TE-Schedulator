@@ -48,6 +48,7 @@ VALUES (4000, 3002, 'Emily', 'LeFebvre', TRUE, 1, 1000),
 
 INSERT INTO details (details_id, user_id, first_name, last_name, is_provider, title_id)
 VALUES (2000, 3008, 'Oliver', 'Westendorf', FALSE, 0),
+       (1999, 3001, 'Greg', 'Westendorf', FALSE, 0),
        (2002, 3009, 'Ella', 'Westendorf', FALSE, 0),
        (4005, 3010, 'Isaac', 'Johnson', FALSE, 0),
        (4006, 3011, 'Ava', 'Williams', FALSE, 0),

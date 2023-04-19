@@ -1,15 +1,34 @@
 <template>
   <div>
+    <h1>
+      <button class="cal-button" @click="handleCalPrev()">&lt;</button>
+      <div class="text">{{ getMonthLabel() }}</div>
+      <button class="cal-button" @click="handleCalNext()">&gt;</button>
+    </h1>
     <div class="row-layout">
       <div class="row sticky">
         <div class="cell header label"><div>Time</div></div>
-        <div class="cell header"><div>Monday</div></div>
-        <div class="cell header"><div>Tuesday</div></div>
-        <div class="cell header"><div>Wednesday</div></div>
-        <div class="cell header"><div>Thursday</div></div>
-        <div class="cell header"><div>Friday</div></div>
-        <div class="cell header"><div>Saturday</div></div>
-        <div class="cell header"><div>Sunday</div></div>
+        <div class="cell header">
+          <div>{{ getDayLabel(0) }}</div>
+        </div>
+        <div class="cell header">
+          <div>{{ getDayLabel(1) }}</div>
+        </div>
+        <div class="cell header">
+          <div>{{ getDayLabel(2) }}</div>
+        </div>
+        <div class="cell header">
+          <div>{{ getDayLabel(3) }}</div>
+        </div>
+        <div class="cell header">
+          <div>{{ getDayLabel(4) }}</div>
+        </div>
+        <div class="cell header">
+          <div>{{ getDayLabel(5) }}</div>
+        </div>
+        <div class="cell header">
+          <div>{{ getDayLabel(6) }}</div>
+        </div>
       </div>
       <div class="row" v-for="row in rows" v-bind:key="row">
         <div class="cell label">
@@ -18,7 +37,10 @@
         <div class="cell" v-for="cell in row.cells" v-bind:key="cell">
           <div class="apt" v-if="cell.appointment">
             <div class="type">{{ cell.appointment.name }}</div>
-            <div class="name">{{ cell.appointment.patientFirstName}} {{ cell.appointment.patientLastName }}</div>
+            <div class="name">
+              {{ cell.appointment.patientFirstName }}
+              {{ cell.appointment.patientLastName }}
+            </div>
           </div>
         </div>
       </div>
@@ -36,6 +58,10 @@ import {
   getDayOfYear,
   getHours,
   getMinutes,
+  format,
+  getWeekOfMonth,
+  getMonth,
+  getYear,
 } from "date-fns";
 import AptService from "../services/AptService";
 
@@ -45,20 +71,30 @@ export default {
     return {
       provider: {},
       office: {},
-      appointments: {
-        
-      },
+      appointments: {},
       rows: {},
+      firstDayOfWeekDate: undefined,
+      calDate: undefined,
     };
   },
+  computed: {},
   methods: {
+    getDayLabel(dayOfTheWeek) {
+      if (this.firstDayOfWeekDate) {
+        return format(addDays(this.firstDayOfWeekDate, dayOfTheWeek), "E do");
+      }
+      return "";
+    },
+    getMonthLabel() {
+      if (this.calDate) {
+        const weekOfMonth = getWeekOfMonth(this.calDate);
+        return "Week " + weekOfMonth + " of " + format(this.calDate, "MMMM y");
+      }
+      return "";
+    },
     buildCalendarByDate(dateInput) {
-      console.log("Appointment Object:")
-      console.log(this.appointment);
       let date = startOfWeek(new Date(dateInput));
-      console.log("----");
-      console.log(this.provider);
-      console.log(this.office);
+      this.firstDayOfWeekDate = date;
       let openTime = this.convertTimeToInt(this.office.openTime);
       let closeTime = this.convertTimeToInt(this.office.closeTime);
       this.baseDate = date;
@@ -71,15 +107,12 @@ export default {
           const thisDate = addDays(date, j);
           const newCell = {};
           this.appointments.forEach((appointment) => {
-            console.log("this.provider.id = " + this.provider.id)
-            console.log("appointment.providerId = " + appointment.providerId)
-
             if (this.provider.id == appointment.detailsId) {
               const appointmentDate = new Date(appointment.date);
 
               if (
                 getDayOfYear(appointmentDate) == getDayOfYear(thisDate) &&
-                getHours(appointmentDate)-4 == this.parseTimeSlotHours(i) &&
+                getHours(appointmentDate) - 4 == this.parseTimeSlotHours(i) &&
                 getMinutes(appointmentDate) == this.parseTimeSlotMinutes(i)
               ) {
                 newCell.appointment = appointment;
@@ -114,20 +147,37 @@ export default {
     },
     async setup() {
       UserDetailsService.getCurrent().then((response) => {
-        console.log("ProviderService call data: ");
-        console.log(response);
-        console.log(response.data);
         this.provider = response.data;
         OfficeService.get(this.provider.officeId).then((response) => {
           this.office = response.data;
-          AptService.listByMonth(4, 2023).then((response, self) => {
-            console.log("****")
-            console.log(self);
+          this.calDate = new Date();
+
+          let month = getMonth(this.calDate);
+          let year = getYear(this.calDate);
+          AptService.listByMonth(month+1, year).then((response) => {
             this.appointments = response.data;
-            this.buildCalendarByDate(new Date(2023, 3, 16));
+            this.buildCalendarByDate(this.calDate);
           });
         });
       });
+    },
+    reloadAppointments() {
+      this.appointments = {};
+      this.rows = {};
+      let month = getMonth(this.calDate);
+      let year = getYear(this.calDate);
+      AptService.listByMonth(month+1, year).then((response) => {
+        this.appointments = response.data;
+        this.buildCalendarByDate(this.calDate);
+      });
+    },
+    handleCalPrev() {
+      this.calDate = addDays(this.calDate, -7);
+      this.reloadAppointments();
+    },
+    handleCalNext() {
+      this.calDate = addDays(this.calDate, 7);
+      this.reloadAppointments();
     },
     getSlotAsString(slot) {
       slot = slot / 2;
@@ -267,5 +317,27 @@ td {
 .label {
   border-right: 3px solid var(--primary500);
   border-left: none;
+}
+h1 {
+  margin: 0;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+  color: var(--primary600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.text {
+  display: inline-block;
+  margin: 0 1rem;
+}
+.cal-button {
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: 0.25rem;
+  color: var(--neutral500);
+  border-radius: 3px;
+  background: var(--neutral200);
+  border: var(--neutral500) 1px solid;
 }
 </style>
