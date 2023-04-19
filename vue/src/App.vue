@@ -60,7 +60,8 @@ main.sidebarHidden {
   --primary500: #1dc5ba;
   --primary600: #148da5;
   --primary800: #053484;
-  
+
+  --neutral100: hsl(183, 62%, 80%);
   --neutral200: hsl(144, 25%, 93%);
   --neutral400: hsl(162, 15%, 56%);
   --neutral500: hsl(176, 16%, 44%);

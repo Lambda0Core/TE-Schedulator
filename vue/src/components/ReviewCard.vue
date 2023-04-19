@@ -10,14 +10,21 @@
         </div>
         <h2 class="review-title" v-if="review">{{ review.reviewTitle }}</h2>
         <div class="review-rating">
-          <p>Rating: {{ review.rating }}</p>
+          <img
+            src="../../img/star.png"
+            v-bind:review="review.rating"
+            class="ratingStar"
+            v-for="n in review.rating"
+            v-bind:key="n"
+          />
         </div>
         <div class="review-desc">
           <p>{{ review.reviewDesc }}</p>
         </div>
 
         <div class="reply-desc">
-          <p>Reply from doctor: {{ reply.responseDesc }}</p>
+          <p>Reply from doctor:</p>
+          <p>{{ reply.responseDesc }}</p>
         </div>
         <div v-if="userType == 'provider'">
           <button v-if="!showReplyForm" @click="toggleReplyForm">
@@ -31,7 +38,9 @@
             <label> Your reply: </label>
             <textarea v-model="reply.responseDesc"></textarea>
             <br />
+          
             <button type="submit" @click="submitReply">Submit reply</button>
+            
           </form>
         </div>
       </div>
@@ -50,7 +59,7 @@ export default {
   data() {
     return {
       reviews: [],
-      replies:[],
+      replies: [],
       reply: {
         detailsId: 0,
         reviewId: 0,
@@ -101,7 +110,6 @@ export default {
         .create(this.reply)
         .then((response) => {
           console.log(response.data);
-          
         })
         .catch((error) => {
           console.log(error);
@@ -130,6 +138,12 @@ button {
   cursor: pointer;
   color: var(--primary200);
   background-color: var(--primary400);
+  
+ 
+}
+
+.ratingStar {
+  height: 1rem;
 }
 
 .identity {
@@ -159,10 +173,24 @@ br {
 }
 
 .review-desc {
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: var(--neutral200);
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
-
+.reply-desc {
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  background-color: var(--neutral100);
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 .patient-name {
   font-size: 0.75rem;
   font-weight: bold;
