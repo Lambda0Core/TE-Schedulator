@@ -1,10 +1,13 @@
 <template>
+  <div>
+    <h1>My Reviews</h1>
   <div class="list">
     <review-card
       v-for="review in reviews"
       :key="review.reviewId"
       :review="review"
     />
+  </div>
   </div>
 </template>
 
@@ -52,6 +55,11 @@ export default {
 
 
 <style scoped>
+ h1 {
+  margin-left: 3rem;
+  margin-top: 3rem;
+  color: var(--primary600);
+}
 .list {
   margin: 3rem;
   margin-right: 15rem;
