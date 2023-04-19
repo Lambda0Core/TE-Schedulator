@@ -20,7 +20,7 @@
         <textarea id="agenda" v-model="newAppointment.agenda"></textarea>
       </div>
       <div class="button-container">
-        <button class="submit-button" @click="submitAppointment">Book</button>
+        <button class="submit-button" @click="submitAppointment; showNotification">Book</button>
         <button class="cancel-button" v-on:click="onCancel()" type="button">
           Cancel
         </button>
@@ -66,6 +66,12 @@ export default {
             // TODO: Add error message
           console.log(error);
         });
+    },
+    showNotification() {
+      this.$notify({
+      title: "Booked!", 
+        text: "Your Appointment has been scheduled!",
+      });
     },
   },
   created() {
